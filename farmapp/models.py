@@ -11,6 +11,10 @@ class Register(models.Model):
     mobile= models.CharField(max_length=250)
     cpassword = models.CharField(max_length=250)
     fk_login =models.ForeignKey(Login,on_delete=models.CASCADE)
+class Addtower(models.Model):
+    tower_name = models.CharField(max_length=250)
+    tower_location = models.CharField(max_length=250)
+    qrcode = models.CharField(max_length=250)
 
 
 
