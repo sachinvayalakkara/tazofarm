@@ -1,3 +1,4 @@
+<!-- menu page of admin -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -18,14 +19,26 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <style type="text/css">
-    /*.colo{
-    background-color: #e6f2ff;
+
+.fadeIn.fourth {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s;
+}
     
-        }*/
     #div1{
-        background-color:green;
+        
         height: 70px;
-        color: white;
+        background-image: url("/static/img2.jpg");
+        background: -webkit-linear-gradient(to top, #76b852, #8DC26F);
+        background: -moz-linear-gradient(to top, #76b852, #8DC26F);
+        background: -o-linear-gradient(to top, #0000, #335d1c);
+        background: linear-gradient(to top, #0000, #335d1c);
+
+    }
+    #logout{
+        float: right;
+        margin-top: -20px;
     }
 
 #div2{
@@ -35,6 +48,12 @@
     margin-top:10px;
     padding-top:10px;
     padding: 10px;
+    background: -webkit-linear-gradient(to top, #76b852, #8DC26F);
+    background: -moz-linear-gradient(to top, #76b852, #8DC26F);
+    background: -o-linear-gradient(to top, #0000, #335d1c);
+    background: linear-gradient(to top, #0000, #335d1c);
+    
+    background-image: url("/static/img2.jpg");
     }
 
 
@@ -44,6 +63,9 @@
     margin-top:10px;
     padding-top:10px;
     padding-left:50px;
+    
+  background: -o-linear-gradient(to top, #0000, #88de58);
+  background: linear-gradient(to top, #0000, #88de58);
 }
 #addbutton{
     float: right;
@@ -60,7 +82,7 @@
     <div class="row">
         <div class="col-md-12" id="div1">
          <center> <h2>Tazofarm</h2></center>  
-
+<button class="btn btn-success fadeIn fourth" id="logout">Logout</button>
 
 
 </div>
@@ -75,10 +97,10 @@
 
 <br>
 <br>
-<span class=" btn btn-primary btn-xs"></span> <a href="/farmapp/tower">Tower </a>
+<span class=" btn btn-primary btn-xs"></span> <a href="/farmapp/tower" style="font-size:30px; font-weight: 200; font-family: 'Times New Roman', Times, serif; color: black;">Tower </a>
 <br>
 <br>
-<span class="btn btn-primary btn-xs"></span> <a href="#">Rack</a>
+<span class="btn btn-primary btn-xs"></span> <a href="#"  style="font-size:30px; font-weight: 200; font-family:'Times New Roman', Times, serif; color: black;" >Rack</a>
 </div>
 
 

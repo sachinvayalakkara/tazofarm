@@ -75,14 +75,14 @@ def fn_showtower(req):
 def fn_addtower(request):
     try:
         if request.method =="POST":
-            towerid       = request.session['user_id']
+            
             towername     = request.POST['towername']
             towerlocation = request.POST['towerlocation']
             qrcode        = request.POST['qrcode']
             tower_obj     = Addtower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode)
             tower_obj.save()
             print(tower_obj)
-        return render(request,"addtower.html",{'towerdata':tower_obj})
+        return render(request,"addtower.html")
     except Exception as e:
         print(e)
-    
+        return HttpResponse('balance error')

@@ -16,7 +16,8 @@
     </thead>
     <tbody>
         {% for obj in towerdata %}
-        <tr><td>{{towerid}}</td>
+        <tr>
+            <td>{{towerid}}</td>
             <td>{{obj.towername}}</td>
             <td>{{obj.towerlocation}}</td>
             <td>{{obj.qrcode}}</td>
@@ -24,6 +25,7 @@
               <button class="glyphicon glyphicon-trash btn btn-primary"></button>
             </td>
         </tr>
+       {% endfor %} 
     </tbody>
 
     </table>
