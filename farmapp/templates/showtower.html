@@ -1,0 +1,33 @@
+<!-- admin menu page -->
+{% extends "menu.html"%}
+{% block content %}
+<a href="/farmapp/addtower"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
+<br><br>
+<div id="table-view">
+    <table class="table" border="1">
+        <thead>
+            <tr>
+        <th>Tower id</th>
+    
+        <th>Tower Name</th>
+        <th>Tower Location</th>
+        <th>QR Code</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><button class="glyphicon glyphicon-pencil btn btn-primary"></button>
+              <button class="glyphicon glyphicon-trash btn btn-primary"></button>
+            </td>
+        </tr>
+    </tbody>
+
+    </table>
+</div>
+
+{% endblock %}
