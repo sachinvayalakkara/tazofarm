@@ -7,5 +7,6 @@ urlpatterns = [
     path('menu',views.fn_menu),
     path('tower',views.fn_showtower),
     path('addtower',views.fn_addtower),
-    path('viewtower',views.fn_viewtower)
+    path('viewtower',views.fn_viewtower),
+    path('logout',views.fn_logout),
 ]
