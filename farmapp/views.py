@@ -70,7 +70,11 @@ def fn_menu(request):
     return render(request,"menu.html")
 
 def fn_showtower(req):
-    return render(req,"showtower.html")
+    try:
+        tower_obj = Addtower.objects.get.all()
+        return render(req,"showtower.html",{'towerdata':tower_obj})
+    except Exception as e:
+        print(e)
 
 def fn_addtower(request):
     try:
@@ -81,8 +85,11 @@ def fn_addtower(request):
             qrcode        = request.POST['qrcode']
             tower_obj     = Addtower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode)
             tower_obj.save()
-            print(tower_obj)
-        return render(request,"addtower.html",{'towerdata':tower_obj})
+            return render(request,"addtower.html")
     except Exception as e:
         print(e)
+        
+def fn_logout(request):
+    del request.session['user_id']
+    return render(request,'login.html')
     
