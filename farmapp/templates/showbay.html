@@ -1,6 +1,6 @@
 {% extends "menu.html"%}
 {% block content %}
-<a href="/farmapp/addtower"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
+<a href="/farmapp/addbay"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
 <br><br>
 <div >
     <div class="container-fixed" data-ng-app="myApp" data-ng-controller="myCtrl">
@@ -16,20 +16,29 @@
         </div>
         <br/>
         <table class="col-md-12">
+          <thead>
           <tr>
-            <th>Tower id</th>
-            <th>Tower Name</th>
-            <th>Tower Location</th>
+            <th>Rack Name</th>
+            <th>Bay id</th>
+            <th>Bay Name</th>
+          
             <th>QR Code</th>
-            <th>Action</th>
+            
           </tr>
+        </thead>
+        <tbody>
+          {% for obj in baydata %}
           <tr data-ng-repeat="customer in people | filter: table">
-            <td>{{customer.Name}}</td>
-            <td>{{customer.City}}</td>
-            <td>{{customer.Country}}</td>
-            <td>{{customer.Country}}</td>
-            <td>{{customer.Country}}</td>
+            <td>{{obj.rack_name}}</td>
+            <td>{{obj.id}}</td>
+            <td>{{obj.bay_name}}</td>
+            <td>{{obj.qrcode}}</td>
+            
           </tr>
+          {% endfor %}
+        </tbody>
+
+
         </table>
         <div data-pagination="" data-num-pages="numPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
       </div>
@@ -65,3 +74,4 @@ app.controller('myCtrl', function($scope) {
 </script>
 
 {% endblock %}
+
