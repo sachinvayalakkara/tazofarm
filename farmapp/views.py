@@ -69,15 +69,6 @@ def fn_register(request):
 def fn_menu(request):
     return render(request,"menu.html")
 
-<<<<<<< HEAD
-=======
-def fn_showtower(req):
-    try:
-        tower_obj = Addtower.objects.get.all()
-        return render(req,"showtower.html",{'towerdata':tower_obj})
-    except Exception as e:
-        print(e)
->>>>>>> 506fb80d47cfa378ec284df54bc027f2691247ca
 
 def fn_showrack(req):
     try:
@@ -93,7 +84,6 @@ def fn_showrack(req):
 def fn_addrack(request):
     try:
         if request.method =="POST":
-<<<<<<< HEAD
            rackname     = request.POST['rackname']
            qrcode        = request.POST['qrcode']
            rack_obj     = Rack(rack_name=rackname,qrcode=qrcode)
@@ -165,19 +155,3 @@ def fn_showtower(req):
 def fn_logout(request): 
     # del request.session['user_id'] 
     return render(request,'login.html')        
-=======
-            towerid       = request.session['user_id']
-            towername     = request.POST['towername']
-            towerlocation = request.POST['towerlocation']
-            qrcode        = request.POST['qrcode']
-            tower_obj     = Addtower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode)
-            tower_obj.save()
-            return render(request,"addtower.html")
-    except Exception as e:
-        print(e)
-        
-def fn_logout(request):
-    del request.session['user_id']
-    return render(request,'login.html')
-    
->>>>>>> 506fb80d47cfa378ec284df54bc027f2691247ca
