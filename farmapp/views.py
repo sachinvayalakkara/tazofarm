@@ -102,20 +102,19 @@ def fn_addrack(request):
 
 def fn_addbay(request): 
    
-   
-
     try: 
         rack_obj = Rack.objects.all()
         if request.method == "POST":
             rakid = request.POST['rid']
             print(rakid)
             rackname_obj    = Rack.objects.get(id=request.POST['rid'])
-            print(rackname_obj)
+            print(rackname_obj.rack_name)
+            # r_name =rackname_obj.rack_name
             bay_name = request.POST['bayname'] 
             # print(bay_name)
             qrcode       = request.POST['qrcode'] 
          
-            bay_obj      = Bay(bay_name=bay_name,qrcode=qrcode,fk_rackid=rackname_obj) 
+            bay_obj      = Bay(bay_name=bay_name,qrcode=qrcode,fk_rackid=rackname_obj ) 
             bay_obj.save() 
           
             if bay_obj.id > 0:
@@ -128,9 +127,9 @@ def fn_addbay(request):
 
 def fn_showbay(request):
     try:
-        # bay_obj = Bay.objects.all()
-        # print(bay_obj)
-        return render(request,"showbay.html",)
+        bay_obj = Bay.objects.all()
+        print(bay_obj)
+        return render(request,"showbay.html",{'baydata':bay_obj})
     except Exception as e:
         print(e)  
 
@@ -145,35 +144,50 @@ def fn_addvender(request):
     except Exception as e: 
         print(e)
 
+def fn_showvendor(req):
+    try:
+        vendor_obj = Vender.objects.all()
+        return render(req,"showvendor.html",{'vendordata':vendor_obj})
+    except Exception as e:
+        print(e)  
 
 def fn_addtower(request):
     try:
-        # rack_obj = Rack.objects.all()
-        # return render(request,'addtower.html',{'rackdata':rack_obj}) 
-        #bay_obj = Bay.objects.all()
-        # return render(request,'addtower.html',{'baydata':bay_obj})
-        # if request.method == "POST":
-           
-        #     towername     = request.POST['towername']
-        #     print(towername)
-            # towerlocation = request.POST['towerlocation']
-            # qrcode        = request.POST['qrcode']
-            # towercolor    = request.POST['towercolor']
-            # towerheight   = request.POST['towerheight']
-            # tower_obj     = Addtower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode,vender_id=,bay_id=,rack_id=)
-            # tower_obj.save()
-            # print(tower_obj)
+        rack_obj  = Rack.objects.all()
+        bay_obj   = Bay.objects.filter(fk_rackid=1)
+        vendor_obj= Vender.objects.all()
+        
+        if request.method == "POST":
+            
+            rackname_obj    = Rack.objects.get(id=request.POST['rackid'])
+            
+            bayname_obj     = Bay.objects.get(id=request.POST['bayid'])
+            vendername_obj  = Vender.objects.get(id=request.POST['vendorid'])
+            
+            towername     = request.POST['towername']
+            towerlocation = request.POST['towerlocation']
+            qrcode        = request.POST['qrcode']
+            towercolor    = request.POST['towercolor']
+            towerheight   = request.POST['towerheight']
+            tower_obj     = Tower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode,tower_color= towercolor,tower_height=towerheight ,vender_id=vendername_obj,Bay_id=bayname_obj,Rack_id=rackname_obj)
+            print(tower_obj)
+            tower_obj.save()
+
+            if tower_obj.id > 0:
+                return render(request,"addtower.html",{'msg':'Data entered' }) 
+        return render(request,'addtower.html',{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj})
         return render(request,"addtower.html")
     except Exception as e:
-        print(e)  
+        print(e) 
 
 def fn_showtower(req):
     try:
-        # tower_obj = Tower.objects.all()
-        # print(tower_obj)
-        return render(req,"showtower.html")
+        tower_obj = Tower.objects.all()
+        print(tower_obj)
+        return render(req,"showtower.html",{'towerdata':tower_obj})
     except Exception as e:
         print(e)  
+
 
 
 
@@ -183,9 +197,9 @@ def fn_showtower(req):
 
 def fn_deleterack(req):
     try:
-        id=req.POST['id']
-        rack_obj=Rack.objects.get(id=id).delete()
-
+        # id=req.POST['id']
+        # rack_obj=Rack.objects.get(id=id).delete()
+        return HttpResponse('ok')        
     except:
         print('error')
-    return HttpResponse('ok')        
+   

@@ -1,5 +1,7 @@
 {% extends "menu.html"%}
 {% block content %}
+<center> <h2 style="color: black;">Bay</h2></center>
+<br>
 <a href="/farmapp/addbay"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
 <br><br>
 <div >
@@ -29,7 +31,7 @@
         <tbody>
           {% for obj in baydata %}
           <tr data-ng-repeat="customer in people | filter: table">
-            <td>{{obj.rack_name}}</td>
+            <td>{{obj.fk_rackid.rack_name}}</td>
             <td>{{obj.id}}</td>
             <td>{{obj.bay_name}}</td>
             <td>{{obj.qrcode}}</td>

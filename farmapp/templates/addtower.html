@@ -1,6 +1,8 @@
 <!-- admin toweradd -->
 {% extends "menu.html"%} 
 {% block content %} 
+<center> <h2 style="color: black;">Tower</h2></center>
+<br>
 <div class="col-md-6 col-md-offset-3" > 
     <form action="" method="POST"> 
         {% csrf_token %} 
@@ -18,6 +20,14 @@
              <select name="bayid" class="col-md-6"> 
               {% for obj in baydata %} 
               <option value="{{obj.id}}">{{obj.bay_name}}</option> 
+              {% endfor %}
+             </select> 
+          </div> 
+          <div class="form-group col-md-6"> 
+            <label>Vendorid</label> 
+             <select name="vendorid" class="col-md-6"> 
+              {% for obj in vendordata %} 
+              <option value="{{obj.id}}">{{obj.vender_name}}</option> 
               {% endfor %}
              </select> 
           </div> 

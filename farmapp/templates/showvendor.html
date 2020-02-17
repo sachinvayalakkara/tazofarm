@@ -1,8 +1,8 @@
 {% extends "menu.html"%}
 {% block content %}
-<center> <h2 style="color: black;">Tower</h2></center>
+<center> <h2 style="color: black;">Vendor</h2></center>
 <br>
-<a href="/farmapp/addtower"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
+<a href="/farmapp/addvender"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
 <br><br>
 <div >
     <div class="container-fixed" data-ng-app="myApp" data-ng-controller="myCtrl">
@@ -18,31 +18,31 @@
         </div>
         <br/>
         <table class="col-md-12">
+          <thead>
           <tr>
-            <th>Tower id</th>
-            <th>Tower Name</th>
-            <th>Tower Location</th>
-            <th>QR code</th>
-            <th>Tower Color</th>
-            <th>Tower Height</th>
-            <th>Rack Name </th>
-            <th>Bay Name </th>
-            <th> Vendor name </th>
+            <th>Vendor id</th>
+            <th>Vendor Name</th>
+          
+            
+            <th>Active</th>
+            
           </tr>
-          {% for obj in towerdata %}
+        </thead>
+        <tbody>
+          {% for obj in vendordata %}
           <tr data-ng-repeat="customer in people | filter: table">
+           
             <td>{{obj.id}}</td>
-            <td>{{obj.tower_name}}</td>
-            <td>{{obj.tower_location}}</td>
-            <td>{{obj.qrcode}}</td>
-            <td>{{obj.tower_color}}</td>
-            <td>{{obj.tower_height}}</td>
-            <td>{{obj.Rack_id.rack_name}}</td>
-            <td>{{obj.Bay_id.bay_name}}</td>
-            <td>{{obj.vender_id.vender_name}}</td>
-
+            <td>{{obj.vender_name}}</td>
+            
+            <td>
+              <button class="btn btn-info delete_btn" id="{{obj.id}}"></button>
+            </td>
           </tr>
-          {% endfor %} 
+          {% endfor %}
+        </tbody>
+
+
         </table>
         <div data-pagination="" data-num-pages="numPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
       </div>
@@ -75,6 +75,31 @@ app.controller('myCtrl', function($scope) {
   
 });
 </script>
+
+<script>
+  
+    $(document).ready(function(){
+        $('.delete_btn').click(function(e){
+            service_id = e.target.id;
+            $.ajax({
+               url:'http://127.0.0.1:8000/farmapp/deleterack',
+               type:'POST',
+               data:{
+                   id:id,
+                   csrfmiddlewaretoken: '{{ csrf_token }}'
+               },
+               success:function(res){
+                   alert(res);
+               },
+               error:function(err){
+                   console.log(err);
+               }
+            });
+
+        });
+    });
 </script>
+
+
 
 {% endblock %}

@@ -13,10 +13,11 @@ urlpatterns = [
     path('addbay',views.fn_addbay),
     path('showbay',views.fn_showbay),
     path('addvender',views.fn_addvender),
+    path('showvendor',views.fn_showvendor),
    
     # path('logout',views.fn_logout),
 
     path('viewtower',views.fn_viewtower),
-    # path('logout',views.fn_logout),
+    path('deletetower',views.fn_deleterack),
 ]
 
