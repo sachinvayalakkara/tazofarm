@@ -128,8 +128,8 @@ def fn_addbay(request):
 
 def fn_showbay(request):
     try:
-        # bay_obj = Bay.objects.all()
-        # print(bay_obj)
+        bay_obj = Bay.objects.all()
+        print(bay_obj)
         return render(request,"showbay.html",)
     except Exception as e:
         print(e)  
@@ -148,21 +148,33 @@ def fn_addvender(request):
 
 def fn_addtower(request):
     try:
-        # rack_obj = Rack.objects.all()
-        # return render(request,'addtower.html',{'rackdata':rack_obj}) 
-        #bay_obj = Bay.objects.all()
-        # return render(request,'addtower.html',{'baydata':bay_obj})
-        # if request.method == "POST":
-           
-        #     towername     = request.POST['towername']
-        #     print(towername)
-            # towerlocation = request.POST['towerlocation']
-            # qrcode        = request.POST['qrcode']
-            # towercolor    = request.POST['towercolor']
-            # towerheight   = request.POST['towerheight']
-            # tower_obj     = Addtower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode,vender_id=,bay_id=,rack_id=)
-            # tower_obj.save()
-            # print(tower_obj)
+        rack_obj = Rack.objects.all()
+       
+        bay_obj  = Bay.objects.all()
+        vender_obj= Vender.objects.all()
+        
+        if request.method == "POST":
+            rakid = request.POST['rackid']
+            print(rakid)
+            rackname_obj    = Rack.objects.get(id=request.POST['rackid'])
+            rakid = request.POST['bayid']
+            print(bayid)
+            bayname_obj    = Bay.objects.get(id=request.POST['bayid'])
+            rakid = request.POST['venderid']
+            print(venderid)
+            vendername_obj    = Bay.objects.get(id=request.POST['venderid'])
+            
+            towername     = request.POST['towername']
+            towerlocation = request.POST['towerlocation']
+            qrcode        = request.POST['qrcode']
+            towercolor    = request.POST['towercolor']
+            towerheight   = request.POST['towerheight']
+            tower_obj     = Addtower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode,vender_id=vendername_obj,bay_id=bayname_obj,rack_id=rackname_obj)
+            tower_obj.save()
+            print(tower_obj)
+        return render(request,'addtower.html',{'rackdata':rack_obj})
+        return render(request,'addbay.html',{'baydata':bay_obj})
+        return render(request,'addvender.html',{'baydata':bay_obj})
         return render(request,"addtower.html")
     except Exception as e:
         print(e)  
