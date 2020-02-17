@@ -105,28 +105,51 @@ def fn_addbay(request):
     return render(request,'addbay.html',{'rackdata':rack_obj}) 
 
     try: 
-        # if request.method =="POST":
-        rak_obj = request.POST['rakid']
-        print(rak_obj)
-           
+        if request.method == "POST":
+            # rakid = request.POST['rid']
+            # print(rakid)
+            rackname_obj    = Rack.objects.get(id=request.POST['rid'])
+            print(rackname_obj)
+            bay_name = request.POST['bayname'] 
+            # print(bay_name)
+            qrcode       = request.POST['qrcode'] 
+         
+            bay_obj      = Bay(bay_name=bayname,qrcode=qrcode,fk_rackid=rackname_obj) 
+            bay_obj.save() 
+          
+            if bay_obj.id > 0:
+                return render(request,"addbay.html",{'msg':'Data entered' })    
        
         return render(request,"addbay.html") 
     except Exception as e: 
         print(e)
 
-def fn_showbay(req):
+def fn_showbay(request):
     try:
         # bay_obj = Bay.objects.all()
         # print(bay_obj)
-        return render(req,"showbay.html",)
+        return render(request,"showbay.html",)
     except Exception as e:
         print(e)  
+
+def fn_addvender(request):
+    try:
+        if request.method == "POST":
+           vendername   = request.POST['vendername']
+           vender_obj   = Vender(vender_name= vendername)
+          
+           vender_obj.save()
+        return render(request,"addvender.html")
+    except Exception as e: 
+        print(e)
 
 
 def fn_addtower(request):
     try:
         # rack_obj = Rack.objects.all()
-        # return render(request,'addbay.html',{'rackdata':rack_obj}) 
+        # return render(request,'addtower.html',{'rackdata':rack_obj}) 
+        #bay_obj = Bay.objects.all()
+        # return render(request,'addtower.html',{'baydata':bay_obj})
         # if request.method == "POST":
            
         #     towername     = request.POST['towername']
@@ -135,7 +158,7 @@ def fn_addtower(request):
             # qrcode        = request.POST['qrcode']
             # towercolor    = request.POST['towercolor']
             # towerheight   = request.POST['towerheight']
-            # tower_obj     = Addtower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode)
+            # tower_obj     = Addtower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode,vender_id=,bay_id=,rack_id=)
             # tower_obj.save()
             # print(tower_obj)
         return render(request,"addtower.html")
@@ -152,6 +175,6 @@ def fn_showtower(req):
 
 
 
-def fn_logout(request): 
-    # del request.session['user_id'] 
-    return render(request,'login.html')        
+# def fn_logout(request): 
+#     # del request.session['user_id'] 
+#     return render(request,'login.html')        

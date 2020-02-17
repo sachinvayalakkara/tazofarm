@@ -6,9 +6,9 @@
        
         <div class="form-group">
           <label>Rack Name</label>
-           <select name="rakid">
+           <select name="rid">
             {% for obj in rackdata %}
-            <option value= "{{obj.id}}">{{obj.rack_name}}</option>
+            <option value = "{{obj.id}}">{{obj.rack_name}}</option>
             {% endfor %}
            </select>
            
