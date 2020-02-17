@@ -73,7 +73,7 @@ def fn_menu(request):
 def fn_showrack(req):
     try:
         rack_obj = Rack.objects.all()
-        print(rack_obj)
+        # print(rack_obj)
         return render(req,"showrack.html",{'rackdata':rack_obj})
     except Exception as e:
         print(e)   
@@ -101,26 +101,28 @@ def fn_addrack(request):
 
 
 def fn_addbay(request): 
-    rack_obj = Rack.objects.all()
-    return render(request,'addbay.html',{'rackdata':rack_obj}) 
+   
+   
 
     try: 
+        rack_obj = Rack.objects.all()
         if request.method == "POST":
-            # rakid = request.POST['rid']
-            # print(rakid)
+            rakid = request.POST['rid']
+            print(rakid)
             rackname_obj    = Rack.objects.get(id=request.POST['rid'])
             print(rackname_obj)
             bay_name = request.POST['bayname'] 
             # print(bay_name)
             qrcode       = request.POST['qrcode'] 
          
-            bay_obj      = Bay(bay_name=bayname,qrcode=qrcode,fk_rackid=rackname_obj) 
+            bay_obj      = Bay(bay_name=bay_name,qrcode=qrcode,fk_rackid=rackname_obj) 
             bay_obj.save() 
           
             if bay_obj.id > 0:
                 return render(request,"addbay.html",{'msg':'Data entered' })    
-       
+        return render(request,'addbay.html',{'rackdata':rack_obj}) 
         return render(request,"addbay.html") 
+        
     except Exception as e: 
         print(e)
 
@@ -178,3 +180,12 @@ def fn_showtower(req):
 # def fn_logout(request): 
 #     # del request.session['user_id'] 
 #     return render(request,'login.html')        
+
+def fn_deleterack(req):
+    try:
+        id=req.POST['id']
+        rack_obj=Rack.objects.get(id=id).delete()
+
+    except:
+        print('error')
+    return HttpResponse('ok')        

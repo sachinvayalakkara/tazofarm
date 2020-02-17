@@ -22,6 +22,7 @@
             <th>Rack Name</th>
           
             <th>QR Code</th>
+            <th>Active</th>
             
           </tr>
         </thead>
@@ -32,7 +33,9 @@
             <td>{{obj.id}}</td>
             <td>{{obj.rack_name}}</td>
             <td>{{obj.qrcode}}</td>
-            
+            <td>
+              <button class="btn btn-info delete_btn" id="{{obj.id}}"></button>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
