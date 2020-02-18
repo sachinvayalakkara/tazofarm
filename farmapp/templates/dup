@@ -48,10 +48,37 @@
 
 
         </table>
-        
+        <div data-pagination="" data-num-pages="numPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
+      </div>
 </div>
-
+<script>
+    <script>
+    var app = angular.module('myApp', ['ui.bootstrap']);
+app.controller('myCtrl', function($scope) {
+  $scope.customers = [{
     
+  }],
+  $scope.people=[],
+  $scope.currentPage = 1,
+  $scope.numPerPage = 5,
+  $scope.maxSize = 5;
+  
+  
+  
+  $scope.numPages = function () {
+    return Math.ceil($scope.customers.length / $scope.numPerPage);
+  };
+  
+  $scope.$watch('currentPage + numPerPage', function() {
+    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+    , end = begin + $scope.numPerPage;
+    
+    $scope.people = $scope.customers.slice(begin, end);
+  });
+  
+  
+});
+</script>
 
 <script>
   

@@ -1,25 +1,14 @@
 {% extends "menu.html"%}
 {% block content %}
-<center> <h2 style="color: black;">Rack</h2></center>
+{% load static %}
+
+<center> <h2 style="color: black;">Bay</h2></center>
 <br>
 <a href="/farmapp/addbay"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
 <br><br>
-<div >
-    <div class="container-fixed" data-ng-app="myApp" data-ng-controller="myCtrl">
-
-        <div class="row">
-          <div class="col-md-8">
-            <form action="" method="GET">
-              <button type="submit" class="btn btn-primary">Search</button>
-            <input type="text" name="search" class="search" data-ng-model="table" /></form>
-          </div>
-          <div class="col-md-4">
-           
-          </div>
-        </div>
-        <br/>
-        <table class="col-md-12">
-          <thead>
+<div class="container">
+  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
           <tr>
             <th>Rack Name</th>
             <th>Bay id</th>
@@ -40,41 +29,20 @@
           </tr>
           {% endfor %}
         </tbody>
-
-
-        </table>
-        <div data-pagination="" data-num-pages="numPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
-      </div>
+  </table>
 </div>
+
 <script>
-    <script>
-    var app = angular.module('myApp', ['ui.bootstrap']);
-app.controller('myCtrl', function($scope) {
-  $scope.customers = [{
-    
-  }],
-  $scope.people=[],
-  $scope.currentPage = 1,
-  $scope.numPerPage = 5,
-  $scope.maxSize = 5;
-  
-  
-  
-  $scope.numPages = function () {
-    return Math.ceil($scope.customers.length / $scope.numPerPage);
-  };
-  
-  $scope.$watch('currentPage + numPerPage', function() {
-    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-    , end = begin + $scope.numPerPage;
-    
-    $scope.people = $scope.customers.slice(begin, end);
+  $(document).ready(function () {
+      $('#dataTable').DataTable();
   });
-  
-  
-});
 </script>
-</script>
+
+
+       
+        
+
+    
 
 {% endblock %}
 
