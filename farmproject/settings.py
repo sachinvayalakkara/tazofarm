@@ -77,10 +77,11 @@ WSGI_APPLICATION = 'farmproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tazofarm',
-        'USER':'tazofarm',
-        'PASSWORD':'sachin4155',
+        'NAME': 'farmdata',
+        'USER':'farmdata123',
+        'PASSWORD':'farmdata123',
         'HOST':'db4free.net',
+        'PORT':'3306',
         
 
     }
