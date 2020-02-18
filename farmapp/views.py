@@ -14,17 +14,17 @@ def fn_viewtower(request):
 
 def fn_login(request):
     try:
-        if request.method == 'POST':
-            username   = request.POST['username']
-            password   = request.POST['password']
-            login_obj  = Login.objects.get(username=username)
-            request.session['user_id']=login_obj.id
+        # if request.method == 'POST':
+        #     username   = request.POST['username']
+        #     password   = request.POST['password']
+        #     login_obj  = Login.objects.get(username=username)
+        #     request.session['user_id']=login_obj.id
             
-            if login_obj.password == password:
-                if login_obj.role == 'admin':
-                    return render(request,"menu.html")
-                return render(request,"userhome.html")
-            return HttpResponse('incorrect password')
+        #     if login_obj.password == password:
+        #         if login_obj.role == 'admin':
+        #             return render(request,"menu.html")
+        #         return render(request,"userhome.html")
+        #     return HttpResponse('incorrect password')
         return render(request,"login.html")
     except Exception as e:
         print(e)
