@@ -78,7 +78,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tazofarm',
-        'USER':'sachin_123',
+        'USER':'tazofarm',
         'PASSWORD':'sachin4155',
         'HOST':'db4free.net',
         
