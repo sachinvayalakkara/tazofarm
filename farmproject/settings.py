@@ -80,8 +80,8 @@ DATABASES = {
         'NAME': 'farmdata',
         'USER':'farmdata123',
         'PASSWORD':'farmdata123',
-        'HOST':'db4free.net',
-        'PORT':'3306',
+        'HOST':'db4free.net:3306',
+        
         
 
     }
