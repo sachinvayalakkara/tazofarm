@@ -36,7 +36,11 @@
             <td>{{obj.rack_name}}</td>
             <td>{{obj.qrcode}}</td>
             <td>
-              <button class="btn btn-info delete_btn" id="{{obj.id}}"></button>
+              <form method="GET">
+              <button class="btn btn-info" value="{{obj.id}}" name="edit">Edit</button>
+              <button class="btn btn-info" value="{{obj.id}}" name="delete">Delete</button>
+            </form>
+
             </td>
           </tr>
           {% endfor %}

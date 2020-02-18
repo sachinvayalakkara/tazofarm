@@ -108,7 +108,7 @@ def fn_addbay(request):
             rakid = request.POST['rid']
             print(rakid)
             rackname_obj    = Rack.objects.get(id=request.POST['rid'])
-            print(rackname_obj.rack_name)
+            # print(rackname_obj.rack_name)
             # r_name =rackname_obj.rack_name
             bay_name = request.POST['bayname'] 
             # print(bay_name)
@@ -128,7 +128,7 @@ def fn_addbay(request):
 def fn_showbay(request):
     try:
         bay_obj = Bay.objects.all()
-        print(bay_obj)
+        # print(bay_obj)
         return render(request,"showbay.html",{'baydata':bay_obj})
     except Exception as e:
         print(e)  
@@ -170,7 +170,7 @@ def fn_addtower(request):
             towercolor    = request.POST['towercolor']
             towerheight   = request.POST['towerheight']
             tower_obj     = Tower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode,tower_color= towercolor,tower_height=towerheight ,vender_id=vendername_obj,Bay_id=bayname_obj,Rack_id=rackname_obj)
-            print(tower_obj)
+            # print(tower_obj)
             tower_obj.save()
 
             if tower_obj.id > 0:
@@ -183,7 +183,7 @@ def fn_addtower(request):
 def fn_showtower(req):
     try:
         tower_obj = Tower.objects.all()
-        print(tower_obj)
+        # print(tower_obj)
         return render(req,"showtower.html",{'towerdata':tower_obj})
     except Exception as e:
         print(e)  
@@ -202,4 +202,23 @@ def fn_deleterack(req):
         return HttpResponse('ok')        
     except:
         print('error')
+
+def fn_search(req):
+    try:
+        search_obj= req.GET.get("search")
+        print(search_obj)
+        if search_obj:
+            results=Bay.objects.filter(bay_name=search_obj).distinct()
+            return render(req,"showbay.html",{"baydata":results})
+        return HttpResponse("not found")
+        return render(req,'showbay.html')
+    except Exception as e:
+        print(e) 
+def fn_edit(req) :
+    try:
+        edit_obj= request.GET.get('edit')
+        print(edit_obj)
+
+    except Exception as e:
+        print(e)  
    

@@ -1,6 +1,6 @@
 {% extends "menu.html"%}
 {% block content %}
-<center> <h2 style="color: black;">Bay</h2></center>
+<center> <h2 style="color: black;">Rack</h2></center>
 <br>
 <a href="/farmapp/addbay"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
 <br><br>
@@ -9,8 +9,9 @@
 
         <div class="row">
           <div class="col-md-8">
-            Search:
-            <input type="text" class="search" data-ng-model="table" />
+            <form action="" method="GET">
+              <button type="submit" class="btn btn-primary">Search</button>
+            <input type="text" name="search" class="search" data-ng-model="table" /></form>
           </div>
           <div class="col-md-4">
            
