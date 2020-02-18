@@ -25,7 +25,7 @@ def fn_login(request):
         #             return render(request,"menu.html")
         #         return render(request,"userhome.html")
         #     return HttpResponse('incorrect password')
-        return render(request,"login.html")
+        return render(request,"menu.html")
     except Exception as e:
         print(e)
         return HttpResponse('incorrect username')
