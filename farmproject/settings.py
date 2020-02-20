@@ -79,12 +79,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'farmdata',
-        # 'USER':'farmdata123',
-        # 'PASSWORD':'farmdata123',
-        # 'HOST':'db4free.net',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'USER':'farmdata123',
+        'PASSWORD':'farmdata123',
+        'HOST':'db4free.net',
+        # 'USER': 'root',
+        # 'PASSWORD': '',
+        # 'HOST': 'localhost',
         'PORT' :'3306' ,     
         
 
