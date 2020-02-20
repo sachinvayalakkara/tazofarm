@@ -1,0 +1,78 @@
+{% extends "menu.html"%}
+{% block content %}
+<center> <h2 style="color: black;">Vendor</h2></center>
+<br>
+<a href="/farmapp/addvender"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
+<br><br>
+<div >
+    <div class="container-fixed" data-ng-app="myApp" data-ng-controller="myCtrl">
+
+        <div class="row">
+          <div class="col-md-8">
+            Search:
+            <input type="text" class="search" data-ng-model="table" />
+          </div>
+          <div class="col-md-4">
+           
+          </div>
+        </div>
+        <br/>
+        <table class="col-md-12">
+          <thead>
+          <tr>
+            <th>Vendor id</th>
+            <th>Vendor Name</th>
+          
+            
+            <th>Active</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in vendordata %}
+          <tr data-ng-repeat="customer in people | filter: table">
+           
+            <td>{{obj.id}}</td>
+            <td>{{obj.vender_name}}</td>
+            
+            <td>
+              <button class="btn btn-info delete_btn" id="{{obj.id}}"></button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+
+        </table>
+       
+</div>
+
+   
+
+<script>
+  
+    $(document).ready(function(){
+        $('.delete_btn').click(function(e){
+            service_id = e.target.id;
+            $.ajax({
+               url:'http://127.0.0.1:8000/farmapp/deletevendor',
+               type:'POST',
+               data:{
+                   id:service_id,
+                   csrfmiddlewaretoken: '{{ csrf_token }}'
+               },
+               success:function(res){
+                   alert("refresh");
+               },
+               error:function(err){
+                   console.log(err);
+               }
+            });
+
+        });
+    });
+</script>
+
+
+
+{% endblock %}

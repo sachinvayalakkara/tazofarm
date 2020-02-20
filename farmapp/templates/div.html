@@ -23,10 +23,6 @@
      #draggablePanelList .panel-heading {
         cursor: move;
     }
-    .navbar{
-        color:white;
-        background-color:#1e5598;
-    }
  #draggablePanelList2 .panel-heading {
         cursor: move;
     }
@@ -39,93 +35,39 @@
      {
          transform: scale(1.1);
      }
-     .panel-heading{
-        background-color:#1e5598 ; 
-     }
-     span{
-         float: right;
-     }
-     
 
   </style>
 </head> 
 <body> 
-    <div class="container-fluid"> 
+    <div class="container"> 
        
     <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
-    <nav class="navbar navbar-light navbar-primary " > 
+    <nav class="navbar navbar-inverse"> 
         <div class="container-fluid"> 
           <div class="navbar-header"> 
-            <a class="navbar-brand" href="#" style="color: white;"><center>Tazofarm</center></a> 
+            <a class="navbar-brand" href="#">Tazofarm</a> 
           </div> 
-          <ul class="nav navbar-nav">
-            <li><a href="#" class="active"  style="color: white;">Dashboard</a></li>  
-            <li><a href="#"  style="color: white;"> Master</a></li> 
-            <li><a href="#"  style="color: white;">Transaction</a></li> 
-            <li><a href="#"  style="color: white;">Reports</a></li> 
+          <ul class="nav navbar-nav"> 
+            <li class="active"><a href="#">Home</a></li> 
+            <li><a href="#">Page 1</a></li> 
+            <li><a href="#">Page 2</a></li> 
           </ul> 
           <ul class="nav navbar-nav navbar-right"> 
-            
-            <li><a style="color: white;" href="#"><span class="glyphicon glyphicon-log-in" style="color: white;"></span> Logout</a></li> 
+             
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li> 
           </ul> 
         </div> 
       </nav>
       </div>
     </div>
     
-    <div class="container" >
-
-        <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
-            <div class="panel panel-info">
-                <div class="panel-heading panel-primary">RACK 
-                    <span> <a href="/farmapp/showrack"><i class="fa fa-home">View more </a></span>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                       
-                        <thead>
-                        <tr>
-                          <th>Rack id</th>
-                          <th>Rack Name</th>
-                        
-                          <th>QR Code</th>
-                          <!-- <th>Active</th> -->
-                          
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for obj in rackdata %}
-                        <tr data-ng-repeat="customer in people | filter: table">
-                         
-                          <td>{{obj.id}}</td>
-                          <td>{{obj.rack_name}}</td>
-                          <td>{{obj.qrcode}}</td>
-                          <!-- <td>
-                            <form method="GET">
-                           
-                            <button class="btn btn-info btn-xs" value="{{obj.id}}" name="delete">Delete</button>
-                          </form>
-              
-                          </td> -->
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-              
-              
-                      </table>
-                      
-                </div>
-            </div>
-            </div>
-    
+    <div class="container" id="draggablePanelList">
        
             <div class="col-lg-6 col-md-6 col-xs-12 magnify ">
             <div class="panel panel-info">
-                <div class="panel-heading">BAY
-                    <span> <a href="/farmapp/showbay"><i class="fa fa-home">View more </a></span>
-                    </div>
-                    <div class="panel-body">
+                <div class="panel-heading">You can drag this panel.</div>
+                <div class="panel-body">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
@@ -152,24 +94,20 @@
                 </div>
             </div>
             </div>
-    
-            
-            <div class="col-lg-6 col-md-6 col-xs-12 magnify ">
+            <div class="col-lg-12 col-md-6 col-xs-12 magnify " >
             <div class="panel panel-info" >
-                <div class="panel-heading">TOWER
-                    <span> <a href="/farmapp/tower"><i class="fa fa-home">View more </a></span>
-                </div>
+                <div class="panel-heading">You can drag this panel too.</div>
                 <div class="panel-body">
-                     <!-- <div class="col-md-6"> --> 
+                    <!-- <div class="col-md-4"> -->
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                     <tr>
-                      <!-- <th>Tower id</th> -->
+                      <th>Tower id</th>
                       <th>Tower Name</th>
-                      <!-- <th>Tower Location</th> -->
+                      <th>Tower Location</th>
                       <th>QR code</th>
-                      <!-- <th>Tower Color</th> -->
-                      <!-- <th>Tower Height</th> -->
+                      <th>Tower Color</th>
+                      <th>Tower Height</th>
                       <th>Rack Name </th>
                       <th>Bay Name </th>
                       <th> Vendor name </th>
@@ -178,12 +116,12 @@
                     <tbody>
                     {% for obj in towerdata %}
                     <tr data-ng-repeat="customer in people | filter: table">
-                      <!-- <td>{{obj.id}}</td> -->
+                      <td>{{obj.id}}</td>
                       <td>{{obj.tower_name}}</td>
-                      <!-- <td>{{obj.tower_location}}</td> -->
+                      <td>{{obj.tower_location}}</td>
                       <td>{{obj.qrcode}}</td>
-                      <!-- <td>{{obj.tower_color}}</td> -->
-                      <!-- <td>{{obj.tower_height}}</td> -->
+                      <td>{{obj.tower_color}}</td>
+                      <td>{{obj.tower_height}}</td>
                       <td>{{obj.Rack_id.rack_name}}</td>
                       <td>{{obj.Bay_id.bay_name}}</td>
                       <td>{{obj.vender_id.vender_name}}</td>
@@ -193,49 +131,20 @@
                     </tbody>
                   </table>
                 </div></div>
-                </div>
-            
+            </div>
 
             <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
             <div class="panel panel-info">
-                <div class="panel-heading">VENDOR
-                    <span> <a href="/farmapp/showvendor"><i class="fa fa-home">View more </a></span>
-                </div>
-                <div class="panel-body">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                      <th>Vendor id</th>
-                      <th>Vendor Name</th>
-                    
-                      
-                      <!-- <th>Active</th> -->
-                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for obj in vendordata %}
-                    <tr data-ng-repeat="customer in people | filter: table">
-                     
-                      <td>{{obj.id}}</td>
-                      <td>{{obj.vender_name}}</td>
-                      
-                      <!-- <td>
-                        <button class="btn btn-info delete_btn" id="{{obj.id}}"></button>
-                      </td> -->
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-         </table>
-                </div>
+                <div class="panel-heading">You can drag this panel too.</div>
+                <div class="panel-body">More blah content here...</div>
             </div>
             </div>
-    </div>
-    </div>
-    </div>
-    
-        
-<!--            
+            <div class="col-lg-6 col-xs-12 magnify" >
+            <div class="panel panel-info">
+                <div class="panel-heading">You can drag this panel too.</div>
+                <div class="panel-body">Another content panel here...</div>
+            </div>
+            </div>
             <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
                 <div class="panel panel-info">
                     <div class="panel-heading">You can drag this panel too.</div>
@@ -259,10 +168,10 @@
                                 <div class="panel-heading">You can drag this panel too.</div>
                                 <div class="panel-body">More blah content here...</div>
                             </div>
-                            </div> -->
+                            </div>
         
-    <!-- </div> -->
-</body> 
+    </div>
+     
       <script>
           jQuery(function($) {
         var panelList = $('#draggablePanelList');
@@ -303,5 +212,5 @@
 
       </script>
       
-
+</body> 
 </html>  

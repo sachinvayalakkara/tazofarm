@@ -1,80 +1,137 @@
-{% extends "menu.html"%}
-{% block content %}
-<center> <h2 style="color: black;">Tower</h2></center>
-<br>
+<!DOCTYPE html>   
+
+<html lang="en">  
+ 
+<head>   
+<meta charset="utf-8">   
+<title>Vendor</title>   
+<meta name="description" content="Creating a Employee table with Twitter Bootstrap. Learn with example of a Employee Table with Twitter Bootstrap.">  
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<style>
+   .navbar{
+        color:white;
+        background-color:#1e5598;
+    }
+    .nav{
+      color:white;
+    }
+    #addbutton{
+      float: right;
+    }
+</style>
+</head> 
+ 
+<body style="margin:20px auto">  
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+<nav class="navbar navbar-light navbar-primary" > 
+    <div class="container-fluid"> 
+      <div class="navbar-header"> 
+        <a class="navbar-brand" href="#" style="color: white;">Tazofarm</a> 
+      </div> 
+       <ul class="nav navbar-nav">
+         
+        <li class="active">Dashboard</li> <span><li><a href="#"> Master</a></li> </span> 
+       
+        <li><a href="#">Transaction</li> 
+        <li><a href="#">Reports</li> 
+      
+       </ul>
+      <ul class="nav navbar-nav navbar-right"> 
+        <li><a style="color: white;" href="/farmapp/menu"><span style="color: white;"> previous page</span> </a></li>
+        <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out" style="color: white;"></span> Logout</a></li> 
+      </ul> 
+    </div> 
+  </nav>
+  </div>
+</div>
+
+
 <a href="/farmapp/addtower"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
 <br><br>
-<div >
-    <div class="container-fixed" data-ng-app="myApp" data-ng-controller="myCtrl">
+<table id="myTable" class="table table-striped" > 
+        
+          <thead>
+            <tr>
+              <th>Tower id</th>
+              <th>Tower Name</th>
+              <th>Tower Location</th>
+              <th>QR code</th>
+              <th>Tower Color</th>
+              <th>Tower Height</th>
+              <th>Rack Name </th>
+              <th>Bay Name </th>
+              <th> Vendor name </th>
+            </tr>
+          </thead>
+            <tbody>
+            {% for obj in towerdata %}
+            <tr data-ng-repeat="customer in people | filter: table">
+              <td>{{obj.id}}</td>
+              <td>{{obj.tower_name}}</td>
+              <td>{{obj.tower_location}}</td>
+              <td>{{obj.qrcode}}</td>
+              <td>{{obj.tower_color}}</td>
+              <td>{{obj.tower_height}}</td>
+              <td>{{obj.Rack_id.rack_name}}</td>
+              <td>{{obj.Bay_id.bay_name}}</td>
+              <td>{{obj.vender_id.vender_name}}</td>
+              <td>
+                <button class="btn btn-info delete_btn" id="{{obj.id}}">Delete</button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+  
+          
+            
 
-        <div class="row">
-          <div class="col-md-8">
-            Search:
-            <input type="text" class="search" data-ng-model="table" />
-          </div>
-          <div class="col-md-4">
-           
-          </div>
-        </div>
-        <br/>
-        <table class="col-md-12">
-          <tr>
-            <th>Tower id</th>
-            <th>Tower Name</th>
-            <th>Tower Location</th>
-            <th>QR code</th>
-            <th>Tower Color</th>
-            <th>Tower Height</th>
-            <th>Rack Name </th>
-            <th>Bay Name </th>
-            <th> Vendor name </th>
-          </tr>
-          {% for obj in towerdata %}
-          <tr data-ng-repeat="customer in people | filter: table">
-            <td>{{obj.id}}</td>
-            <td>{{obj.tower_name}}</td>
-            <td>{{obj.tower_location}}</td>
-            <td>{{obj.qrcode}}</td>
-            <td>{{obj.tower_color}}</td>
-            <td>{{obj.tower_height}}</td>
-            <td>{{obj.Rack_id.rack_name}}</td>
-            <td>{{obj.Bay_id.bay_name}}</td>
-            <td>{{obj.vender_id.vender_name}}</td>
 
-          </tr>
-          {% endfor %} 
         </table>
-        <div data-pagination="" data-num-pages="numPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
+       
       </div>
-</div>
-<script>
+    </body>  
+    
     <script>
-    var app = angular.module('myApp', ['ui.bootstrap']);
-app.controller('myCtrl', function($scope) {
-  $scope.customers = [{
+    $(document).ready(function(){
+        $('#myTable').dataTable();
+    });
+    </script>
     
-  }],
-  $scope.people=[],
-  $scope.currentPage = 1,
-  $scope.numPerPage = 5,
-  $scope.maxSize = 5;
-  
-  
-  
-  $scope.numPages = function () {
-    return Math.ceil($scope.customers.length / $scope.numPerPage);
-  };
-  
-  $scope.$watch('currentPage + numPerPage', function() {
-    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-    , end = begin + $scope.numPerPage;
-    
-    $scope.people = $scope.customers.slice(begin, end);
-  });
-  
-  
-});
-</script>
-</script>
 
-{% endblock %}
+   
+
+<!-- <script>
+  
+    $(document).ready(function(){
+        $('.delete_btn').click(function(e){
+            service_id = e.target.id;
+            $.ajax({
+               url:'http://127.0.0.1:8000/farmapp/deletevendor',
+               type:'POST',
+               data:{
+                   id:service_id,
+                   csrfmiddlewaretoken: '{{ csrf_token }}'
+               },
+               success:function(res){
+                   alert("refresh");
+               },
+               error:function(err){
+                   console.log(err);
+               }
+            });
+
+        });
+    });
+</script> -->
+
+
+
+</html>

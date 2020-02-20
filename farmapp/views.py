@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from . models import *
+from django.http import JsonResponse
 
 
 
@@ -66,8 +67,22 @@ def fn_register(request):
 
 
 
-def fn_menu(request):
-    return render(request,"menu.html")
+# def fn_menu(request):
+#     return render(request,"menu.html")
+
+
+def fn_menu(req):
+    try:
+        rack_obj = Rack.objects.all()
+        bay_obj = Bay.objects.all()
+        vendor_obj = Vender.objects.all()
+        tower_obj = Tower.objects.all()
+       
+
+        print(vendor_obj)
+        return render(req,"menu.html",{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj,'towerdata':tower_obj})
+    except Exception as e:
+        print(e)   
 
 
 def fn_showrack(req):
@@ -76,7 +91,7 @@ def fn_showrack(req):
         # print(rack_obj)
         return render(req,"showrack.html",{'rackdata':rack_obj})
     except Exception as e:
-        print(e)   
+        print(e)           
 
    
     
@@ -87,12 +102,13 @@ def fn_addrack(request):
            rackname     = request.POST['rackname']
            qrcode        = request.POST['qrcode']
            rack_obj     = Rack(rack_name=rackname,qrcode=qrcode)
+           print(rack_obj)
            rack_obj.save()
-        #    print(rack_obj)
+          
            if rack_obj.id > 0:
-                return render(request,"addrack.html",{'msg':'Data entered'})
+                return render(request,"showrack.html",{'msg':'Data entered'})
              
-        return render(request,"addrack.html")
+        return render(request,"showrack.html")
     except Exception as e:
         print(e)
         return HttpResponse('balance error')
@@ -148,6 +164,7 @@ def fn_showvendor(req):
     try:
         vendor_obj = Vender.objects.all()
         return render(req,"showvendor.html",{'vendordata':vendor_obj})
+
     except Exception as e:
         print(e)  
 
@@ -195,13 +212,14 @@ def fn_showtower(req):
 #     # del request.session['user_id'] 
 #     return render(request,'login.html')        
 
-def fn_deleterack(req):
+def fn_deletevendor(req):
     try:
-        # id=req.POST['id']
-        # rack_obj=Rack.objects.get(id=id).delete()
-        return HttpResponse('ok')        
+        service_id =req.POST['id']
+        vendor_obj=Vender.objects.get(id=service_id).delete()
+             
     except:
         print('error')
+    
 
 def fn_search(req):
     try:

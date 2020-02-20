@@ -1,0 +1,80 @@
+{% extends "menu.html"%}
+{% block content %}
+<center> <h2 style="color: black;">Tower</h2></center>
+<br>
+<a href="/farmapp/addtower"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
+<br><br>
+<div >
+    <div class="container-fixed" data-ng-app="myApp" data-ng-controller="myCtrl">
+
+        <div class="row">
+          <div class="col-md-8">
+            Search:
+            <input type="text" class="search" data-ng-model="table" />
+          </div>
+          <div class="col-md-4">
+           
+          </div>
+        </div>
+        <br/>
+        <table class="col-md-12">
+          <tr>
+            <th>Tower id</th>
+            <th>Tower Name</th>
+            <th>Tower Location</th>
+            <th>QR code</th>
+            <th>Tower Color</th>
+            <th>Tower Height</th>
+            <th>Rack Name </th>
+            <th>Bay Name </th>
+            <th> Vendor name </th>
+          </tr>
+          {% for obj in towerdata %}
+          <tr data-ng-repeat="customer in people | filter: table">
+            <td>{{obj.id}}</td>
+            <td>{{obj.tower_name}}</td>
+            <td>{{obj.tower_location}}</td>
+            <td>{{obj.qrcode}}</td>
+            <td>{{obj.tower_color}}</td>
+            <td>{{obj.tower_height}}</td>
+            <td>{{obj.Rack_id.rack_name}}</td>
+            <td>{{obj.Bay_id.bay_name}}</td>
+            <td>{{obj.vender_id.vender_name}}</td>
+
+          </tr>
+          {% endfor %} 
+        </table>
+        <div data-pagination="" data-num-pages="numPages()" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
+      </div>
+</div>
+<script>
+    <script>
+    var app = angular.module('myApp', ['ui.bootstrap']);
+app.controller('myCtrl', function($scope) {
+  $scope.customers = [{
+    
+  }],
+  $scope.people=[],
+  $scope.currentPage = 1,
+  $scope.numPerPage = 5,
+  $scope.maxSize = 5;
+  
+  
+  
+  $scope.numPages = function () {
+    return Math.ceil($scope.customers.length / $scope.numPerPage);
+  };
+  
+  $scope.$watch('currentPage + numPerPage', function() {
+    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+    , end = begin + $scope.numPerPage;
+    
+    $scope.people = $scope.customers.slice(begin, end);
+  });
+  
+  
+});
+</script>
+</script>
+
+{% endblock %}

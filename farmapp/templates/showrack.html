@@ -1,82 +1,233 @@
-{% extends "menu.html"%}
-{% block content %}
-<center> <h2 style="color: black;">Rack</h2></center>
-<br>
-<a href="/farmapp/addrack"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
-<br><br>
-<div >
-    <div class="container-fixed" data-ng-app="myApp" data-ng-controller="myCtrl">
+<!DOCTYPE html>   
 
-        <div class="row">
-          <div class="col-md-8">
-            Search:
-            <input type="text" class="search" data-ng-model="table" />
-          </div>
-          <div class="col-md-4">
-           
-          </div>
-        </div>
-        <br/>
-        <table class="col-md-12">
-          <thead>
-          <tr>
-            <th>Rack id</th>
-            <th>Rack Name</th>
-          
-            <th>QR Code</th>
-            <th>Active</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          {% for obj in rackdata %}
-          <tr data-ng-repeat="customer in people | filter: table">
-           
-            <td>{{obj.id}}</td>
-            <td>{{obj.rack_name}}</td>
-            <td>{{obj.qrcode}}</td>
-            <td>
-              <form method="GET">
-              <button class="btn btn-info" value="{{obj.id}}" name="edit">Edit</button>
-              <button class="btn btn-info" value="{{obj.id}}" name="delete">Delete</button>
-            </form>
+<html lang="en">  
+ 
+<head>   
+<meta charset="utf-8">   
+<title>Rack</title>   
+<meta name="description" content="Creating a Employee table with Twitter Bootstrap. Learn with example of a Employee Table with Twitter Bootstrap.">  
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
 
-        </table>
-        
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<style>
+   .navbar{
+        color:white;
+        background-color:#1e5598;
+    }
+    .nav{
+      color:white;
+    }
+    #addbutton{
+      float: right;
+    }
+    .table-sortable tbody tr {
+    cursor: move;
+}
+</style>
+</head> 
+ 
+<body style="margin:20px auto">  
+<div class="container-fluid">
+  <div class="row clearfix">
+    <div class="col-md-12 table-responsive">
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+<nav class="navbar navbar-light navbar-primary" > 
+    <div class="container-fluid"> 
+      <div class="navbar-header"> 
+        <a class="navbar-brand" href="#" style="color: white;">Tazofarm</a> 
+      </div> 
+      <ul class="nav navbar-nav">
+        <li><a href="#" class="active"  style="color: white;">Dashboard</a></li>  
+        <li><a href="#"  style="color: white;"> Master</a></li> 
+        <li><a href="#"  style="color: white;">Transaction</a></li> 
+        <li><a href="#"  style="color: white;">Reports</a></li> 
+      </ul> 
+      <ul class="nav navbar-nav navbar-right"> 
+        <li><a style="color: white;" href="/farmapp/menu"><span class="glyphicon glyphicon-chevron-left" style="color: white;"></span> </a></li>
+        <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out" style="color: white;"></span> Logout</a></li> 
+      </ul> 
+    </div> 
+  </nav>
+  </div>
 </div>
 
+<button class="btn glyphicon glyphicon-plus" id="addbutton" data-toggle="modal" data-target="#myModal"></button>
+
+<br>
+<br>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <center> <h2  class="modal-title" style="color: black;"></h2>RACK</center>
+      </div>
+      <div class="modal-body">
+      
+         
+             <form action="" method="POST">
+                 {% csrf_token %}
+                
+                 <div class="form-group">
+                   <label>Rack name:</label>
+                   <input type="text" class="form-control" name="rackname" placeholder="Enter Name" id="pwd">
+                 </div>
+                
+                   <div class="form-group">
+                     <label>QR code:</label>
+                     <input type="text" class="form-control" name="qrcode" placeholder="enter qrcode" id="pwd">
+                   </div>
+                 <center>
+                 <button type="submit" class="btn btn-success">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <button type="submit" class="btn btn-danger">Cancel</button>
+                 </center>
+                 {% if msg %}
+                 <span style="color: darkred;"> {{msg}}</span>
+                 {% endif %}
+                     
+             
+             
+              </form>
+        
+      </div>
+              
+           
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </div>
     
 
-<script>
-  
-    $(document).ready(function(){
-        $('.delete_btn').click(function(e){
-            service_id = e.target.id;
-            $.ajax({
-               url:'http://127.0.0.1:8000/farmapp/deleterack',
-               type:'POST',
-               data:{
-                   id:id,
-                   csrfmiddlewaretoken: '{{ csrf_token }}'
-               },
-               success:function(res){
-                   alert(res);
-               },
-               error:function(err){
-                   console.log(err);
-               }
-            });
+  </div>
+</div>
 
-        });
-    });
+
+
+<!-- Table -->
+<table class=" myTable table table-striped table-hover table-sortable" id="tab_logic">  
+  <thead>
+    <tr>
+      <th>Rack id</th>
+      <th>Rack Name</th>
+    
+      <th>QR Code</th>
+      <th>Active</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in rackdata %}
+    <tr>
+     
+      <td data-name="id">
+        <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.id}}"></td>
+      <td data-name="name">
+        <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.rack_name}}"></td>
+      <td data-name="qrcode">
+        <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.qrcode}}"></td>
+        <td data-name="del">
+          <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+      </table>  
+    </div>
+    
+  </div>
+  <!-- <a id="add_row" class="btn btn-primary float-right">Add Row</a> -->
+</div>
+</body>  
+
+<script>
+$(document).ready(function(){
+    $('.myTable').dataTable();
+});
+
+
+// $(document).ready(function() {
+//     $("#add_row").on("click", function() {
+//         // Dynamic Rows Code
+        
+//         // Get max row id and set new id
+//         var newid = 0;
+//         $.each($("#tab_logic tr"), function() {
+//             if (parseInt($(this).data("id")) > newid) {
+//                 newid = parseInt($(this).data("id"));
+//             }
+//         });
+//         newid++;
+        
+//         var tr = $("<tr></tr>", {
+//             id: "addr"+newid,
+//             "data-id": newid
+//         });
+        
+//         // loop through each td and create new elements with name of newid
+//         $.each($("#tab_logic tbody tr:nth(0) td"), function() {
+//             var td;
+//             var cur_td = $(this);
+            
+//             var children = cur_td.children();
+            
+//             // add new td and element if it has a nane
+//             if ($(this).data("name") !== undefined) {
+//                 td = $("<td></td>", {
+//                     "data-name": $(cur_td).data("name")
+//                 });
+//  var c = $(cur_td).find($(children[0]).prop('tagName')).clone().val("");
+//                 c.attr("name", $(cur_td).data("name") + newid);
+//                 c.appendTo($(td));
+//                 td.appendTo($(tr));
+//             } else {
+//                 td = $("<td></td>", {
+//                     'text': $('#tab_logic tr').length
+//                 }).appendTo($(tr));
+//             }
+//         });
+//  $(tr).appendTo($('#tab_logic'));
+        
+//         $(tr).find("td button.row-remove").on("click", function() {
+//              $(this).closest("tr").remove();
+//         });
+// });
+//  var fixHelperModified = function(e, tr) {
+//         var $originals = tr.children();
+//         var $helper = tr.clone();
+    
+//         $helper.children().each(function(index) {
+//             $(this).width($originals.eq(index).width())
+//         });
+        
+//         return $helper;
+//     };
+  
+//     $(".table-sortable tbody").sortable({
+//         helper: fixHelperModified      
+//     }).disableSelection();
+
+//     $(".table-sortable thead").disableSelection();
+
+
+//     $("#add_row").trigger("click");
+// });
 </script>
 
-
-
-{% endblock %}
+</html>  

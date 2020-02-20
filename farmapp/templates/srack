@@ -1,0 +1,82 @@
+{% extends "menu.html"%}
+{% block content %}
+<center> <h2 style="color: black;">Rack</h2></center>
+<br>
+<a href="/farmapp/addrack"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
+<br><br>
+<div >
+    <div class="container-fixed" data-ng-app="myApp" data-ng-controller="myCtrl">
+
+        <div class="row">
+          <div class="col-md-8">
+            Search:
+            <input type="text" class="search" data-ng-model="table" />
+          </div>
+          <div class="col-md-4">
+           
+          </div>
+        </div>
+        <br/>
+        <table class="col-md-12">
+          <thead>
+          <tr>
+            <th>Rack id</th>
+            <th>Rack Name</th>
+          
+            <th>QR Code</th>
+            <th>Active</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in rackdata %}
+          <tr data-ng-repeat="customer in people | filter: table">
+           
+            <td>{{obj.id}}</td>
+            <td>{{obj.rack_name}}</td>
+            <td>{{obj.qrcode}}</td>
+            <td>
+              <form method="GET">
+              <button class="btn btn-info" value="{{obj.id}}" name="edit">Edit</button>
+              <button class="btn btn-info" value="{{obj.id}}" name="delete">Delete</button>
+            </form>
+
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+
+        </table>
+        
+</div>
+
+    
+
+<script>
+  
+    $(document).ready(function(){
+        $('.delete_btn').click(function(e){
+            service_id = e.target.id;
+            $.ajax({
+               url:'http://127.0.0.1:8000/farmapp/deleterack',
+               type:'POST',
+               data:{
+                   id:id,
+                   csrfmiddlewaretoken: '{{ csrf_token }}'
+               },
+               success:function(res){
+                   alert(res);
+               },
+               error:function(err){
+                   console.log(err);
+               }
+            });
+
+        });
+    });
+</script>
+
+
+
+{% endblock %}

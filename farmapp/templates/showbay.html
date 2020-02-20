@@ -1,48 +1,91 @@
-{% extends "menu.html"%}
-{% block content %}
-{% load static %}
+<!DOCTYPE html>   
 
-<center> <h2 style="color: black;">Bay</h2></center>
-<br>
-<a href="/farmapp/addbay"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
-<br><br>
-<div class="container">
-  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-      <thead>
-          <tr>
-            <th>Rack Name</th>
-            <th>Bay id</th>
-            <th>Bay Name</th>
-          
-            <th>QR Code</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          {% for obj in baydata %}
-          <tr data-ng-repeat="customer in people | filter: table">
-            <td>{{obj.fk_rackid.rack_name}}</td>
-            <td>{{obj.id}}</td>
-            <td>{{obj.bay_name}}</td>
-            <td>{{obj.qrcode}}</td>
-            
-          </tr>
-          {% endfor %}
-        </tbody>
-  </table>
+<html lang="en">  
+ 
+<head>   
+<meta charset="utf-8">   
+<title>Bay</title>   
+<meta name="description" content="Creating a Employee table with Twitter Bootstrap. Learn with example of a Employee Table with Twitter Bootstrap.">  
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<style>
+   .navbar{
+        color:white;
+        background-color:#1e5598;
+    }
+    .nav{
+      color:white;
+    }
+    #addbutton{
+      float: right;
+    }
+</style>
+</head> 
+ 
+<body style="margin:20px auto">  
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+<nav class="navbar navbar-light navbar-primary" > 
+    <div class="container-fluid"> 
+      <div class="navbar-header"> 
+        <a class="navbar-brand" href="#" style="color: white;">Tazofarm</a> 
+      </div> 
+      <ul class="nav navbar-nav">
+        <li><a href="#" class="active"  style="color: white;">Dashboard</a></li>  
+        <li><a href="#"  style="color: white;"> Master</a></li> 
+        <li><a href="#"  style="color: white;">Transaction</a></li> 
+        <li><a href="#"  style="color: white;">Reports</a></li> 
+      </ul> 
+      <ul class="nav navbar-nav navbar-right"> 
+        <li><a style="color: white;" href="/farmapp/menu"><span style="color: white;"> previous page</span> </a></li>
+        <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out" style="color: white;"></span> Logout</a></li> 
+      </ul> 
+    </div> 
+  </nav>
+  </div>
 </div>
 
-<script>
-  $(document).ready(function () {
-      $('#dataTable').DataTable();
-  });
-</script>
-
-
-       
-        
-
-    
-
-{% endblock %}
-
+<a href="/farmapp/addbay"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
+<br>
+<br>
+<table id="myTable" class="table table-striped" >  
+  
+        <thead>
+            <tr>
+              <th>Rack Name</th>
+              <th>Bay id</th>
+              <th>Bay Name</th>
+            
+              <th>QR Code</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in baydata %}
+            <tr data-ng-repeat="customer in people | filter: table">
+              <td>{{obj.fk_rackid.rack_name}}</td>
+              <td>{{obj.id}}</td>
+              <td>{{obj.bay_name}}</td>
+              <td>{{obj.qrcode}}</td>
+              
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+  </div>
+</body>
+  <script>
+    $(document).ready(function () {
+        $('#myTable').dataTable();
+    });
+  </script>
+  
+  </html>
+  
+  

@@ -1,0 +1,48 @@
+{% extends "menu.html"%}
+{% block content %}
+{% load static %}
+
+<center> <h2 style="color: black;">Bay</h2></center>
+<br>
+<a href="/farmapp/addbay"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
+<br><br>
+<div class="container">
+  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+            <th>Rack Name</th>
+            <th>Bay id</th>
+            <th>Bay Name</th>
+          
+            <th>QR Code</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in baydata %}
+          <tr data-ng-repeat="customer in people | filter: table">
+            <td>{{obj.fk_rackid.rack_name}}</td>
+            <td>{{obj.id}}</td>
+            <td>{{obj.bay_name}}</td>
+            <td>{{obj.qrcode}}</td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function () {
+      $('#dataTable').DataTable();
+  });
+</script>
+
+
+       
+        
+
+    
+
+{% endblock %}
+
