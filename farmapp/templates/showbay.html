@@ -88,11 +88,11 @@
           </div>
           <div class="form-group">
               <label>Bay Name:</label>
-              <input type="text" class="form-control" name="bayname" placeholder="Enter name" id="pwd">
+              <input type="text" class="form-control" name="bayname" placeholder="Enter name">
             </div>
             <div class="form-group">
               <label>QR code:</label>
-              <input type="text" class="form-control" name="qrcode" placeholder="" id="pwd">
+              <input type="text" class="form-control" name="qrcode" placeholder="">
             </div>
           <center>
           <button type="submit" class="btn btn-success" >Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -116,7 +116,7 @@
 
   </div>
 </div>
-<table id="myTable" class="table table-striped" >  
+<table class="myTable table table-striped table-hover table-sortable" id="tab_logic" >  
   
         <thead>
             <tr>
@@ -125,32 +125,137 @@
               <th>Bay Name</th>
             
               <th>QR Code</th>
+              <th>Active</th>
               
             </tr>
           </thead>
           <tbody>
             {% for obj in baydata %}
-            <tr data-ng-repeat="customer in people | filter: table">
+            <tr id="{{obj.id}}">
               <td data-name="id">
-              <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.fk_rackid.rack_name}}"></td>
+              <input type="text" name='name0'  placeholder='Name' class="form-control input rack_name" readonly value="{{obj.fk_rackid.rack_name}}"></td>
               <td data-name="id">
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.id}}"></td>
+                <input type="text" name='name0'  placeholder='Name' class="form-control" readonly value="{{obj.id}}"></td>
               <td data-name="id">
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.bay_name}}"></td>
-              <td data-name="id"
-              <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.qrcode}}"></td>
-              
+                <input type="text"  name='name0'  placeholder='Name' class="form-control input bay_name" readonly value="{{obj.bay_name}}"></td>
+              <td data-name="id">
+              <input type="text"  name='name0'  placeholder='Name' class="form-control input qr_code" readonly value="{{obj.qrcode}}"></td>
+              <td>
+                <span> <button onclick="fn_delete_bay('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn"
+                  name="delete">Delete</button>
+                  &nbsp;
+                <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>
+                <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Duplicate</button>
+
+            
+                  </span> 
+              </td>
             </tr>
             {% endfor %}
           </tbody>
     </table>
   </div>
+</div>
 </body>
   <script>
     $(document).ready(function () {
-        $('#myTable').dataTable();
+        $('.myTable').dataTable();
     });
   </script>
+
+<script type="text/javascript">
+
+  function fn_delete_bay(id) {
+    $.ajax({
+      url: 'http://127.0.0.1:8000/farmapp/deletebay/',
+      type: 'POST',
+      data: {
+        id,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (res) {
+        $('#'+ id).remove();
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    });
+  }
+
+</script>
+   <!-- ///////Update/////  -->
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+    $('.edit').click(function(e){
+
+      $('.input').prop('readonly',true);
+
+      console.log( e.target.value)
+     if(e.target.value == 'Edit')
+     {
+       $('.input').prop('readonly',false);
+       e.target.value = 'Update';
+       console.log( e.target.value)
+     
+     }
+     else{
+      console.log( e.target.id)
+       user_id=e.target.id;
+      //  element =$('.'+user_id);
+      
+      // user=$(user_id).find('.input').val();
+      
+      
+
+/////formdata- to get text box updated value from front end corresponding to id ///
+      
+      
+       rack_name = $(this).closest('tr').find('.rack_name').val();
+       console.log(rack_name)
+       bay_name = $(this).closest('tr').find('.bay_name').val();
+       console.log(bay_name)
+       qr_code = $(this).closest('tr').find('.qr_code').val();
+      
+      
+
+     /////////// // ajaxcode/////
+
+     $.ajax({
+
+      url: 'http://127.0.0.1:8000/farmapp/updatebay/',
+      type: 'POST',
+      data:{
+         id :e.target.id,
+         rname :rack_name,
+         bname :bay_name,
+         qrcode:qr_code,
+         csrfmiddlewaretoken: '{{ csrf_token }}'
+        
+      },
+      success: function (res) {
+        
+        alert(res);
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    });
+
+       e.target.value ='Edit';
+  
+
+     }
+     
+      
+     });
+     
+  });
+
+</script>
+
+
   
   </html>
   

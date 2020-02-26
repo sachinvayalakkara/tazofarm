@@ -21,5 +21,7 @@ urlpatterns = [
     path('deleterack',views.fn_deleterack),
     path('deletevendor',views.fn_deletevendor),
     path('updaterack/',views.fn_update_rack),
+    path('deletebay/',views.fn_deletebay),
+    path('updatebay/',views.fn_update_bay),
 ]
 

@@ -138,50 +138,9 @@
 
    
 
-<!-- <script>
+
+ 
+
   
-    $(document).ready(function(){
-        $('.delete_btn').click(function(e){
-            service_id = e.target.id;
-            $.ajax({
-               url:'http://127.0.0.1:8000/farmapp/deletevendor',
-               type:'POST',
-               data:{
-                   id:service_id,
-                   csrfmiddlewaretoken: '{{ csrf_token }}'
-               },
-               success:function(res){
-                   alert("refresh");
-               },
-               error:function(err){
-                   console.log(err);
-               }
-            });
-
-        });
-    });
-</script> -->
-<script>
-  $(document).ready(function(){
-    $(document).on('click', '.delete', function(){
-        $id = $(this).attr('name');
-        $.ajax({
-            url: 'delete/' + $id,
-            type: 'POST',
-            data: {
-                csrfmiddlewaretoken:'{{csrfmiddlewaretoken}}'
-            },
-            success: function(){
-                Read();
-                alert("Deleted!");
-            }
-        });
-    });
- 
-});
- 
-
-    </script>
-
 
 </html>

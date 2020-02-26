@@ -116,7 +116,7 @@ def fn_addbay(request):
         
         rack_obj = Rack.objects.all()
         # print(rack_obj)
-         
+        
         
         if request.method == "POST":
             rakid = request.POST['rackid']
@@ -128,13 +128,15 @@ def fn_addbay(request):
             qrcode       = request.POST['qrcode'] 
          
             bay_obj      = Bay(bay_name=bay_name,qrcode=qrcode,fk_rackid=rackname_obj) 
+            print(bay_obj)
             bay_obj.save() 
           
-            if bay_obj.id > 0:
-                return redirect('/farmapp/showbay/')   
+            # if bay_obj.id > 0:
+            #     return redirect('/farmapp/showbay/')   
                    
-        return render(request,'showbay.html',{'rackdata':rack_obj})
-        return render(request,"showbay.html") 
+        
+        
+            return render(request,'showbay.html',{'rackdata':rack_obj})
         
     except Exception as e: 
         print(e)
@@ -142,8 +144,8 @@ def fn_addbay(request):
 
 def fn_showbay(request):
     try:
-        bay_obj = Bay.objects.all()
-        # print(bay_obj)
+        bay_obj =Bay.objects.all()
+        print(bay_obj)
         return render(request,"showbay.html",{'baydata':bay_obj})
     except Exception as e:
         print(e)  
@@ -173,7 +175,7 @@ def fn_showvendor(req):
 def fn_addtower(request):
     try:
         rack_obj  = Rack.objects.all()
-        bay_obj   = Bay.objects.filter(fk_rackid=1)
+        bay_obj   = Bay.objects.all()
         vendor_obj= Vender.objects.all()
         
         if request.method == "POST":
@@ -192,10 +194,10 @@ def fn_addtower(request):
             # print(tower_obj)
             tower_obj.save()
 
-            if tower_obj.id > 0:
-                return render(request,"addtower.html",{'msg':'Data entered' }) 
-        return render(request,'addtower.html',{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj})
-        return render(request,"addtower.html")
+            # if tower_obj.id > 0:
+            #     return render(request,"addtower.html",{'msg':'Data entered' }) 
+            return render(request,'addtower.html',{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj})
+        
     except Exception as e:
         print(e) 
 
@@ -218,6 +220,19 @@ def fn_deleterack(req):
     try:
         service_id =req.POST['id']
         rack_obj=Rack.objects.get(id=service_id).delete()
+        data ={
+            'deleted':True
+        }
+        return JsonResponse(data)
+        
+             
+    except Exception as e:
+        print(e)
+
+def fn_deletebay(req):
+    try:
+        service_id =req.POST['id']
+        bay_obj=Bay.objects.get(id=service_id).delete()
         data ={
             'deleted':True
         }
@@ -250,7 +265,38 @@ def fn_update_rack(req):
         # data = serializers.serialize('json',rac_obj,fields=('rack_name','qrcode') )
         return HttpResponse('update')
     except Exception as e:
-        print(e)   
+        print(e) 
+
+
+def fn_update_bay(req):
+    try:
+        service_id    = req.POST['id']
+        print(service_id)
+        bay_obj      = Bay.objects.get(id=service_id)
+        print(bay_obj.bay_name)
+        # print(req.POST['rname'])
+        update=0
+        if bay_obj.bay_name != req.POST['bname']:
+            bay_obj.bay_name = req.POST['bname']
+            update +=1
+
+        if bay_obj.fk_rackid.rack_name != req.POST['rname']:
+            bay_obj.fk_rackid.rack_name   = req.POST['rname']
+            update +=1
+
+        if bay_obj.qrcode != req.POST['qrcode']:
+            bay_obj.qrcode  = req.POST['qrcode']
+            update +=1
+        
+        if update>0:
+       
+            bay_obj.save()
+        # rac_obj =Rack.objects.all()
+        # # json_data = {rac_obj}
+        # data = serializers.serialize('json',rac_obj,fields=('rack_name','qrcode') )
+        return HttpResponse('update')
+    except Exception as e:
+        print(e)     
 
 
 def fn_deletevendor(req):

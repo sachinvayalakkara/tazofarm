@@ -142,7 +142,7 @@
           </thead>
           <tbody>
             {% for obj in rackdata %}
-            <tr id="{{obj.id}}" class="tr_clone">
+            <tr id="{{obj.id}}">
 
               <td data-name="id">
                 <input type="text" name='id' placeholder='Name' class="form-control " readonly value="{{obj.id}}">
@@ -154,7 +154,7 @@
                 <input type="text"  name="qrcode" placeholder='Name' readonly class="form-control input qr_code"
                   value="{{obj.qrcode}}"></td>
               <td data-name="delete">
-                <!-- <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button> -->
+               
               <span> <button onclick="fn_delete_rack('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn"
                   name="delete">Delete</button>
                   &nbsp;

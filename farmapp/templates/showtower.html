@@ -144,7 +144,7 @@
 </div>
 </div>
 
-<table  id="myTable" class="table table-striped "> 
+<table  class="myTable table table-striped table-hover table-sortable" id="tab_logic" > 
         
           <thead>
             <tr>
@@ -163,7 +163,7 @@
             {% for obj in towerdata %}
             <tr data-ng-repeat="customer in people | filter: table">
               <td data-name="id">
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.id}}"></td>
+                <input type="text"  name='name0'  placeholder='Name' class="form-control" value="{{obj.id}}"></td>
               <td>
                 <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_name}}"></td>
               <td>
@@ -198,36 +198,12 @@
     
     <script>
     $(document).ready(function(){
-        $('#myTable').dataTable();
+        $('.myTable').dataTable();
     });
     </script>
     
 
    
-
-<!-- <script>
-  
-    $(document).ready(function(){
-        $('.delete_btn').click(function(e){
-            service_id = e.target.id;
-            $.ajax({
-               url:'http://127.0.0.1:8000/farmapp/deletevendor',
-               type:'POST',
-               data:{
-                   id:service_id,
-                   csrfmiddlewaretoken: '{{ csrf_token }}'
-               },
-               success:function(res){
-                   alert("refresh");
-               },
-               error:function(err){
-                   console.log(err);
-               }
-            });
-
-        });
-    });
-</script> -->
 
 
 
