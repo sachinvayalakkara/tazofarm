@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . models import *
 from django.http import JsonResponse
+from django.core import serializers
 
 
 
@@ -77,9 +78,6 @@ def fn_menu(req):
         bay_obj = Bay.objects.all()
         vendor_obj = Vender.objects.all()
         tower_obj = Tower.objects.all()
-       
-
-        print(vendor_obj)
         return render(req,"menu.html",{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj,'towerdata':tower_obj})
     except Exception as e:
         print(e)   
@@ -87,31 +85,27 @@ def fn_menu(req):
 
 def fn_showrack(req):
     try:
-        rack_obj = Rack.objects.all()
-        # print(rack_obj)
-        return render(req,"showrack.html",{'rackdata':rack_obj})
+        rack_obj = Rack.objects.all()               
+        return render(req,"showrack.html",{'rackdata':rack_obj})      
     except Exception as e:
         print(e)           
 
-   
+
+    
     
 
-def fn_addrack(request):
+def fn_addrack(req):
     try:
-        if request.method =="POST":
-           rackname     = request.POST['rackname']
-           qrcode        = request.POST['qrcode']
-           rack_obj     = Rack(rack_name=rackname,qrcode=qrcode)
-           print(rack_obj)
-           rack_obj.save()
-          
-           if rack_obj.id > 0:
-                return render(request,"showrack.html",{'msg':'Data entered'})
-             
-        return render(request,"showrack.html")
+        rackname = req.POST['rackname']
+        qrcode   = req.POST['qrcode']
+            
+        rack_obj = Rack(rack_name=rackname,qrcode=qrcode)
+        rack_obj.save()  
+        if rack_obj.id > 0:
+            return redirect('/farmapp/showrack/')      
     except Exception as e:
         print(e)
-        return HttpResponse('balance error')
+        return render(req,"showrack.html",{'msg':'insertion failed'})
 
 
 
@@ -119,27 +113,32 @@ def fn_addrack(request):
 def fn_addbay(request): 
    
     try: 
+        
         rack_obj = Rack.objects.all()
+        # print(rack_obj)
+         
+        
         if request.method == "POST":
-            rakid = request.POST['rid']
-            print(rakid)
-            rackname_obj    = Rack.objects.get(id=request.POST['rid'])
+            rakid = request.POST['rackid']
+            # print(rakid)
+            rackname_obj    = Rack.objects.get(id=request.POST['rackid'])
             # print(rackname_obj.rack_name)
             # r_name =rackname_obj.rack_name
-            bay_name = request.POST['bayname'] 
-            # print(bay_name)
+            bay_name     = request.POST['bayname'] 
             qrcode       = request.POST['qrcode'] 
          
-            bay_obj      = Bay(bay_name=bay_name,qrcode=qrcode,fk_rackid=rackname_obj ) 
+            bay_obj      = Bay(bay_name=bay_name,qrcode=qrcode,fk_rackid=rackname_obj) 
             bay_obj.save() 
           
             if bay_obj.id > 0:
-                return render(request,"addbay.html",{'msg':'Data entered' })    
-        return render(request,'addbay.html',{'rackdata':rack_obj}) 
-        return render(request,"addbay.html") 
+                return redirect('/farmapp/showbay/')   
+                   
+        return render(request,'showbay.html',{'rackdata':rack_obj})
+        return render(request,"showbay.html") 
         
     except Exception as e: 
         print(e)
+        return render(request,"showbay.html",{'msg':'insertion failed' })
 
 def fn_showbay(request):
     try:
@@ -149,20 +148,23 @@ def fn_showbay(request):
     except Exception as e:
         print(e)  
 
-def fn_addvender(request):
+def fn_addvendor(request):
     try:
         if request.method == "POST":
-           vendername   = request.POST['vendername']
-           vender_obj   = Vender(vender_name= vendername)
-          
-           vender_obj.save()
-        return render(request,"addvender.html")
+           vendorname   = request.POST['vendername']
+           vendor_obj   = Vender(vender_name = vendername)
+           vendor_obj.save()
+           if vendor_obj.id > 0:
+                return redirect('/farmapp/showvendor/')
+        
     except Exception as e: 
         print(e)
+        return render(request,"showvendor.html",{'msg':'insertion failed' })
 
 def fn_showvendor(req):
     try:
         vendor_obj = Vender.objects.all()
+        
         return render(req,"showvendor.html",{'vendordata':vendor_obj})
 
     except Exception as e:
@@ -212,31 +214,53 @@ def fn_showtower(req):
 #     # del request.session['user_id'] 
 #     return render(request,'login.html')        
 
+def fn_deleterack(req):
+    try:
+        service_id =req.POST['id']
+        rack_obj=Rack.objects.get(id=service_id).delete()
+        data ={
+            'deleted':True
+        }
+        return JsonResponse(data)
+        
+             
+    except Exception as e:
+        print(e)
+
+def fn_update_rack(req):
+    try:
+        service_id       = req.POST['id']
+        print(service_id)
+        rack_obj         = Rack.objects.get(id=service_id)
+        # print(rack_obj.rack_name)
+        # print(req.POST['rackname'])
+        update=0
+        if rack_obj.rack_name != req.POST['rname']:
+            rack_obj .rack_name   = req.POST['rname']
+            update +=1
+        if rack_obj.qrcode != req.POST['qrcode']:
+            rack_obj.qrcode  = req.POST['qrcode']
+            update +=1
+        
+        if update>0:
+       
+            rack_obj.save()
+        # rac_obj =Rack.objects.all()
+        # # json_data = {rac_obj}
+        # data = serializers.serialize('json',rac_obj,fields=('rack_name','qrcode') )
+        return HttpResponse('update')
+    except Exception as e:
+        print(e)   
+
+
 def fn_deletevendor(req):
     try:
         service_id =req.POST['id']
-        vendor_obj=Vender.objects.get(id=service_id).delete()
-             
-    except:
+        vender_obj=Vender.objects.get(id=service_id).delete()
+        data ={
+            'deleted':True
+        }
+        return JsonResponse(data)
+    except Exception as e:
         print('error')
-    
 
-def fn_search(req):
-    try:
-        search_obj= req.GET.get("search")
-        print(search_obj)
-        if search_obj:
-            results=Bay.objects.filter(bay_name=search_obj).distinct()
-            return render(req,"showbay.html",{"baydata":results})
-        return HttpResponse("not found")
-        return render(req,'showbay.html')
-    except Exception as e:
-        print(e) 
-def fn_edit(req) :
-    try:
-        edit_obj= request.GET.get('edit')
-        print(edit_obj)
-
-    except Exception as e:
-        print(e)  
-   

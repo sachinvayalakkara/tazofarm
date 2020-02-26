@@ -1,0 +1,35 @@
+
+
+ /* #bgi{
+          opacity: 0.2;
+          background-image: url("img2.jpg");
+          position: absolute;
+          
+          
+      } */
+      #draggablePanelList .panel-heading {
+        cursor: move;
+    }
+    .navbar{
+        color:white;
+        background-color:#1e5598;
+    }
+ #draggablePanelList2 .panel-heading {
+        cursor: move;
+    }
+     .magnify{
+         transition:0.4s;
+         cursor: pointer;
+     }
+
+     .magnify:hover
+     {
+         transform: scale(1.1);
+     }
+     .panel-heading{
+        background-color:#1e5598 ; 
+     }
+     span{
+         float: right;
+     }
+     

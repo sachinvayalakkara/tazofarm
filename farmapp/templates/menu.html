@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+{% load static %}
 <html lang="en"> 
 <head> 
   <title>Bootstrap Example</title> 
@@ -12,42 +12,8 @@
       <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-  <style>
-      /* #bgi{
-          opacity: 0.2;
-          background-image: url("img2.jpg");
-          position: absolute;
-          
-          
-      } */
-     #draggablePanelList .panel-heading {
-        cursor: move;
-    }
-    .navbar{
-        color:white;
-        background-color:#1e5598;
-    }
- #draggablePanelList2 .panel-heading {
-        cursor: move;
-    }
-     .magnify{
-         transition:0.4s;
-         cursor: pointer;
-     }
+    <link href="{% static 'css/test.css' %}" rel="stylesheet" type="text/css">
 
-     .magnify:hover
-     {
-         transform: scale(1.1);
-     }
-     .panel-heading{
-        background-color:#1e5598 ; 
-     }
-     span{
-         float: right;
-     }
-     
-
-  </style>
 </head> 
 <body> 
     <div class="container-fluid"> 
@@ -75,11 +41,11 @@
     </div>
     
     <div class="container" >
-
+    
         <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
             <div class="panel panel-info">
                 <div class="panel-heading panel-primary">RACK 
-                    <span> <a href="/farmapp/showrack"><i class="fa fa-home">View more </a></span>
+                    <span> <a href="/farmapp/showrack/"><i class="fa fa-home">View more </a></span>
                 </div>
                 <div class="panel-body">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -123,7 +89,7 @@
             <div class="col-lg-6 col-md-6 col-xs-12 magnify ">
             <div class="panel panel-info">
                 <div class="panel-heading">BAY
-                    <span> <a href="/farmapp/showbay"><i class="fa fa-home">View more </a></span>
+                    <span> <a href="/farmapp/showbay/"><i class="fa fa-home">View more </a></span>
                     </div>
                     <div class="panel-body">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -157,7 +123,7 @@
             <div class="col-lg-6 col-md-6 col-xs-12 magnify ">
             <div class="panel panel-info" >
                 <div class="panel-heading">TOWER
-                    <span> <a href="/farmapp/tower"><i class="fa fa-home">View more </a></span>
+                    <span> <a href="/farmapp/tower/"><i class="fa fa-home">View more </a></span>
                 </div>
                 <div class="panel-body">
                      <!-- <div class="col-md-6"> --> 
@@ -199,7 +165,7 @@
             <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
             <div class="panel panel-info">
                 <div class="panel-heading">VENDOR
-                    <span> <a href="/farmapp/showvendor"><i class="fa fa-home">View more </a></span>
+                    <span> <a href="/farmapp/showvendor/"><i class="fa fa-home">View more </a></span>
                 </div>
                 <div class="panel-body">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -36,16 +36,16 @@
       <div class="navbar-header"> 
         <a class="navbar-brand" href="#" style="color: white;">Tazofarm</a> 
       </div> 
-       <ul class="nav navbar-nav">
+       <!-- <ul class="nav navbar-nav">
          
         <li class="active">Dashboard</li> <span><li><a href="#"> Master</a></li> </span> 
        
         <li><a href="#">Transaction</li> 
         <li><a href="#">Reports</li> 
       
-       </ul>
+       </ul> -->
       <ul class="nav navbar-nav navbar-right"> 
-        <li><a style="color: white;" href="/farmapp/menu"><span style="color: white;"> previous page</span> </a></li>
+        <li><a style="color: white;" href="/farmapp/menu"><span  class="glyphicon glyphicon-chevron-left" style="color: white;"> </span> </a></li>
         <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out" style="color: white;"></span> Logout</a></li> 
       </ul> 
     </div> 
@@ -54,9 +54,97 @@
 </div>
 
 
-<a href="/farmapp/addtower"><button class="btn glyphicon glyphicon-plus" id="addbutton"></button></a>
-<br><br>
-<table id="myTable" class="table table-striped" > 
+<button class="btn glyphicon glyphicon-plus" id="addbutton" data-toggle="modal" data-target="#myModal"></button>
+<br>
+<br>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <center> <h2  class="modal-title" style="color: black;"></h2>Rack</center>
+      </div>
+      <div class="modal-body">
+      
+        <form action="/farmapp/addtower/" method="POST">
+          {% csrf_token %}
+        <div class="form-group col-md-6"> 
+          <label>Rack id</label> 
+
+           <select name="rackid" class="col-md-6"> 
+            {% for obj in rackdata %} 
+            <option value="{{obj.id}}">{{obj.rack_name}}</option> 
+            {% endfor %}
+           </select> 
+          </div> 
+           <div class="form-group col-md-6"> 
+            <label>Bayid</label> 
+             <select name="bayid" class="col-md-6"> 
+              {% for obj in baydata %} 
+              <option value="{{obj.id}}">{{obj.bay_name}}</option> 
+              {% endfor %}
+             </select> 
+          </div> 
+          <div class="form-group col-md-6"> 
+            <label>Vendorid</label> 
+             <select name="vendorid" class="col-md-6"> 
+              {% for obj in vendordata %} 
+              <option value="{{obj.id}}">{{obj.vender_name}}</option> 
+              {% endfor %}
+             </select> 
+          </div> 
+        <br>
+        <br>
+        <div class="form-group"> 
+          <label>Tower name:</label> 
+          <input type="text" class="form-control" name="towername" placeholder="Enter Name" id="pwd"> 
+        </div> 
+        <div class="form-group"> 
+            <label>Tower Location:</label> 
+            <input type="text" class="form-control" name="towerlocation" placeholder="Enter Location" id="pwd"> 
+          </div> 
+          <div class="form-group"> 
+            <label>QR code:</label> 
+            <input type="text" class="form-control" name="qrcode" placeholder="" id="pwd"> 
+ 
+          </div> 
+          <div class="form-group"> 
+            <label>Tower color:</label> 
+            <input type="text" class="form-control" name="towercolor" placeholder="Enter Location" id="pwd"> 
+          </div> 
+          <div class="form-group"> 
+            <label>Tower Height:</label> 
+            <input type="text" class="form-control" name="towerheight" placeholder="Enter Location" id="pwd"> 
+          </div> 
+ 
+         
+          <center>
+          <button type="submit" class="btn btn-success">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="submit" class="btn btn-danger">Cancel</button>
+          </center>
+          {% if msg %}
+          <span style="color: darkred;"> {{msg}}</span>
+          {% endif %}
+              
+      
+      
+       </form>
+ 
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+
+
+</div>
+</div>
+
+<table  id="myTable" class="table table-striped "> 
         
           <thead>
             <tr>
@@ -74,15 +162,24 @@
             <tbody>
             {% for obj in towerdata %}
             <tr data-ng-repeat="customer in people | filter: table">
-              <td>{{obj.id}}</td>
-              <td>{{obj.tower_name}}</td>
-              <td>{{obj.tower_location}}</td>
-              <td>{{obj.qrcode}}</td>
-              <td>{{obj.tower_color}}</td>
-              <td>{{obj.tower_height}}</td>
-              <td>{{obj.Rack_id.rack_name}}</td>
-              <td>{{obj.Bay_id.bay_name}}</td>
-              <td>{{obj.vender_id.vender_name}}</td>
+              <td data-name="id">
+                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.id}}"></td>
+              <td>
+                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_name}}"></td>
+              <td>
+                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_location}}"></td>
+              <td>
+                 <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.qrcode}}"></td>
+              <td>
+                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_color}}"></td>
+              <td>
+                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_height}}"></td>
+              <td>
+                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.Rack_id.rack_name}}"></td>
+              <td>
+                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.Bay_id.bay_name}}"></td>
+              <td>
+                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.vender_id.vender_name}}"></td>
               <td>
                 <button class="btn btn-info delete_btn" id="{{obj.id}}">Delete</button>
               </td>

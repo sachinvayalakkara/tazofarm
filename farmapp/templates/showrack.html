@@ -1,168 +1,317 @@
-<!DOCTYPE html>   
+<!DOCTYPE html>
 
-<html lang="en">  
- 
-<head>   
-<meta charset="utf-8">   
-<title>Rack</title>   
-<meta name="description" content="Creating a Employee table with Twitter Bootstrap. Learn with example of a Employee Table with Twitter Bootstrap.">  
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<html lang="en">
 
-<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<head>
+  <meta charset="utf-8">
+  <title>Rack</title>
+  <meta name="description"
+    content="Creating a Employee table with Twitter Bootstrap. Learn with example of a Employee Table with Twitter Bootstrap.">
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+  </style>
+  <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+  <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<style>
-   .navbar{
-        color:white;
-        background-color:#1e5598;
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+  <style>
+    .navbar {
+      color: white;
+      background-color: #1e5598;
     }
-    .nav{
-      color:white;
+
+    .nav {
+      color: white;
     }
-    #addbutton{
+
+    #addbutton {
       float: right;
     }
-    .table-sortable tbody tr {
-    cursor: move;
-}
-</style>
-</head> 
- 
-<body style="margin:20px auto">  
-<div class="container-fluid">
-  <div class="row clearfix">
-    <div class="col-md-12 table-responsive">
+  </style>
+</head>
 
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-xs-12">
-<nav class="navbar navbar-light navbar-primary" > 
-    <div class="container-fluid"> 
-      <div class="navbar-header"> 
-        <a class="navbar-brand" href="#" style="color: white;">Tazofarm</a> 
-      </div> 
-      <ul class="nav navbar-nav">
+<body style="margin:20px auto">
+  <div class="container-fluid">
+    <div class="row clearfix">
+      <div class="col-md-12 table-responsive">
+
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-xs-12">
+            <nav class="navbar navbar-light navbar-primary">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <a class="navbar-brand" href="#" style="color: white;">Tazofarm</a>
+                </div>
+                <!-- <ul class="nav navbar-nav">
         <li><a href="#" class="active"  style="color: white;">Dashboard</a></li>  
         <li><a href="#"  style="color: white;"> Master</a></li> 
         <li><a href="#"  style="color: white;">Transaction</a></li> 
         <li><a href="#"  style="color: white;">Reports</a></li> 
-      </ul> 
-      <ul class="nav navbar-nav navbar-right"> 
-        <li><a style="color: white;" href="/farmapp/menu"><span class="glyphicon glyphicon-chevron-left" style="color: white;"></span> </a></li>
-        <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out" style="color: white;"></span> Logout</a></li> 
-      </ul> 
-    </div> 
-  </nav>
-  </div>
-</div>
+      </ul>  -->
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a style="color: white;" href="/farmapp/menu"><span class="glyphicon glyphicon-chevron-left"
+                        style="color: white;"></span> </a></li>
+                  <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out"
+                        style="color: white;"></span> Logout</a></li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
 
-<button class="btn glyphicon glyphicon-plus" id="addbutton" data-toggle="modal" data-target="#myModal"></button>
+        <button class="btn glyphicon glyphicon-plus" id="addbutton" data-toggle="modal" data-target="#myModal"></button>
 
-<br>
-<br>
+        <br>
+        <br>
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-        <center> <h2  class="modal-title" style="color: black;"></h2>RACK</center>
-      </div>
-      <div class="modal-body">
-      
-         
-             <form action="" method="POST">
-                 {% csrf_token %}
-                
-                 <div class="form-group">
-                   <label>Rack name:</label>
-                   <input type="text" class="form-control" name="rackname" placeholder="Enter Name" id="pwd">
-                 </div>
-                
-                   <div class="form-group">
-                     <label>QR code:</label>
-                     <input type="text" class="form-control" name="qrcode" placeholder="enter qrcode" id="pwd">
-                   </div>
-                 <center>
-                 <button type="submit" class="btn btn-success">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <button type="submit" class="btn btn-danger">Cancel</button>
-                 </center>
-                 {% if msg %}
-                 <span style="color: darkred;"> {{msg}}</span>
-                 {% endif %}
-                     
-             
-             
-              </form>
-        
-      </div>
-              
-           
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-      </div>
-    
+                <center>
+                  <h2 class="modal-title" style="color: black;"></h2>Rack
+                </center>
+              </div>
+              <div class="modal-body">
 
-  </div>
-</div>
+                <form action="/farmapp/addrack/" method="POST">
+                  {% csrf_token %}
+
+                  <div class="form-group">
+                    <label>Rack name:</label>
+                    <input type="text" class="form-control" name="rackname" placeholder="Enter Name" >
+                  </div>
+
+                  <div class="form-group">
+                    <label>QR code:</label>
+                    <input type="text" class="form-control" name="qrcode" placeholder="enter qrcode" >
+                  </div>
+                  <center>
+                    <button type="submit" class="btn btn-success">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-danger">Cancel</button>
+                  </center>
+                  {% if msg %}
+                  <span style="color: darkred;"> {{msg}}</span>
+                  {% endif %}
 
 
 
-<!-- Table -->
-<table class=" myTable table table-striped table-hover table-sortable" id="tab_logic">  
-  <thead>
-    <tr>
-      <th>Rack id</th>
-      <th>Rack Name</th>
-    
-      <th>QR Code</th>
-      <th>Active</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    {% for obj in rackdata %}
-    <tr>
-     
-      <td data-name="id">
-        <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.id}}"></td>
-      <td data-name="name">
-        <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.rack_name}}"></td>
-      <td data-name="qrcode">
-        <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.qrcode}}"></td>
-        <td data-name="del">
-          <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-      </table>  
-    </div>
-    
-  </div>
-  <!-- <a id="add_row" class="btn btn-primary float-right">Add Row</a> -->
-</div>
-</body>  
+                </form>
+
+              </div>
+
+
+
+
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+        <!-- Table -->
+
+
+        <table class="myTable table table-striped table-hover table-sortable" id="tab_logic">
+          <thead>
+            <tr>
+              <th>Rack id</th>
+              <th>Rack Name</th>
+
+              <th>QR Code</th>
+              <th>Active</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in rackdata %}
+            <tr id="{{obj.id}}">
+
+              <td data-name="id">
+                <input type="text" name='id' placeholder='Name' class="form-control " readonly value="{{obj.id}}">
+              </td>
+              <td data-name="name">
+                <input  type="text" name="rackname" placeholder='Name' readonly class="form-control input"
+                  value="{{obj.rack_name}}"></td>
+              <td data-name="qrcode">
+                <input type="text"  name="qrcode" placeholder='Name' readonly class="form-control input"
+                  value="{{obj.qrcode}}"></td>
+              <td data-name="delete">
+                <!-- <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button> -->
+              <span> <button onclick="fn_delete_rack('{{obj.id}}')" class="btn btn-info btn-xs delete_btn"
+                  name="delete">Delete</button>
+                  &nbsp;
+                <button type="button" class="btn" id="{{obj.id}}" value="Edit"></button>
+            
+                  </span> 
+
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div >
+
+        </div>
+
+
+
+
+        <!-- <div>
+          <button disabled type="submit" class="btn btn-primary data change" onclick="fn_update_rack()" name="update">Save</button>
+          <button type="button" class="btn btn-success" id="edit">Edit</button>
+
+        </div> -->
+
+
+
+</body>
 
 <script>
-$(document).ready(function(){
+  $(document).ready(function () {
     $('.myTable').dataTable();
-});
+   
+  });
+</script>
+
+<script type="text/javascript">
+
+  function fn_delete_rack(id) {
+    $.ajax({
+      url: 'http://127.0.0.1:8000/farmapp/deleterack',
+      type: 'POST',
+      data: {
+        id,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function (res) {
+        $('#'+ id).remove();
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    });
+  }
+</script>
 
 
-// $(document).ready(function() {
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+    $('.btn').click(function(e){
+
+      $('.input').prop('readonly',true);
+
+      console.log( e.target.value)
+     if(e.target.value == 'Edit')
+     {
+       $('.input').prop('readonly',false);
+       e.target.value = 'Update';
+       console.log( e.target.value)
+     
+     }
+     else{
+      console.log( e.target.id)
+       user_id=e.target.id;
+       element =$('.'+user_id);
+       console.log(element)
+      // console.log(element.find('input')[0].value);
+      console.log(e)
+
+/////formdata///
+      
+      
+       rackname = $('rackname').val();
+       qrcode = $('qrcode').val();
+       console.log(rackname);
+       console.log(qrcode);
+
+     /////////// // ajaxcode/////
+
+     $.ajax({
+
+      url: 'http://127.0.0.1:8000/farmapp/updaterack',
+      type: 'POST',
+      data:{
+        id:e.target.id,
+         rname :rackname,
+         qrcode:qrcode,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+        
+      },
+      success: function (res) {
+        
+        alert(res);
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    });
+
+       e.target.value ='Edit';
+  
+
+     }
+     
+      
+     });
+     
+  });
+
+</script>
+<!-- <script>
+  
+    r_name = $('#rackname').val();
+       qr_code = $('#qrcode').val();
+       console.log(r_name);
+       console.log(qrcode);
+          $.ajax({
+      url: 'http://127.0.0.1:8000/farmapp/updaterack',
+      type: 'POST',
+      data:{
+        id:e.target.id
+        rname :r_name,
+        qrcode:qr_code,
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        
+      }
+      success: function (res) {
+        
+        alert(res);
+      }
+      error: function (err) {
+        console.log(err);
+      }
+    });
+
+</script>  -->
+
+
+
+
+
+
+
+<!-- // $(document).ready(function() {
 //     $("#add_row").on("click", function() {
 //         // Dynamic Rows Code
         
@@ -227,7 +376,7 @@ $(document).ready(function(){
 
 
 //     $("#add_row").trigger("click");
-// });
-</script>
+// }); -->
 
-</html>  
+
+</html>
