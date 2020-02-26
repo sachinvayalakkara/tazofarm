@@ -16,7 +16,7 @@
 
   <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
@@ -129,7 +129,7 @@
         <!-- Table -->
 
 
-        <table class="myTable table table-striped table-hover table-sortable" id="tab_logic">
+        <table class="myTable table table-striped table-hover table-sortable" id="tab_logic"> 
           <thead>
             <tr>
               <th>Rack id</th>
@@ -142,23 +142,25 @@
           </thead>
           <tbody>
             {% for obj in rackdata %}
-            <tr id="{{obj.id}}">
+            <tr id="{{obj.id}}" class="tr_clone">
 
               <td data-name="id">
                 <input type="text" name='id' placeholder='Name' class="form-control " readonly value="{{obj.id}}">
               </td>
               <td data-name="name">
-                <input  type="text" name="rackname" placeholder='Name' readonly class="form-control input"
+                <input  type="text" name="rackname" placeholder='Name' readonly class="form-control input rack_name"
                   value="{{obj.rack_name}}"></td>
               <td data-name="qrcode">
-                <input type="text"  name="qrcode" placeholder='Name' readonly class="form-control input"
+                <input type="text"  name="qrcode" placeholder='Name' readonly class="form-control input qr_code"
                   value="{{obj.qrcode}}"></td>
               <td data-name="delete">
                 <!-- <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button> -->
-              <span> <button onclick="fn_delete_rack('{{obj.id}}')" class="btn btn-info btn-xs delete_btn"
+              <span> <button onclick="fn_delete_rack('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn"
                   name="delete">Delete</button>
                   &nbsp;
-                <button type="button" class="btn" id="{{obj.id}}" value="Edit"></button>
+                <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>
+                <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Duplicate</button>
+
             
                   </span> 
 
@@ -212,12 +214,12 @@
   }
 </script>
 
-
+<!-- ///////Update///// -->
 <script type="text/javascript">
 
     $(document).ready(function(){
 
-    $('.btn').click(function(e){
+    $('.edit').click(function(e){
 
       $('.input').prop('readonly',true);
 
@@ -232,30 +234,32 @@
      else{
       console.log( e.target.id)
        user_id=e.target.id;
-       element =$('.'+user_id);
-       console.log(element)
-      // console.log(element.find('input')[0].value);
-      console.log(e)
+      //  element =$('.'+user_id);
+      
+      // user=$(user_id).find('.input').val();
+      
+      
 
-/////formdata///
+/////formdata- to get text box updated value from front end corresponding to id ///
       
       
-       rackname = $('rackname').val();
-       qrcode = $('qrcode').val();
-       console.log(rackname);
-       console.log(qrcode);
+       rack_name = $(this).closest('tr').find('.rack_name').val();
+       console.log(rack_name)
+       qr_code = $(this).closest('tr').find('.qr_code').val();
+      
+      
 
      /////////// // ajaxcode/////
 
      $.ajax({
 
-      url: 'http://127.0.0.1:8000/farmapp/updaterack',
+      url: 'http://127.0.0.1:8000/farmapp/updaterack/',
       type: 'POST',
       data:{
-        id:e.target.id,
-         rname :rackname,
-         qrcode:qrcode,
-        csrfmiddlewaretoken: '{{ csrf_token }}'
+         id :e.target.id,
+         rname :rack_name,
+         qrcode:qr_code,
+         csrfmiddlewaretoken: '{{ csrf_token }}'
         
       },
       success: function (res) {
@@ -278,105 +282,24 @@
   });
 
 </script>
-<!-- <script>
-  
-    r_name = $('#rackname').val();
-       qr_code = $('#qrcode').val();
-       console.log(r_name);
-       console.log(qrcode);
-          $.ajax({
-      url: 'http://127.0.0.1:8000/farmapp/updaterack',
-      type: 'POST',
-      data:{
-        id:e.target.id
-        rname :r_name,
-        qrcode:qr_code,
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        
-      }
-      success: function (res) {
-        
-        alert(res);
-      }
-      error: function (err) {
-        console.log(err);
-      }
+
+<!-- //////// clone new raw///// -->
+<!-- <script src="myjquery/jquery-3.3.1.min.js"></script> -->
+
+ <script type="text/javascript">
+    $(document).ready(function(){ 
+      $('.tr_clone_add').click(function(e){
+      user_id =e.target.id;
+      // console.log(user_id)
+      element =$('.'+user_id);
+      // console.log(element)
+      duplicate=element.clone();
+      // console.log(duplicate)
+      $(duplicate).insertAfter(element);
+      });
     });
 
-</script>  -->
-
-
-
-
-
-
-
-<!-- // $(document).ready(function() {
-//     $("#add_row").on("click", function() {
-//         // Dynamic Rows Code
-        
-//         // Get max row id and set new id
-//         var newid = 0;
-//         $.each($("#tab_logic tr"), function() {
-//             if (parseInt($(this).data("id")) > newid) {
-//                 newid = parseInt($(this).data("id"));
-//             }
-//         });
-//         newid++;
-        
-//         var tr = $("<tr></tr>", {
-//             id: "addr"+newid,
-//             "data-id": newid
-//         });
-        
-//         // loop through each td and create new elements with name of newid
-//         $.each($("#tab_logic tbody tr:nth(0) td"), function() {
-//             var td;
-//             var cur_td = $(this);
-            
-//             var children = cur_td.children();
-            
-//             // add new td and element if it has a nane
-//             if ($(this).data("name") !== undefined) {
-//                 td = $("<td></td>", {
-//                     "data-name": $(cur_td).data("name")
-//                 });
-//  var c = $(cur_td).find($(children[0]).prop('tagName')).clone().val("");
-//                 c.attr("name", $(cur_td).data("name") + newid);
-//                 c.appendTo($(td));
-//                 td.appendTo($(tr));
-//             } else {
-//                 td = $("<td></td>", {
-//                     'text': $('#tab_logic tr').length
-//                 }).appendTo($(tr));
-//             }
-//         });
-//  $(tr).appendTo($('#tab_logic'));
-        
-//         $(tr).find("td button.row-remove").on("click", function() {
-//              $(this).closest("tr").remove();
-//         });
-// });
-//  var fixHelperModified = function(e, tr) {
-//         var $originals = tr.children();
-//         var $helper = tr.clone();
-    
-//         $helper.children().each(function(index) {
-//             $(this).width($originals.eq(index).width())
-//         });
-        
-//         return $helper;
-//     };
-  
-//     $(".table-sortable tbody").sortable({
-//         helper: fixHelperModified      
-//     }).disableSelection();
-
-//     $(".table-sortable thead").disableSelection();
-
-
-//     $("#add_row").trigger("click");
-// }); -->
+</script>
 
 
 </html>

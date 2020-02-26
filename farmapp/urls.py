@@ -20,6 +20,6 @@ urlpatterns = [
     path('viewtower',views.fn_viewtower),
     path('deleterack',views.fn_deleterack),
     path('deletevendor',views.fn_deletevendor),
-    path('updaterack',views.fn_update_rack),
+    path('updaterack/',views.fn_update_rack),
 ]
 

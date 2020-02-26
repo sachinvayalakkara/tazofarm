@@ -232,8 +232,8 @@ def fn_update_rack(req):
         service_id       = req.POST['id']
         print(service_id)
         rack_obj         = Rack.objects.get(id=service_id)
-        # print(rack_obj.rack_name)
-        # print(req.POST['rackname'])
+        print(rack_obj.rack_name)
+        # print(req.POST['rname'])
         update=0
         if rack_obj.rack_name != req.POST['rname']:
             rack_obj .rack_name   = req.POST['rname']
