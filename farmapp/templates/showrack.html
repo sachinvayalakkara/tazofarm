@@ -14,12 +14,12 @@
   <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-  <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
 
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> -->
   <style>
     .navbar {
       color: white;
@@ -142,7 +142,7 @@
           </thead>
           <tbody>
             {% for obj in rackdata %}
-            <tr id="{{obj.id}}">
+            <tr id="{{obj.id}}" class="tr_clone">
 
               <td data-name="id">
                 <input type="text" name='id' placeholder='Name' class="form-control " readonly value="{{obj.id}}">
@@ -155,12 +155,12 @@
                   value="{{obj.qrcode}}"></td>
               <td data-name="delete">
                
-              <span> <button onclick="fn_delete_rack('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn"
-                  name="delete">Delete</button>
+              <span> 
                   &nbsp;
                 <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>
                 <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Duplicate</button>
-
+                <button onclick="fn_delete_rack('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn glyphicon glyphicon-trash"
+                  name="delete"></button>
             
                   </span> 
 
@@ -228,10 +228,12 @@
      {
        $('.input').prop('readonly',false);
        e.target.value = 'Update';
+       $('.edit').text('Update');
        console.log( e.target.value)
      
      }
      else{
+      $('.edit').text('Edit'); 
       console.log( e.target.id)
        user_id=e.target.id;
       //  element =$('.'+user_id);
@@ -284,22 +286,23 @@
 </script>
 
 <!-- //////// clone new raw///// -->
-<!-- <script src="myjquery/jquery-3.3.1.min.js"></script> -->
 
- <script type="text/javascript">
-    $(document).ready(function(){ 
-      $('.tr_clone_add').click(function(e){
-      user_id =e.target.id;
-      // console.log(user_id)
-      element =$('.'+user_id);
-      // console.log(element)
-      duplicate=element.clone();
-      // console.log(duplicate)
-      $(duplicate).insertAfter(element);
-      });
-    });
 
+<script>
+  var cindex =1;
+$(".tr_clone_add").live('click', function() { 
+    var $tr    = $(this).closest('.tr_clone'); 
+    var newClass='newClass'; 
+    var $clone = $tr.clone().addClass(newClass); 
+    $clone.find(':text').val(); 
+    // $clone.attr('id', 'id'+ 1);
+    $tr.after($clone); 
+});
 </script>
 
 
+
+
 </html>
+
+

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
 <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
+ 
 <style>
    .navbar{
         color:white;
@@ -43,7 +43,7 @@
         <li><a href="#">Transaction</li> 
         <li><a href="#">Reports</li> 
       
-       </ul> -->
+       </ul> --> 
       <ul class="nav navbar-nav navbar-right"> 
         <li><a style="color: white;" href="/farmapp/menu"><span  class="glyphicon glyphicon-chevron-left" style="color: white;"> </span> </a></li>
         <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out" style="color: white;"></span> Logout</a></li> 
@@ -52,7 +52,6 @@
   </nav>
   </div>
 </div>
-
 
 <button class="btn glyphicon glyphicon-plus" id="addbutton" data-toggle="modal" data-target="#myModal"></button>
 <br>
@@ -98,27 +97,28 @@
              </select> 
           </div> 
         <br>
-        <br>
+        
+        
         <div class="form-group"> 
-          <label>Tower name:</label> 
-          <input type="text" class="form-control" name="towername" placeholder="Enter Name" id="pwd"> 
+          <label style="float: left;">Tower name:</label> 
+          <input type="text" class="form-control" name="towername" placeholder="Enter Name"> 
         </div> 
         <div class="form-group"> 
             <label>Tower Location:</label> 
-            <input type="text" class="form-control" name="towerlocation" placeholder="Enter Location" id="pwd"> 
+            <input type="text" class="form-control" name="towerlocation" placeholder="Enter Location"> 
           </div> 
           <div class="form-group"> 
             <label>QR code:</label> 
-            <input type="text" class="form-control" name="qrcode" placeholder="" id="pwd"> 
+            <input type="text" class="form-control" name="qrcode" placeholder="" > 
  
           </div> 
           <div class="form-group"> 
             <label>Tower color:</label> 
-            <input type="text" class="form-control" name="towercolor" placeholder="Enter Location" id="pwd"> 
+            <input type="text" class="form-control" name="towercolor" placeholder="Enter Location" > 
           </div> 
           <div class="form-group"> 
             <label>Tower Height:</label> 
-            <input type="text" class="form-control" name="towerheight" placeholder="Enter Location" id="pwd"> 
+            <input type="text" class="form-control" name="towerheight" placeholder="Enter Location" > 
           </div> 
  
          
@@ -140,15 +140,15 @@
 </div>
 </div>
 
-
 </div>
 </div>
+  <!-- Table -->
 
-<table  class="myTable table table-striped table-hover table-sortable" id="tab_logic" > 
+ <table class="myTable table table-striped table-hover table-sortable" id="tab_logic">
         
           <thead>
             <tr>
-              <th>Tower id</th>
+              <!-- <th>Tower id</th> -->
               <th>Tower Name</th>
               <th>Tower Location</th>
               <th>QR code</th>
@@ -156,32 +156,40 @@
               <th>Tower Height</th>
               <th>Rack Name </th>
               <th>Bay Name </th>
-              <th> Vendor name </th>
+              <th> Vendor</th>
+              <th>Action</th>
             </tr>
           </thead>
             <tbody>
             {% for obj in towerdata %}
-            <tr data-ng-repeat="customer in people | filter: table">
-              <td data-name="id">
-                <input type="text"  name='name0'  placeholder='Name' class="form-control" value="{{obj.id}}"></td>
-              <td>
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_name}}"></td>
-              <td>
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_location}}"></td>
-              <td>
-                 <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.qrcode}}"></td>
-              <td>
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_color}}"></td>
-              <td>
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.tower_height}}"></td>
-              <td>
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.Rack_id.rack_name}}"></td>
-              <td>
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.Bay_id.bay_name}}"></td>
-              <td>
-                <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.vender_id.vender_name}}"></td>
-              <td>
-                <button class="btn btn-info delete_btn" id="{{obj.id}}">Delete</button>
+            <tr id="{{obj.id}}" class="tr_clone">
+               <!-- <td data-name="id">
+                <input type="text"  name='id'  placeholder='Name'  class="form-control" readonly value="{{obj.id}}"></td> --> 
+              <td data-name="name">
+                <input type="text"  name='towername'  placeholder='Name' readonly class="form-control input-xs input tower_name" value="{{obj.tower_name}}"></td>
+              <td data-name="location">
+                <input type="text"  name='towerlocation'  placeholder='Name' readonly class="form-control input tower_location"  value="{{obj.tower_location}}"></td>
+              <td data-name="qrcode">
+                 <input type="text"  name='qrcode'  placeholder='Name' readonly class="form-control input qr_code"  value="{{obj.qrcode}}"></td>
+              <td data-name="color">
+                <input type="text"  name='towercolor'  placeholder='Name' readonly class="form-control input tower_color"  value="{{obj.tower_color}}"></td>
+              <td data-name="height">
+                <input type="text"  name='towerheight'  placeholder='Name' readonly class="form-control input tower_height"  value="{{obj.tower_height}}"></td>
+              <td data-name="rackname">
+                <input type="text"  name='rackname'  placeholder='Name' readonly class="form-control input rack_name"  value="{{obj.Rack_id.rack_name}}"></td>
+              <td data-name="bayname">
+                <input type="text"  name='bayname'  placeholder='Name' readonly class="form-control input bay_name"  value="{{obj.Bay_id.bay_name}}"></td>
+              <td data-name="vendorname">
+                <input type="text" name='vendorname'  placeholder='Name' readonly class="form-control input vendor_name"  value="{{obj.vendor_id.vendor_name}}"></td>
+              <td data-name="delete">
+                <span>
+                  
+                  <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>
+                  <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Copy</button>
+                  <button onclick="fn_delete_tower('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn glyphicon glyphicon-trash"
+                  name="delete"></button>
+              
+                    </span> 
               </td>
             </tr>
             {% endfor %}
@@ -190,9 +198,8 @@
           
             
 
-
         </table>
-       
+    </div>
       </div>
     </body>  
     
@@ -201,10 +208,136 @@
         $('.myTable').dataTable();
     });
     </script>
-    
+    <script type="text/javascript">
+
+        function fn_delete_tower(id) {
+          $.ajax({
+            url: 'http://127.0.0.1:8000/farmapp/deletetower/',
+            type: 'POST',
+            data: {
+              id,
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function (res) {
+              $('#'+ id).remove();
+            },
+            error: function (err) {
+              console.log(err);
+            }
+          });
+        }
+      </script>
+      
+      <!-- ///////Update///// -->
+      <script type="text/javascript">
+      
+          $(document).ready(function(){
+      
+          $('.edit').click(function(e){
+      
+            $('.input').prop('readonly',true);
+      
+            console.log( e.target.value)
+           if(e.target.value == 'Edit')
+           {
+             $('.input').prop('readonly',false);
+             $('.edit').text('Update');
+             e.target.value = 'Update';
+             console.log( e.target.value)
+           
+           }
+           else{
+            console.log( e.target.id)
+            $('.edit').text('Edit'); 
+             user_id=e.target.id;
+            //  element =$('.'+user_id);
+            
+            // user=$(user_id).find('.input').val();
+            
+            
+      
+      /////formdata- to get text box updated value from front end corresponding to id ///
+            
+            
+             tower_name = $(this).closest('tr').find('.tower_name').val();
+             console.log(tower_name)
+             tower_location = $(this).closest('tr').find('.tower_location').val();
+             console.log(tower_location)
+             qr_code = $(this).closest('tr').find('.qr_code').val();
+             console.log(qr_code)
+             tower_color = $(this).closest('tr').find('.tower_color').val();
+            console.log(tower_color)
+             tower_height = $(this).closest('tr').find('.tower_height').val();
+            console.log(tower_height)
+             rack_name = $(this).closest('tr').find('.rack_name').val();
+             console.log(rack_name)
+             bay_name = $(this).closest('tr').find('.bay_name').val();
+             console.log(bay_name)
+             vendor_name = $(this).closest('tr').find('.vendor_name').val();
+            console.log(vendor_name)
+             
+             
+            
+            
+      
+           /////////// // ajaxcode/////
+      
+           $.ajax({
+      
+            url: 'http://127.0.0.1:8000/farmapp/updatetower/',
+            type: 'POST',
+            data:{
+               id :e.target.id,
+               tname :tower_name,
+               towerlocation: tower_location,
+               qrcode:qr_code,
+               towercolor: tower_color,
+               towerheight:tower_height,
+               rackname: rack_name,
+               bayname:bay_name,
+               vendorname:vendor_name,
+               csrfmiddlewaretoken: '{{ csrf_token }}'
+              
+            },
+            success: function (res) {
+              
+              alert(res);
+            },
+            error: function (err) {
+              console.log(err);
+            }
+          });
+      
+             e.target.value ='Edit';
+        
+      
+           }
+           
+            
+           });
+           
+        });
+      
+      </script>
+      
+      <!-- //////// clone new raw///// -->
+      <!-- <script src="myjquery/jquery-3.3.1.min.js"></script> -->
+      
+     
+      
+      <script>
+        var cindex =1;
+      $(".tr_clone_add").live('click', function() { 
+          var $tr    = $(this).closest('.tr_clone'); 
+          var newClass='newClass'; 
+          var $clone = $tr.clone().addClass(newClass); 
+          $clone.find(':text').val(); 
+          // $clone.attr('id', 'id'+ 1);
+          $tr.after($clone); 
+      });
+      </script>
+      
 
    
-
-
 
 </html>

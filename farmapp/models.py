@@ -34,4 +34,18 @@ class Tower(models.Model):
     tower_height    = models.CharField(max_length=250)
     vender_id       =  models.ForeignKey(Vender,on_delete=models.CASCADE)
 
+# class Unitmaster(models.Model):
+#     unit_name = models.CharField(max_length=50)
+
+# class Stages(models.Model):
+#     stages= models.CharField(max_length=50)
+#     colorcode = models.CharField(max_length=50)
+
+# class Croptype(models.Model):
+#     crop_type= models.CharField(max_length=50)
+
+# class Season(models.Model):
+#     season= models.CharField(max_length=50)
+    
+   
 

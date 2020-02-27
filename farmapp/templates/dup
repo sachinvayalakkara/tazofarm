@@ -294,3 +294,65 @@ drop
 
 //     $("#add_row").trigger("click");
 // }); -->
+
+
+/////clone///
+
+<script>
+  var cindex =1;
+$(".tr_clone_add").live('click', function() { 
+    var $tr    = $(this).closest('.tr_clone'); 
+    var newClass='newClass'; 
+    var $clone = $tr.clone().addClass(newClass); 
+    $clone.find(':text').val(); 
+    // $clone.attr('id', 'id'+ 1);
+    $tr.after($clone); 
+});
+</script>
+
+////////elementmethod///
+
+<!-- <script src="myjquery/jquery-3.3.1.min.js"></script> -->
+
+ <!-- <script type="text/javascript">
+    $(document).ready(function(){ 
+      $('.tr_clone_add').click(function(e){
+      user_id =e.target.id;
+       console.log(user_id)
+      element =$('.'+user_id);
+       console.log(element)
+      duplicate=element.clone();
+       console.log(duplicate)
+      $(duplicate).insertAfter(element);
+      });
+    });
+
+</script> -->
+
+
+
+<script>
+  var cindex =1;
+  var regex = /^(.*)(\d)+$/i; 
+$(".tr_clone_add").live('click', function() { 
+    var $tr    = $(this).closest('.tr_clone'); 
+
+    var $clone = $tr.clone(true); 
+    cindex++; 
+    $clone.find(':text').val(); 
+    $clone.attr('id', 'id'+(cindex) ); //update row id if required 
+    //update ids of elements in row 
+    $clone.find("*").each(function() { 
+            var id = this.id || ""; 
+            var match = id.match(regex) || []; 
+            if (match.length == 3) { 
+                this.id = match[1] + (cindex); 
+            } 
+    }); 
+    var newClass='newClass'; 
+    var $clone = $tr.clone().addClass(newClass); 
+    $clone.find(':text').val(); 
+    // $clone.attr('id', 'id'+ 1);
+    $tr.after($clone); 
+});
+</script>

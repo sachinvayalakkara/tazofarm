@@ -281,8 +281,8 @@ input[type=text]:placeholder {
     <form method="POST" class="container" action="/farmapp/menu">
       {% csrf_token %}
       <br>
-      <input type="text" id="login" class="fadeIn second" name="username" placeholder="Admin">
-      <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password">
+      <input type="text" id="login" class="fadeIn second" required name="username" placeholder="username">
+      <input type="password" id="password" class="fadeIn third" required name="password" placeholder="Password">
       <input type="submit" class="fadeIn fourth" value="Log In"><br><a href="/farmapp/register">New user</a>
     </form>
 

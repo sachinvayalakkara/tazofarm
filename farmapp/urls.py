@@ -23,5 +23,9 @@ urlpatterns = [
     path('updaterack/',views.fn_update_rack),
     path('deletebay/',views.fn_deletebay),
     path('updatebay/',views.fn_update_bay),
+    path('deletevendor/',views.fn_deletevendor),
+    path('updatevendor/',views.fn_update_vendor),
+    path('deletetower/',views.fn_deletetower),
+    path('updatetower/',views.fn_update_tower),
 ]
 

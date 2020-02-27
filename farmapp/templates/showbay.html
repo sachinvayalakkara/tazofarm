@@ -11,7 +11,12 @@
 <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
 <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
+<!-- <script src="http://Scripts/jquery-1.9.1.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script
+  src="https://code.jquery.com/jquery-1.9.1.js"></script> -->
+  
 <style>
    .navbar{
         color:white;
@@ -141,12 +146,12 @@
               <td data-name="id">
               <input type="text"  name='name0'  placeholder='Name' class="form-control input qr_code" readonly value="{{obj.qrcode}}"></td>
               <td>
-                <span> <button onclick="fn_delete_bay('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn"
-                  name="delete">Delete</button>
-                  &nbsp;
+               
+                
                 <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>
                 <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Duplicate</button>
-
+                <span> <button onclick="fn_delete_bay('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn glyphicon glyphicon-trash"
+                  name="delete"></button>
             
                   </span> 
               </td>

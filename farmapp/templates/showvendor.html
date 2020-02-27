@@ -74,7 +74,7 @@
           {% csrf_token %}
           <div class="form-group">
             <label>Vender name:</label>
-            <input type="text" class="form-control" name="vendername" placeholder="Enter Name" id="pwd">
+            <input type="text" class="form-control" name="vendername" placeholder="Enter Name">
           </div>
          
            
@@ -109,38 +109,163 @@
         </thead>
         <tbody>
           {% for obj in vendordata %}
-          <tr>
-           
+          <tr id="{{obj.id}}" class="tr_clone">
+
             <td data-name="id">
-              <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.id}}"></td>
-            <td data-name="id">
-              <input type="text" class="input-xs" name='name0'  placeholder='Name' class="form-control" value="{{obj.vender_name}}"></td>
-            
-            <td data-name="id">
-              <button class="btn btn-info delete" name="{{obj.id}}">Delete</button>
+              <input type="text" name='id'  class="form-control " readonly value="{{obj.id}}">
+            </td>
+            <td data-name="name">
+              <input  type="text" name="vendorname"  readonly class="form-control input vendor_name"
+                value="{{obj.vender_name}}"></td>
+            <!-- <td data-name="qrcode">
+              <input type="text"  name="qrcode"  readonly class="form-control input qr_code"
+                value="{{obj.qrcode}}"></td> -->
+            <td data-name="delete">
+              <!-- <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button> -->
+            <span> 
+              
+              <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>
+              <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Duplicate</button>
+              <button onclick="fn_delete_vendor('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn glyphicon glyphicon-trash"
+                name="delete"></button>
+          
+                </span> 
+
             </td>
           </tr>
           {% endfor %}
         </tbody>
+      </table>
 
+      <div >
 
-        </table>
-       
       </div>
-    </body>  
-    
-    <script>
-    $(document).ready(function(){
-        $('.myTable').dataTable();
-    });
-    </script>
-    
-
-   
 
 
+
+      <!-- <div>
+        <button disabled type="submit" class="btn btn-primary data change" onclick="fn_update_rack()" name="update">Save</button>
+        <button type="button" class="btn btn-success" id="edit">Edit</button>
+
+      </div> -->
+
+
+</body>
+
+<script>
+$(document).ready(function () {
+  $('.myTable').dataTable();
  
+});
+</script>
 
-  
+<script type="text/javascript">
+
+function fn_delete_vendor(id) {
+  $.ajax({
+    url: 'http://127.0.0.1:8000/farmapp/deletevendor/',
+    type: 'POST',
+    data: {
+      id,
+      csrfmiddlewaretoken: '{{ csrf_token }}'
+    },
+    success: function (res) {
+      $('#'+ id).remove();
+    },
+    error: function (err) {
+      console.log(err);
+    }
+  });
+}
+</script>
+
+<!-- ///////Update///// -->
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+  $('.edit').click(function(e){
+
+    $('.input').prop('readonly',true);
+
+    console.log( e.target.value)
+   if(e.target.value == 'Edit')
+   {
+     $('.input').prop('readonly',false);
+     e.target.value = 'Update';
+     $('.edit').text('Update');
+     console.log( e.target.value)
+   
+   }
+   else{
+    $('.edit').text('Edit'); 
+    console.log( e.target.id)
+     user_id=e.target.id;
+    //  element =$('.'+user_id);
+    
+    // user=$(user_id).find('.input').val();
+    
+    
+
+/////formdata- to get text box updated value from front end corresponding to id ///
+    
+    
+     vendor_name = $(this).closest('tr').find('.vendor_name').val();
+     console.log(rack_name)
+     qr_code = $(this).closest('tr').find('.qr_code').val();
+    
+    
+
+   /////////// // ajaxcode/////
+
+   $.ajax({
+
+    url: 'http://127.0.0.1:8000/farmapp/updatevendor/',
+    type: 'POST',
+    data:{
+       id :e.target.id,
+       vname :vendor_name,
+       qrcode:qr_code,
+       csrfmiddlewaretoken: '{{ csrf_token }}'
+      
+    },
+    success: function (res) {
+      
+      alert(res);
+    },
+    error: function (err) {
+      console.log(err);
+    }
+  });
+
+     e.target.value ='Edit';
+
+
+   }
+   
+    
+   });
+   
+});
+
+</script>
+
+<!-- //////// clone new raw///// -->
+<!-- <script src="myjquery/jquery-3.3.1.min.js"></script> -->
+
+<script type="text/javascript">
+  $(document).ready(function(){ 
+    $('.tr_clone_add').click(function(e){
+    user_id =e.target.id;
+    // console.log(user_id)
+    element =$('.'+user_id);
+    // console.log(element)
+    duplicate=element.clone();
+    // console.log(duplicate)
+    $(duplicate).insertAfter(element);
+    });
+  });
+
+</script>
 
 </html>
