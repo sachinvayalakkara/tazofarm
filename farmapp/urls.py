@@ -27,5 +27,6 @@ urlpatterns = [
     path('updatevendor/',views.fn_update_vendor),
     path('deletetower/',views.fn_deletetower),
     path('updatetower/',views.fn_update_tower),
+    path('showcrop/',views.fn_showcrop),
 ]
 

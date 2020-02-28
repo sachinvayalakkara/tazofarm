@@ -161,7 +161,7 @@ def fn_addvendor(request):
            vendor_obj.save()
            if vendor_obj.id > 0:
                 return redirect('/farmapp/showvendor/')
-        
+        return render(request,'showvendor.html')
     except Exception as e: 
         print(e)
         return render(request,"showvendor.html",{'msg':'insertion failed' })
@@ -400,6 +400,13 @@ def fn_update_tower(req):
         # data = serializers.serialize('json',rac_obj,fields=('rack_name','qrcode') )
         return HttpResponse('update')
     except Exception as e:
-        print(e)     
+        print(e)  
+
+def fn_showcrop(req):
+    try:
+        return render(req,'showcrop.html')
+
+    except Exception as e:
+        print(e) 
 
 

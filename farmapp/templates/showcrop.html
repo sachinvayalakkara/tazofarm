@@ -1,0 +1,388 @@
+<!DOCTYPE html>     
+  
+<html lang="en">    
+   
+<head>     
+<meta charset="utf-8">     
+<title>Crop</title>     
+<meta name="description" content="Creating a Employee table with Twitter Bootstrap. Learn with example of a Employee Table with Twitter Bootstrap.">    
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">     
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>  
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>  
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>  
+   
+<style>  
+   .navbar{  
+        color:white;  
+        background-color:#1e5598;  
+    }  
+    .nav{  
+      color:white;  
+    }  
+    #addbutton{  
+      float: right;  
+    }  
+</style>  
+</head>   
+   
+<body style="margin:20px auto">    
+<div class="container-fluid">  
+  
+  <div class="row">  
+    <div class="col-lg-12 col-md-12 col-xs-12">  
+<nav class="navbar navbar-light navbar-primary" >   
+    <div class="container-fluid">   
+      <div class="navbar-header">   
+        <a class="navbar-brand" href="#" style="color: white;">Tazofarm</a>   
+      </div>   
+       <!-- <ul class="nav navbar-nav">  
+           
+        <li class="active">Dashboard</li> <span><li><a href="#"> Master</a></li> </span>   
+         
+        <li><a href="#">Transaction</li>   
+        <li><a href="#">Reports</li>   
+        
+       </ul> -->   
+      <ul class="nav navbar-nav navbar-right">   
+        <li><a style="color: white;" href="/farmapp/menu"><span  class="glyphicon glyphicon-chevron-left" style="color: white;"> </span> </a></li>  
+        <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out" style="color: white;"></span> Logout</a></li>   
+      </ul>   
+    </div>   
+  </nav>  
+  </div>  
+</div>  
+  
+<button class="btn glyphicon glyphicon-plus" id="addbutton" data-toggle="modal" data-target="#myModal"></button>  
+<br>  
+<br>  
+<!-- Modal -->  
+<div id="myModal" class="modal fade" role="dialog">  
+  <div class="modal-dialog">  
+  
+    <!-- Modal content-->  
+    <div class="modal-content">  
+      <div class="modal-header">  
+        <button type="button" class="close" data-dismiss="modal">&times;</button>  
+  
+        <center> <h1 class="modal-title" style="color: rgb(177, 72, 72);"></h1>CROP</center>  
+      </div>  
+      <div class="modal-body">  
+        
+        <form action="/farmapp/addcrop/" method="POST">  
+          {% csrf_token %}  
+       <div class="form-group ">   
+            <label> Crop name </label>   
+            <input type="text" class="form-control" name="cropname" placeholder="">   
+          </div>   
+          <div class="form-group">   
+            <label>variety</label>   
+            <input type="text" class="form-control" name="variety" placeholder="" >   
+   
+          </div>   
+          <div class="form-group">   
+            <label>Crop Description</label>   
+            <input type="text" class="form-control" name="cropdes" placeholder="Enter Location" >   
+          </div>   
+          <div class="form-group">   
+            <label>Crop_Type</label>   
+            <input type="text" class="form-control" name="croptype" placeholder="Enter Location" >   
+          </div>   
+          <div class="form-group">   
+            <label>Unit</label>   
+            <input type="text" class="form-control" name="unit" placeholder="Enter Location" >   
+          </div>   
+          <div class="form-group">   
+            <label>Season</label>   
+            <input type="text" class="form-control" name="season" placeholder="Enter Location" >   
+          </div>   
+          <div class="form-group">   
+            <label>Crop Duration in Days</label>   
+            <input type="text" class="form-control" name="cdid" placeholder="Enter Location" >   
+          </div>   
+   
+          <div class="form-group">   
+            <label>Midway Check period (from Plant Date)</label>   
+            <input type="text" class="form-control" name="mcp" placeholder="Enter Location" >   
+          </div>   
+   
+          <div class="form-group">   
+            <label>Ready for Harvest (From Midway)</label>   
+            <input type="text" class="form-control" name="rfh" placeholder="Enter Location" >   
+          </div>   
+   
+          <div class="form-group">   
+            <label>2nd Harvest Period in Days</label>   
+            <input type="text" class="form-control" name="2hpd" placeholder="Enter Location" >   
+          </div>   
+   
+          <div class="form-group">   
+            <label>3rd Harvest Period in Days</label>   
+            <input type="text" class="form-control" name="3hpd" placeholder="Enter Location" >   
+          </div>   
+   
+          <div class="form-group">   
+            <label>4th Harvest Date in Days</label>   
+            <input type="text" class="form-control" name="4hpd" placeholder="Enter Location" >   
+          </div>   
+   
+          <div class="form-group">   
+            <label>No of Harvest/Cutting</label>   
+            <input type="text" class="form-control" name="nh" placeholder="Enter Location" >   
+          </div>   
+   
+ 
+          <div class="form-group">   
+            <label>Regrow days 
+            </label>   
+            <input type="text" class="form-control" name="regrowd" placeholder="Enter Location" >   
+          </div>   
+   
+          <div class="form-group">   
+            <label>Packing Type</label>   
+            <input type="text" class="form-control" name="pactyp" placeholder="Enter Location" >   
+          </div>   
+   
+          <div class="form-group">   
+            <label>Unit per Pack</label>   
+            <input type="text" class="form-control" name="upp" placeholder="Enter Location" >   
+          </div>   
+          <div class="form-group">   
+            <label>Sale price- Wholesale</label>   
+            <input type="text" class="form-control" name="spw" placeholder="Enter Location" >   
+          </div>   
+          <div class="form-group">   
+            <label>Sale price- Farmer</label>   
+            <input type="text" class="form-control" name="spf" placeholder="Enter Location" >   
+          </div>   
+          <div class="form-group">   
+            <label>Sale price- Restarunt</label>   
+            <input type="text" class="form-control" name="spr" placeholder="Enter Location" >   
+          </div>   
+          <div class="form-group">   
+            <label>Product_image</label>   
+            <input type="text" class="form-control" name="image" placeholder="Enter Location" >   
+          </div>  
+   
+   
+           
+          <center>  
+          <button type="submit" class="btn btn-success">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+          <button type="submit" class="btn btn-danger">Cancel</button>  
+          </center>  
+          {% if msg %}  
+          <span style="color: darkred;"> {{msg}}</span>  
+          {% endif %}  
+                
+        
+        
+       </form>  
+   
+</div>  
+<div class="modal-footer">  
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+</div>  
+</div>  
+  
+</div>  
+</div>  
+  <!-- Table -->  
+  
+ <table class="myTable table table-striped table-hover table-sortable" id="tab_logic">  
+          
+          <thead>  
+            <tr>  
+                
+              <th>Crop Name 
+            </th>  
+              
+              <th>Duration 
+            </th>  
+              <th>Midway Check Days 
+            </th>  
+              <th>1st Harvest days 
+            </th>  
+             
+            <th>2nd Harvest Days 
+ 
+            </th> 
+            <th>3rd Harvest Days 
+ 
+            </th> 
+            <th>4th Harvest Days 
+ 
+            </th>  
+            
+            </tr> 
+         
+          </thead>  
+            <tbody>  
+            {% for obj in towerdata %}  
+            <tr id="{{obj.id}}" class="tr_clone">  
+               
+              <td data-name="cropname">  
+                <input type="text"  name='towername'  placeholder='cropname' readonly class="form-control input cropname" value="{{obj.cropname}}"></td>  
+              <td data-name="Crop Duraion in Days">  
+                <input type="text"  name='cdid'  placeholder='cdid' readonly class="form-control input cdid"  value="{{obj.cdid}}"></td>  
+              <td data-name="Midway Check period">  
+                 <input type="text"  name='mcp'  placeholder='Name' readonly class="form-control input mcp"  value="{{obj.mcp}}"></td>  
+              <td data-name="Ready for Harvest">  
+                <input type="text"  name='rfh'  placeholder='Name' readonly class="form-control input rfh"  value="{{obj.rfh}}"></td>  
+              <td data-name="2nd Harvest Period in Days">  
+                <input type="text"  name='2hpd'  placeholder='Name' readonly class="form-control input 2hpd"  value="{{obj.2hpd}}"></td>  
+              <td data-name="3rd Harvest Period in Days">  
+                <input type="text"  name='3hpd'  placeholder='Name' readonly class="form-control input 3hpd"  value="{{obj.3hpd}}"></td>  
+              <td data-name="4th Harvest Date in Days">  
+                <input type="text"  name='4hpd'  placeholder='Name' readonly class="form-control input 4hpd"  value="{{obj.4hpd}}"></td>  
+                
+                 
+              <td data-name="delete">  
+                <span> <button onclick="fn_delete_crop('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn"  
+                    name="delete">Delete</button>  
+                    &nbsp;  
+                  <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>  
+                  <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Duplicate</button>  
+    
+                
+                    </span>   
+              </td>  
+            </tr>  
+            {% endfor %}  
+          </tbody>  
+    
+            
+              
+  
+        </table>  
+    </div>  
+      </div>  
+    </body>    
+      
+    <script>  
+    $(document).ready(function(){  
+        $('.myTable').dataTable();  
+    });  
+    </script>  
+    <script type="text/javascript">  
+  
+        function fn_delete_crop(id) {  
+          $.ajax({  
+            url: 'http://127.0.0.1:8000/farmapp/deletetower',  
+            type: 'POST',  
+            data: {  
+              id,  
+              csrfmiddlewaretoken: '{{ csrf_token }}'  
+            },  
+            success: function (res) {  
+              $('#'+ id).remove();  
+            },  
+            error: function (err) {  
+              console.log(err);  
+            }  
+          });  
+        }  
+      </script>  
+        
+      <!-- ///////Update///// -->  
+      <script type="text/javascript">  
+        
+          $(document).ready(function(){  
+        
+          $('.edit').click(function(e){  
+        
+            $('.input').prop('readonly',true);  
+        
+            console.log( e.target.value)  
+           if(e.target.value == 'Edit')  
+           {  
+             $('.input').prop('readonly',false);  
+             e.target.value = 'Update';  
+             console.log( e.target.value)  
+             
+           }  
+           else{  
+            console.log( e.target.id)  
+             user_id=e.target.id;  
+            //  element =$('.'+user_id);  
+              
+            // user=$(user_id).find('.input').val();  
+              
+              
+        
+      /////formdata- to get text box updated value from front end corresponding to id ///  
+              
+              
+             crop_name = $(this).closest('tr').find('.cropname').val();  
+             console.log(rack_name)  
+             cd_id= $(this).closest('tr').find('.cdid').val();  
+             mc_p = $(this).closest('tr').find('.mcp').val();  
+             rf_h = $(this).closest('tr').find('.rfh').val();  
+             2_hpd = $(this).closest('tr').find('.2hpd').val();  
+             3_hpd = $(this).closest('tr').find('.3hpd').val();  
+             4_hpd = $(this).closest('tr').find('.4hpd').val();  
+              
+               
+               
+              
+              
+        
+           /////////// // ajaxcode/////  
+        
+           $.ajax({  
+        
+            url: 'http://127.0.0.1:8000/farmapp/updatetower/',  
+            type: 'POST',  
+            data:{  
+               id :e.target.id,  
+               tname :tower_name,  
+               towerlocation: tower_location,  
+               qrcode:qr_code,  
+               towercolor: tower_color,  
+               towerheight:tower_height,  
+               rackname: rack_name,  
+               bayname:bay_name,  
+               vendorname:vendor_name,  
+               csrfmiddlewaretoken: '{{ csrf_token }}'  
+                
+            },  
+            success: function (res) {  
+                
+              alert(res);  
+            },  
+            error: function (err) {  
+              console.log(err);  
+            }  
+          });  
+        
+             e.target.value ='Edit';  
+          
+        
+           }  
+             
+              
+           });  
+             
+        });  
+        
+      </script>  
+        
+      <!-- //////// clone new raw///// -->  
+      <!-- <script src="myjquery/jquery-3.3.1.min.js"></script> -->  
+        
+       <script type="text/javascript">  
+          $(document).ready(function(){   
+            $('.tr_clone_add').click(function(e){  
+            user_id =e.target.id;  
+            // console.log(user_id)  
+            element =$('.'+user_id);  
+            // console.log(element)  
+            duplicate=element.clone();  
+            // console.log(duplicate)  
+            $(duplicate).insertAfter(element);  
+            });  
+          });  
+        
+      </script>  
+        
+        
+      </ht
