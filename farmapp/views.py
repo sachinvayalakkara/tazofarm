@@ -156,8 +156,9 @@ def fn_addbay(request):
 def fn_addvendor(request):
     try:
         if request.method == "POST":
-           vendorname   = request.POST['vendername']
-           vendor_obj   = Vender(vender_name = vendername)
+           vendorname   = request.POST['vendorname']
+           print(vendorname)
+           vendor_obj   = Vender(vender_name = vendorname)
            vendor_obj.save()
            if vendor_obj.id > 0:
                 return redirect('/farmapp/showvendor/')
@@ -208,6 +209,7 @@ def fn_showtower(req):
         rack_obj  = Rack.objects.all()
         bay_obj   = Bay.objects.all()
         vendor_obj= Vender.objects.all()
+        print(vendor_obj)
         tower_obj = Tower.objects.all()
        
         return render(req,"showtower.html",{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj,'towerdata':tower_obj})
@@ -324,7 +326,7 @@ def fn_update_vendor(req):
         # print(req.POST['rname'])
         update=0
         if vendor_obj.vender_name != req.POST['vname']:
-            vendor_obj .rack_name   = req.POST['vname']
+            vendor_obj.vender_name   = req.POST['vname']
             update +=1
         if vendor_obj.qrcode != req.POST['qrcode']:
             vendor_obj.qrcode  = req.POST['qrcode']

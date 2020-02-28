@@ -14,6 +14,16 @@
 
     <link href="{% static 'css/test.css' %}" rel="stylesheet" type="text/css">
 <style>
+  th{
+    font-size:15px;
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  tr{
+    font-size:12px;
+    
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
   .tb{
     height: 60px;
   }
@@ -34,7 +44,7 @@
     <nav class="navbar navbar-light navbar-primary " > 
         <div class="container-fluid"> 
           <div class="navbar-header"> 
-            <a class="navbar-brand" href="#" style="color: white;"><center>Tazofarm</center></a> 
+            <a class="navbar-brand" href="#" style="color: white;"><center><b>Tazofarm</b></center></a> 
           </div> 
           <ul class="nav navbar-nav">
             <li><a href=""  class="active"  style="color: white;">Dashboard</a></li>  
@@ -55,7 +65,7 @@
     
         <div class="col-lg-6 col-md-6 col-xs-12 magnify tb" >
             <div class="panel panel-info">
-                <div class="panel-heading panel-primary">RACK 
+                <div class="panel-heading panel-primary"><b>RACK </b>
                     <span> <a href="/farmapp/showrack/"><i class="fa fa-home">View more </a></span>
                 </div>
                 <div class="panel-body">
@@ -97,9 +107,9 @@
             </div>
     
        
-            <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
+            <div class="col-lg-6 col-md-4 col-xs-12 magnify" >
             <div class="panel panel-info">
-                <div class="panel-heading">BAY
+                <div class="panel-heading"><b>BAY</b>
                     <span> <a href="/farmapp/showbay/"><i class="fa fa-home">View more </a></span>
                     </div>
                     <div class="panel-body">
@@ -129,11 +139,46 @@
                 </div>
             </div>
             </div>
-    
+            
+            <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
+              <div class="panel panel-info">
+                  <div class="panel-heading"><b>VENDOR</b>
+                      <span> <a href="/farmapp/showvendor/"><i class="fa fa-home">View more </a></span>
+                  </div>
+                  <div class="panel-body">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                      <tr>
+                        <th>Vendor id</th>
+                        <th>Vendor Name</th>
+                      
+                        
+                        <!-- <th>Active</th> -->
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for obj in vendordata %}
+                      <tr data-ng-repeat="customer in people | filter: table">
+                       
+                        <td>{{obj.id}}</td>
+                        <td>{{obj.vender_name}}</td>
+                        
+                        <!-- <td>
+                          <button class="btn btn-info delete_btn" id="{{obj.id}}"></button>
+                        </td> -->
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+           </table>
+                  </div>
+              </div>
+               </div> 
+           
             
             <div class="col-lg-6 col-md-6 col-xs-12 magnify ">
             <div class="panel panel-info" >
-                <div class="panel-heading">TOWER
+                <div class="panel-heading"><b>TOWER</b>
                     <span> <a href="/farmapp/tower/"><i class="fa fa-home">View more </a></span>
                 </div>
                 <div class="panel-body">
@@ -173,46 +218,12 @@
                 </div>
             
 
-            <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
-            <div class="panel panel-info">
-                <div class="panel-heading">VENDOR
-                    <span> <a href="/farmapp/showvendor/"><i class="fa fa-home">View more </a></span>
-                </div>
-                <div class="panel-body">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                      <th>Vendor id</th>
-                      <th>Vendor Name</th>
-                    
-                      
-                      <!-- <th>Active</th> -->
-                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for obj in vendordata %}
-                    <tr data-ng-repeat="customer in people | filter: table">
-                     
-                      <td>{{obj.id}}</td>
-                      <td>{{obj.vender_name}}</td>
-                      
-                      <!-- <td>
-                        <button class="btn btn-info delete_btn" id="{{obj.id}}"></button>
-                      </td> -->
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-         </table>
-                </div>
-            </div>
-             </div> 
   
 
 
          <div class="col-lg-6 col-md-6 col-xs-12 magnify ">
       <div class="panel panel-info">
-          <div class="panel-heading">CROP
+          <div class="panel-heading"><b>CROP</b>
               <span> <a href="/farmapp/showcrop/"><i class="fa fa-home">View more </a></span>
               </div>
               <div class="panel-body">
