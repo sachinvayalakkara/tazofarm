@@ -16,6 +16,7 @@ class Rack(models.Model):
     rack_name = models.CharField(max_length=25)
     qrcode = models.CharField(max_length=25)
     
+    
 class Bay(models.Model): 
     bay_name = models.CharField(max_length=25) 
     qrcode   = models.CharField(max_length=25) 

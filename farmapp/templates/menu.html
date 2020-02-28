@@ -13,7 +13,18 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <link href="{% static 'css/test.css' %}" rel="stylesheet" type="text/css">
+<style>
+  .tb{
+    height: 60px;
+  }
 
+  table {
+    border-collapse: collapse;
+}
+  tr:nth-child(n + 6) {
+    visibility: hidden;
+}
+</style>
 </head> 
 <body> 
     <div class="container-fluid"> 
@@ -26,7 +37,7 @@
             <a class="navbar-brand" href="#" style="color: white;"><center>Tazofarm</center></a> 
           </div> 
           <ul class="nav navbar-nav">
-            <li><a href="#" class="active"  style="color: white;">Dashboard</a></li>  
+            <li><a href=""  class="active"  style="color: white;">Dashboard</a></li>  
             <li><a href="#"  style="color: white;"> Master</a></li> 
             <li><a href="#"  style="color: white;">Transaction</a></li> 
             <li><a href="#"  style="color: white;">Reports</a></li> 
@@ -42,7 +53,7 @@
     
     <div class="container" >
     
-        <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
+        <div class="col-lg-6 col-md-6 col-xs-12 magnify tb" >
             <div class="panel panel-info">
                 <div class="panel-heading panel-primary">RACK 
                     <span> <a href="/farmapp/showrack/"><i class="fa fa-home">View more </a></span>
@@ -86,13 +97,13 @@
             </div>
     
        
-            <div class="col-lg-6 col-md-6 col-xs-12 magnify ">
+            <div class="col-lg-6 col-md-6 col-xs-12 magnify" >
             <div class="panel panel-info">
                 <div class="panel-heading">BAY
                     <span> <a href="/farmapp/showbay/"><i class="fa fa-home">View more </a></span>
                     </div>
                     <div class="panel-body">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" width="100%"  cellspacing="0">
                         <thead>
                             <tr>
                               <th>Rack Name</th>
