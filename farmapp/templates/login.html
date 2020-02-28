@@ -17,7 +17,18 @@
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
-  background-image:url("/static/img2.jpg");
+  background-color:0d0d0d;
+}
+a{
+  font-size: 12px;
+}
+
+#log{
+  
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-style: inherit;
+  color: #5fbae9;
 }
 
 a {
@@ -67,7 +78,7 @@ h2 {
 #formFooter {
   background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
-  padding: 25px;
+  padding: 5px;
   text-align: center;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
@@ -92,7 +103,7 @@ input[type=button], input[type=submit], input[type=reset]  {
   background-color: #56baed;
   border: none;
   color: white;
-  padding: 15px 80px;
+  padding: 10px 80px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -126,7 +137,7 @@ input[type=text] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
-  padding: 15px 32px;
+  padding: 7px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -143,14 +154,44 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type=password]:placeholder {
   color: #cccccc;
 }
+input[type=password] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 7px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+input[type=password]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+input[type=password]:placeholder {
+  color: #cccccc;
+}
+
 
 
 /* ANIMATIONS */
@@ -281,14 +322,19 @@ input[type=text]:placeholder {
     <form method="POST" class="container" action="/farmapp/menu">
       {% csrf_token %}
       <br>
-      <input type="text" id="login" class="fadeIn second" required name="username" placeholder="username">
+      <h1 id="log">Login</h1>
+      <br>
+      <input type="text" id="login" class="fadeIn second" required name="username" placeholder="User Name"><span>
+    <i class="fas fa-male"></i></span>
       <input type="password" id="password" class="fadeIn third" required name="password" placeholder="Password">
-      <input type="submit" class="fadeIn fourth" value="Log In"><br><a href="/farmapp/register">New user</a>
+<br><br>      <input type="submit" class="fadeIn fourth" value="Log In"><br><a href="/farmapp/register">New user</a>
+      <br>
+      <a class="underlineHover" href="#">Forgot Password?</a>
     </form>
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
+     
     </div>
 
   </div>
