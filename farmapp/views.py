@@ -76,7 +76,7 @@ def fn_menu(req):
     try:
         rack_obj = Rack.objects.all()
         bay_obj = Bay.objects.all()
-        vendor_obj = Vender.objects.all()
+        vendor_obj = Vendor.objects.all()
         tower_obj = Tower.objects.all()
         return render(req,"menu.html",{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj,'towerdata':tower_obj})
     except Exception as e:
@@ -85,8 +85,9 @@ def fn_menu(req):
 
 def fn_showrack(req):
     try:
-        rack_obj = Rack.objects.all()               
-        return render(req,"showrack.html",{'rackdata':rack_obj})      
+        rack_obj = Rack.objects.all() 
+        bay_obj = Bay.objects.all()            
+        return render(req,"showrack.html",{'rackdata':rack_obj,'baydata':bay_obj})      
     except Exception as e:
         print(e)           
 
@@ -98,8 +99,13 @@ def fn_addrack(req):
     try:
         rackname = req.POST['rackname']
         qrcode   = req.POST['qrcode']
-            
-        rack_obj = Rack(rack_name=rackname,qrcode=qrcode)
+        # rack_obj = Rack.objects.all()
+        # bayid = request.POST['rackid']
+        # print(bayid)
+        bayname_obj    = Bay.objects.get(id=req.POST['bayid'])
+        # print(bayname_obj.bay_name) 
+
+        rack_obj = Rack(rack_name=rackname,qrcode=qrcode,fk_bayid=bayname_obj)
         rack_obj.save()  
         if rack_obj.id > 0:
             return redirect('/farmapp/showrack/')      
@@ -110,40 +116,33 @@ def fn_addrack(req):
 def fn_showbay(request):
      
     try:
-        rack_obj = Rack.objects.all()
+        
         bay_obj =Bay.objects.all()
         # print(bay_obj)
-        return render(request,"showbay.html",{'baydata':bay_obj,'rackdata':rack_obj})
+        return render(request,"showbay.html",{'baydata':bay_obj})
     except Exception as e:
         print(e)  
-
-
-
 
 def fn_addbay(request): 
    
     try:
        
-         if request.method == "POST":
-            # rack_obj = Rack.objects.all()
-            rakid = request.POST['rackid']
-            print(rakid)
-            rackname_obj    = Rack.objects.get(id=request.POST['rackid'])
-            print(rackname_obj.rack_name)
+        if request.method == "POST":
+           
            
             bay_name     = request.POST['bayname'] 
-            print(bay_name)
+            # print(bay_name)
             qrcode       = request.POST['qrcode'] 
          
-            bay_obj      = Bay(bay_name=bay_name,qrcode=qrcode,fk_rackid=rackname_obj) 
+            bay_obj      = Bay(bay_name=bay_name,qrcode=qrcode) 
             # print(bay_obj)
             bay_obj.save() 
-            print(bay_obj)
+            # print(bay_obj)
           
             if bay_obj.id > 0:
                 return redirect('/farmapp/showbay/')
            
-            return render(request,"showbay.html")   
+        return render(request,"showbay.html")   
         
    
         
@@ -157,19 +156,19 @@ def fn_addvendor(request):
     try:
         if request.method == "POST":
            vendorname   = request.POST['vendorname']
-           print(vendorname)
-           vendor_obj   = Vender(vender_name = vendorname)
+        #    print(vendorname)
+           vendor_obj   = Vendor(vendor_name = vendorname)
            vendor_obj.save()
            if vendor_obj.id > 0:
                 return redirect('/farmapp/showvendor/')
-        return render(request,'showvendor.html')
+        # return render(request,'showvendor.html')
     except Exception as e: 
         print(e)
         return render(request,"showvendor.html",{'msg':'insertion failed' })
 
 def fn_showvendor(req):
     try:
-        vendor_obj = Vender.objects.all()
+        vendor_obj = Vendor.objects.all()
         
         return render(req,"showvendor.html",{'vendordata':vendor_obj})
 
@@ -186,14 +185,14 @@ def fn_addtower(request):
             rackname_obj    = Rack.objects.get(id=request.POST['rackid'])
             
             bayname_obj     = Bay.objects.get(id=request.POST['bayid'])
-            vendername_obj  = Vender.objects.get(id=request.POST['vendorid'])
+            vendorname_obj  = Vendor.objects.get(id=request.POST['vendorid'])
             
             towername     = request.POST['towername']
             towerlocation = request.POST['towerlocation']
             qrcode        = request.POST['qrcode']
             towercolor    = request.POST['towercolor']
             towerheight   = request.POST['towerheight']
-            tower_obj     = Tower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode,tower_color= towercolor,tower_height=towerheight ,vender_id=vendername_obj,Bay_id=bayname_obj,Rack_id=rackname_obj)
+            tower_obj     = Tower(tower_name=towername,tower_location=towerlocation,qrcode=qrcode,tower_color= towercolor,tower_height=towerheight ,vendor_id=vendorname_obj,Bay_id=bayname_obj,Rack_id=rackname_obj)
         
             tower_obj.save()
 
@@ -208,8 +207,8 @@ def fn_showtower(req):
     try:
         rack_obj  = Rack.objects.all()
         bay_obj   = Bay.objects.all()
-        vendor_obj= Vender.objects.all()
-        print(vendor_obj)
+        vendor_obj= Vendor.objects.all()
+        # print(vendor_obj)
         tower_obj = Tower.objects.all()
        
         return render(req,"showtower.html",{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj,'towerdata':tower_obj})
@@ -263,6 +262,10 @@ def fn_update_rack(req):
         if rack_obj.qrcode != req.POST['qrcode']:
             rack_obj.qrcode  = req.POST['qrcode']
             update +=1
+
+        if rack_obj.fk_bayid.bay_name != req.POST['bname']:
+            rack_obj.fk_bayid.bay_name   = req.POST['bname']
+            update +=1
         
         if update>0:
        
@@ -287,9 +290,7 @@ def fn_update_bay(req):
             bay_obj.bay_name = req.POST['bname']
             update +=1
 
-        if bay_obj.fk_rackid.rack_name != req.POST['rname']:
-            bay_obj.fk_rackid.rack_name   = req.POST['rname']
-            update +=1
+       
 
         if bay_obj.qrcode != req.POST['qrcode']:
             bay_obj.qrcode  = req.POST['qrcode']
@@ -309,7 +310,7 @@ def fn_update_bay(req):
 def fn_deletevendor(req):
     try:
         service_id =req.POST['id']
-        vender_obj=Vender.objects.get(id=service_id).delete()
+        vendor_obj=Vendor.objects.get(id=service_id).delete()
         data ={
             'deleted':True
         }
@@ -321,12 +322,12 @@ def fn_update_vendor(req):
     try:
         service_id       = req.POST['id']
         print(service_id)
-        vendor_obj         = Vender.objects.get(id=service_id)
+        vendor_obj         = Vendor.objects.get(id=service_id)
         print(vendor_obj.rack_name)
         # print(req.POST['rname'])
         update=0
-        if vendor_obj.vender_name != req.POST['vname']:
-            vendor_obj.vender_name   = req.POST['vname']
+        if vendor_obj.vendor_name != req.POST['vname']:
+            vendor_obj.vendor_name   = req.POST['vname']
             update +=1
         if vendor_obj.qrcode != req.POST['qrcode']:
             vendor_obj.qrcode  = req.POST['qrcode']
@@ -404,11 +405,252 @@ def fn_update_tower(req):
     except Exception as e:
         print(e)  
 
+
+
+def fn_showpackingtype(request):
+     
+    try:
+        
+        pack_obj = Packingtype.objects.all()
+        return render(request,"showpackingtype.html",{'packdata':pack_obj})
+        
+    except Exception as e:
+        print(e)  
+
+def fn_addpackingtype(request): 
+   
+    try:
+       
+        if request.method == "POST":
+           
+           
+            packingtype     = request.POST['packingtype'] 
+            # print(packingtype)
+           
+            pack_obj      = Packingtype(packing_type=packingtype) 
+    
+            pack_obj.save() 
+            # print(pack_obj)
+          
+        if pack_obj.id > 0:
+
+            return redirect('/farmapp/showpackingtype/')
+           
+            return render(request,"showpackingtype.html")
+    except Exception as e: 
+        print(e)
+        # return render(request,"showbay.html",{'msg':'insertion failed' })
+
+def fn_delete_packingtype(request):
+    try:
+        service_id =request.POST['id']
+        pack_obj= Packingtype.objects.get(id=service_id).delete()
+        data ={
+            'deleted':True
+        }
+        return JsonResponse(data)
+    except Exception as e:
+        print('error') 
+
+
+def fn_showstages(request):
+     
+    try:
+        
+        stages_obj = Stages.objects.all()
+        return render(request,"showstages.html",{'stagedata':stages_obj})
+    except Exception as e:
+        print(e)  
+
+def fn_addstages(request): 
+   
+    try:
+       
+        if request.method == "POST":
+            stages    = request.POST['stages'] 
+            print(stages)
+           
+            colorcode       = request.POST['color_code'] 
+            print(colorcode)
+
+         
+            stages_obj      = Stages(stages=stages,colorcode=colorcode) 
+            
+            stages_obj.save() 
+            print(stages_obj)
+          
+            if stages_obj.id > 0:
+                return redirect('/farmapp/showstages/')
+           
+        return render(request,"showstages.html")   
+        
+   
+    except Exception as e: 
+        print(e)
+        # return render(request,"showbay.html",{'msg':'insertion failed' })
+
+def fn_deletestages(req):
+    try:
+        service_id =req.POST['id']
+        stages_obj= Stages.objects.get(id=service_id).delete()
+        data ={
+            'deleted':True
+        }
+        return JsonResponse(data)
+    except Exception as e:
+        print('error') 
+
+
+
+def fn_showcroptype(request):
+     
+    try:
+        
+        crop_obj = Croptype.objects.all()
+        
+        return render(request,"showcroptype.html",{'cropdata':crop_obj})
+        return render(request,"showcroptype.html")
+    except Exception as e:
+        print(e)  
+
+def fn_addcroptype(request): 
+   
+    try:
+       
+        if request.method == "POST":
+           
+           
+            croptype     = request.POST['croptype'] 
+            print(croptype)
+            
+         
+            croptype_obj     = Croptype(crop_type= croptype) 
+            
+            croptype_obj.save() 
+            print(croptype_obj)
+          
+        if croptype_obj.id > 0:
+            return redirect('/farmapp/showcroptype/')
+           
+        return render(request,"showcroptype.html")   
+        
+   
+        
+    except Exception as e: 
+        print(e)
+        # return render(request,"showbay.html",{'msg':'insertion failed' })
+    
+def fn_deletecroptype(req):
+    try:
+        service_id =req.POST['id']
+        croptype = Croptype.objects.get(id=service_id).delete()
+        data ={
+            'deleted':True
+        }
+        return JsonResponse(data)
+    except Exception as e:
+        print('error') 
+
 def fn_showcrop(req):
     try:
-        return render(req,'showcrop.html')
+        crop_obj = Crop.objects.all()
+        # print(crop_obj.crop_image) 
+        croptype_obj = Croptype.objects.all()
+        unit_obj     = Unitmaster.objects.all()
+        # print(unit_obj)
+        season_obj    = Season.objects.all()
+        packingtype_obj = Packingtype.objects.all()
+        # print(packingtype_obj)
+
+
+        return render(req,'showcrop.html',{'cropdata':crop_obj,'croptypedata':croptype_obj,'unitdata':unit_obj,'seasondata':season_obj,'packdata':packingtype_obj})
 
     except Exception as e:
         print(e) 
 
+def fn_addcrop(request):
+
+    try:
+       
+      
+        if request.method == "POST":
+            
+            Crop_Type   = Croptype.objects.get(id=request.POST['croptypeid'])
+            
+            Unit_id     = Unitmaster.objects.get(id=request.POST['unitid'])
+            season      = Season.objects.get(id=request.POST['seasonid'])
+            # print(season)
+            p_id = request.POST['packingid']
+            # print(p_id)
+            Pack = Packingtype.objects.get(id=request.POST['packingid'])
+            # print(Pack)
+            cropname     = request.POST['cropname']
+            # print(cropname)
+            variety = request.POST['variety']
+            # print(cropname)
+            Description        = request.POST['cropdesc']
+            # print(Description)
+            Crop_Duration    = request.POST['crop_duration']
+            # print(Crop_Duration)
+            Midway_Checkperiod   = request.POST['midway_check']
+            ReadyforHarvest     = request.POST['ready_4_harvest']
+            second_harvest     = request.POST['2_harvest']
+            third_harvest     = request.POST['3_harvest']
+            fourth_harvest     = request.POST['4_harvest']
+            no_of_harvest     = request.POST['no_harvest']
+            Regrow_days         = request.POST['regrow_days']
+            Unitperpack         = request.POST['unit_per_pack']
+            price_Wholesale      = request.POST['sp_wholesale']
+            price_farmer        = request.POST['sp_farmer']
+            price_Restarunt     = request.POST['sp_rest']
+            soiltype            = request.POST['soiltype']
+            plant_distance     = request.POST['distance']
+            Temperature     = request.POST['temp']
+        
+            if request.FILES:
+                cropimage     = request.FILES['image']
+                print(cropimage)
+
+            crop_obj     = Crop(crop_name=cropname,crop_variety=variety,crop_desc=Description,crop_type_id= Crop_Type,
+            unit_id=Unit_id ,packing_type_id=Pack,unit_per_pack=Unitperpack,season_id=season,crop_duration=Crop_Duration,
+            mid_check=Midway_Checkperiod,no_harvest_cutting=no_of_harvest,regrow_dates=Regrow_days,first_harvest=ReadyforHarvest,
+            second_harvest=second_harvest,third_harvest=third_harvest,fourth_harvest=fourth_harvest,
+            sale_price_wholesale=price_Wholesale,sale_price_farmer=price_farmer,sale_price_rest=price_Restarunt,soil_type=soiltype,plant_distance=plant_distance,
+            temparature=Temperature,crop_image= cropimage)
+
+        
+            crop_obj.save()
+            print(crop_obj)
+
+            if crop_obj.id > 0:
+                return redirect("/farmapp/showcrop/") 
+        return render(request,"showcrop.html")
+        
+    except Exception as e:
+        print(e) 
+        print('error') 
+      
+def fn_deletecrop(req):
+    try:
+        service_id =req.POST['id']
+        croptype = Crop.objects.get(id=service_id).delete()
+        data ={
+            'deleted':True
+        }
+        return JsonResponse(data)
+    except Exception as e:
+        print('error') 
+
+def fn_editcrop(req):
+    try:
+        
+        edit_id=req.GET['id']
+        print(edit_id)
+        crop_edit_obj=Crop.objects.get(id=edit_id)
+        print(crop_edit_obj.crop_variety)
+        return render(req,'editcrop.html',{'editdata':crop_edit_obj})
+
+    except Exception as e:
+        print('error') 
+    
 

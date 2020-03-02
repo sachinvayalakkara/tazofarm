@@ -88,6 +88,15 @@
                 <form action="/farmapp/addrack/" method="POST">
                   {% csrf_token %}
 
+              <div class="form-group">
+            <label>Bay Name</label>
+             <select name="bayid">
+              {% for obj in baydata %}
+              <option value = "{{obj.id}}">{{obj.bay_name}}</option>
+              {% endfor %}
+             </select>
+             </div> 
+
                   <div class="form-group">
                     <label>Rack name:</label>
                     <input type="text" class="form-control" name="rackname" placeholder="Enter Name" >
@@ -134,7 +143,7 @@
             <tr>
               <th>Rack id</th>
               <th>Rack Name</th>
-
+              <th>Bay Name</th>
               <th>QR Code</th>
               <th>Active</th>
 
@@ -150,6 +159,8 @@
               <td data-name="name">
                 <input  type="text" name="rackname" placeholder='Name' readonly class="form-control input rack_name"
                   value="{{obj.rack_name}}"></td>
+              <td data-name="id">
+              <input type="text" name='bayname'  placeholder='Name' class="form-control input bay_name" readonly value="{{obj.fk_bayid.bay_name}}"></td> 
               <td data-name="qrcode">
                 <input type="text"  name="qrcode" placeholder='Name' readonly class="form-control input qr_code"
                   value="{{obj.qrcode}}"></td>
@@ -244,7 +255,8 @@
 
 /////formdata- to get text box updated value from front end corresponding to id ///
       
-      
+        bay_name = $(this).closest('tr').find('.bay_name').val();
+        console.log(rack_name)
        rack_name = $(this).closest('tr').find('.rack_name').val();
        console.log(rack_name)
        qr_code = $(this).closest('tr').find('.qr_code').val();
@@ -260,6 +272,7 @@
       data:{
          id :e.target.id,
          rname :rack_name,
+         bname :bay_name,
          qrcode:qr_code,
          csrfmiddlewaretoken: '{{ csrf_token }}'
         

@@ -28,5 +28,18 @@ urlpatterns = [
     path('deletetower/',views.fn_deletetower),
     path('updatetower/',views.fn_update_tower),
     path('showcrop/',views.fn_showcrop),
+    path('addcrop/',views.fn_addcrop),
+    path('editcrop/',views.fn_editcrop),
+    path('deletecrop/',views.fn_deletecrop),
+    path('showpackingtype/',views.fn_showpackingtype),
+    path('addpackingtype/',views.fn_addpackingtype),
+    path('deletepackingtype/',views.fn_delete_packingtype),
+    path('showstages/',views.fn_showstages),
+    path('addstages/',views.fn_addstages),
+    path('deletestages/',views.fn_deletestages),
+    path('showcroptype/',views.fn_showcroptype),
+    path('addcroptype/',views.fn_addcroptype),
+    path('deletecroptype/',views.fn_deletecroptype),
+    
 ]
 

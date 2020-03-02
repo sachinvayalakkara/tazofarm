@@ -1,0 +1,254 @@
+<!DOCTYPE html>   
+
+<html lang="en">
+               <head>   
+              <meta charset="utf-8">   
+              <title>Bay</title>   
+              <meta name="description" content="Creating a Employee table with Twitter Bootstrap. Learn with example of a Employee Table with Twitter Bootstrap.">  
+              <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+              <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+              <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+              <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+              <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+              <!-- <script src="http://Scripts/jquery-1.9.1.min.js"></script>
+              <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+              <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+              <script
+                src="https://code.jquery.com/jquery-1.9.1.js"></script> -->
+                
+              <style>
+                 .navbar{
+                      color:white;
+                      background-color:#1e5598;
+                  }
+                  .nav{
+                    color:white;
+                  }
+                  #addbutton{
+                    float: right;
+                  }
+              </style>
+              </head> 
+               
+              <body style="margin:20px auto">  
+              <div class="container-fluid">
+              
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-xs-12">
+              <nav class="navbar navbar-light navbar-primary" > 
+                  <div class="container-fluid"> 
+                    <div class="navbar-header"> 
+                      <a class="navbar-brand" href="#" style="color: white;">Tazofarm</a> 
+                    </div> 
+                    <!-- <ul class="nav navbar-nav">
+                      <li><a href="#" class="active"  style="color: white;">Dashboard</a></li>  
+                      <li><a href="#"  style="color: white;"> Master</a></li> 
+                      <li><a href="#"  style="color: white;">Transaction</a></li> 
+                      <li><a href="#"  style="color: white;">Reports</a></li> 
+                    </ul>  -->
+                    <ul class="nav navbar-nav navbar-right"> 
+                      <li><a style="color: white;" href="/farmapp/menu"><span   class="glyphicon glyphicon-chevron-left" style="color: white;"></span> </a></li>
+                      <li><a style="color: white;" href="/farmapp/login"><span class="glyphicon glyphicon-log-out" style="color: white;"></span> Logout</a></li> 
+                    </ul> 
+                  </div> 
+                </nav>
+                </div>
+              </div>
+              
+              <button class="btn glyphicon glyphicon-plus" id="addbutton" data-toggle="modal" data-target="#myModal"></button>
+              <br>
+              <br>
+              <!-- <div id="msgbox"> -->
+               {% if msg %}
+                  <span style="color: darkred;"> {{msg}}</span>
+               {% endif %}
+              <!-- </div> -->
+              <!-- Modal -->
+              <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+              
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+              
+                      <center> <h2  class="modal-title" style="color: black;">Croptype</h2></center>
+                    </div>
+                    <div class="modal-body">
+                    
+                      <form action="/farmapp/addcroptype/" method="POST">
+                        {% csrf_token %}
+                       
+                       
+                        <div class="form-group">
+                            <label>Crop Type:</label>
+                            <input type="text" class="form-control" name="croptype" placeholder="Enter name">
+                          </div>
+                         
+                        <center>
+                        <button type="submit" class="btn btn-success" >Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="submit" class="btn btn-danger" >Cancel</button>
+                        </center>
+                       
+                            
+                    
+                        
+                    
+                      </form>
+                    </div>
+                          
+                         
+                    
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                  
+              
+                </div>
+              </div>
+              
+              <table class="myTable table table-striped table-hover table-sortable" id="tab_logic" >  
+                
+                      <thead>
+                          <tr>
+                           
+                            <th>crop id</th>
+                            <th>Crop Type</th>
+                            <th>Active</th>
+                           
+                           
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for obj in cropdata %}
+                          <tr id="{{obj.id}}">
+                           
+                            <td data-name="id">
+                              <input type="text" name='name0'  placeholder='Name' class="form-control" readonly value="{{obj.id}}"></td>
+                             <td data-name="id">
+                              <input type="text"  name='name0'  placeholder='Name' class="form-control input croptype" readonly value="{{obj.crop_type}}"></td>
+                            
+                             
+                              <td> <span>
+                              <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>
+                              <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Duplicate</button>
+                              <button onclick="fn_delete_croptype('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn glyphicon glyphicon-trash"
+                                name="delete"></button>
+                          
+                                </span> 
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                  </table>
+                </div>
+              </div>
+              </body>
+                <script>
+                  $(document).ready(function () {
+                      $('.myTable').dataTable();
+                  });
+                </script>
+              
+              <script type="text/javascript">
+              
+                function fn_delete_croptype(id) {
+                  $.ajax({
+                    url: 'http://127.0.0.1:8000/farmapp/deletecroptype/',
+                    type: 'POST',
+                    data: {
+                      id,
+                      csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (res) {
+                      $('#'+ id).remove();
+                    },
+                    error: function (err) {
+                      console.log(err);
+                    }
+                  });
+                }
+              
+             </script>
+             </html>
+
+               <!-- ///////Update///// 
+             // <script type="text/javascript">
+               
+              //     $(document).ready(function(){
+              
+              //     $('.edit').click(function(e){
+              
+              //       $('.input').prop('readonly',true);
+              
+              //       console.log( e.target.value)
+              //      if(e.target.value == 'Edit')
+              //      {
+              //        $('.input').prop('readonly',false);
+              //        e.target.value = 'Update';
+              //        console.log( e.target.value)
+                   
+              //      }
+              //      else{
+              //       console.log( e.target.id)
+              //        user_id=e.target.id;
+              //       //  element =$('.'+user_id);
+                    
+              //       // user=$(user_id).find('.input').val();
+                    
+                    
+              
+              // /////formdata- to get text box updated value from front end corresponding to id ///
+                    
+                    
+                  
+              //        bay_name = $(this).closest('tr').find('.bay_name').val();
+              //        console.log(bay_name)
+              //        qr_code = $(this).closest('tr').find('.qr_code').val();
+                    
+                    
+              
+              //      /////////// // ajaxcode/////
+              
+              //      $.ajax({
+              
+              //       url: 'http://127.0.0.1:8000/farmapp/updatebay/',
+              //       type: 'POST',
+              //       data:{
+              //          id :e.target.id,
+                     
+              //          bname :bay_name,
+              //          qrcode:qr_code,
+              //          csrfmiddlewaretoken: '{{ csrf_token }}'
+                      
+              //       },
+              //       success: function (res) {
+                      
+              //         alert(res);
+              //       },
+              //       error: function (err) {
+              //         console.log(err);
+              //       }
+              //     });
+              
+              //        e.target.value ='Edit';
+                
+              
+              //      }
+                   
+                    
+              //      });
+                   
+              //   });
+              
+              // </script>
+              
+              
+                
+                
+              
+  
+ 
+  

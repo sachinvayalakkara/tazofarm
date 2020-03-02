@@ -69,8 +69,10 @@
       </div>  
       <div class="modal-body">  
         
-        <form action="/farmapp/addcrop/" method="POST">  
+        <form action="/farmapp/addcrop/" method="POST" enctype="multipart/form-data">  
           {% csrf_token %}  
+
+
        <div class="form-group ">   
             <label> Crop name </label>   
             <input type="text" class="form-control" name="cropname" placeholder="">   
@@ -82,86 +84,129 @@
           </div>   
           <div class="form-group">   
             <label>Crop Description</label>   
-            <input type="text" class="form-control" name="cropdes" placeholder="" >   
-          </div>   
-          <div class="form-group">   
-            <label>Crop_Type</label>   
-            <input type="text" class="form-control" name="croptype" placeholder="" >   
-          </div>   
-          <div class="form-group">   
-            <label>Unit</label>   
-            <input type="text" class="form-control" name="unit" placeholder="" >   
-          </div>   
-          <div class="form-group">   
-            <label>Season</label>   
-            <input type="text" class="form-control" name="season" placeholder="" >   
-          </div>   
+            <input type="text" class="form-control" name="cropdesc" placeholder="" >   
+          </div> 
+
+          <div class="form-group col-md-6"> 
+            <label>Crop_Type</label> 
+             <select name="croptypeid" class="col-md-6"> 
+              {% for obj in croptypedata %} 
+              <option value="{{obj.id}}">{{obj.crop_type}}</option> 
+              {% endfor %}
+             </select> 
+          </div> 
+
+          <div class="form-group col-md-6"> 
+            <label>Unit_id</label> 
+             <select name="unitid" class="col-md-6"> 
+              {% for obj in unitdata %} 
+              <option value="{{obj.id}}">{{obj.unit_name}}</option> 
+              {% endfor %}
+             </select> 
+          </div> 
+
+          <div class="form-group col-md-6"> 
+            <label>Season</label> 
+             <select name="seasonid" class="col-md-6"> 
+              {% for obj in seasondata %} 
+              <option value="{{obj.id}}">{{obj.season}}</option> 
+              {% endfor %}
+             </select> 
+          </div>
+
+          
+
+          <div class="form-group col-md-6"> 
+            <label>Packing Type</label> 
+             <select name="packingid" class="col-md-6"> 
+              {% for obj in packdata %} 
+              <option value="{{obj.id}}">{{obj.packing_type}}</option> 
+              {% endfor %}
+             </select> 
+          </div>
+          
+           
           <div class="form-group">   
             <label>Crop Duration in Days</label>   
-            <input type="text" class="form-control" name="cdid" placeholder="" >   
+            <input type="text" class="form-control" name="crop_duration" placeholder="" >   
           </div>   
    
           <div class="form-group">   
             <label>Midway Check period (from Plant Date)</label>   
-            <input type="text" class="form-control" name="mcp" placeholder="" >   
+            <input type="text" class="form-control" name="midway_check" placeholder="" >   
           </div>   
    
           <div class="form-group">   
             <label>Ready for Harvest (From Midway)</label>   
-            <input type="text" class="form-control" name="rfh" placeholder="" >   
+            <input type="text" class="form-control" name="ready_4_harvest" placeholder="" >   
           </div>   
    
           <div class="form-group">   
             <label>2nd Harvest Period in Days</label>   
-            <input type="text" class="form-control" name="2hpd" placeholder="" >   
+            <input type="text" class="form-control" name="2_harvest" placeholder="" >   
           </div>   
    
           <div class="form-group">   
             <label>3rd Harvest Period in Days</label>   
-            <input type="text" class="form-control" name="3hpd" placeholder="" >   
+            <input type="text" class="form-control" name="3_harvest" placeholder="" >   
           </div>   
    
           <div class="form-group">   
             <label>4th Harvest Date in Days</label>   
-            <input type="text" class="form-control" name="4hpd" placeholder="" >   
+            <input type="text" class="form-control" name="4_harvest" placeholder="" >   
           </div>   
    
           <div class="form-group">   
             <label>No of Harvest/Cutting</label>   
-            <input type="text" class="form-control" name="nh" placeholder="" >   
+            <input type="text" class="form-control" name="no_harvest" placeholder="" >   
           </div>   
    
  
           <div class="form-group">   
-            <label>Regrow days 
-            </label>   
-            <input type="text" class="form-control" name="regrowd" placeholder="" >   
+            <label>Regrow days  </label> 
+             
+            <input type="text" class="form-control" name="regrow_days" placeholder="" >   
           </div>   
+
+         
    
-          <div class="form-group">   
-            <label>Packing Type</label>   
-            <input type="text" class="form-control" name="pactyp" placeholder="" >   
-          </div>   
+            
    
           <div class="form-group">   
             <label>Unit per Pack</label>   
-            <input type="text" class="form-control" name="upp" placeholder="" >   
+            <input type="text" class="form-control" name="unit_per_pack" placeholder="" >   
           </div>   
           <div class="form-group">   
             <label>Sale price- Wholesale</label>   
-            <input type="text" class="form-control" name="spw" placeholder="" >   
+            <input type="text" class="form-control" name="sp_wholesale" placeholder="" >   
           </div>   
           <div class="form-group">   
             <label>Sale price- Farmer</label>   
-            <input type="text" class="form-control" name="spf" placeholder="" >   
+            <input type="text" class="form-control" name="sp_farmer" placeholder="" >   
           </div>   
           <div class="form-group">   
             <label>Sale price- Restarunt</label>   
-            <input type="text" class="form-control" name="spr" placeholder="" >   
-          </div>   
+            <input type="text" class="form-control" name="sp_rest" placeholder="" >   
+          </div>  
           <div class="form-group">   
-            <label>Product_image</label>   
-            <input type="text" class="form-control" name="image" placeholder="" >   
+            <label>Soil Type</label>   
+            <input type="text" class="form-control" name="soiltype" placeholder="" >   
+          </div>  
+          <div class="form-group">   
+            <label>Seeding to Plant days</label>   
+            <input type="text" class="form-control" name="distance" placeholder="" >   
+          </div>   
+
+          <div class="form-group">   
+            <label>Temperature</label>   
+            <input type="text" class="form-control" name="temp" placeholder="" >   
+          </div> 
+          <div>   
+             <label for="image_btn" id="file_label" >Update Product_image</label> 
+            <!-- <label id="file_label" >Update Product_image</label> -->
+
+            <input type="file" class="form-control" name="image" id="image_btn" style="display: none;"> 
+
           </div>  
    
    
@@ -193,7 +238,7 @@
           <thead>  
             <tr>  
                 
-              <th>Crop Nanme</th>  
+              <th>Crop Name</th>  
               
               <th>Duration  </th>
              
@@ -216,32 +261,31 @@
          
           </thead>  
             <tbody>  
-            {% for obj in towerdata %}  
+            {% for obj in cropdata %}  
             <tr id="{{obj.id}}" class="tr_clone">  
                
               <td data-name="cropname">  
-                <input type="text"  name='towername'  placeholder='cropname' readonly class="form-control input cropname" value="{{obj.cropname}}"></td>  
+                <input type="text"  name='towername'  placeholder='cropname' readonly class="form-control input cropname" value="{{obj.crop_name}}"></td>  
               <td data-name="Crop Duraion in Days">  
-                <input type="text"  name='cdid'  placeholder='cdid' readonly class="form-control input cdid"  value="{{obj.cdid}}"></td>  
+                <input type="text"  name='cdid'  placeholder='cdid' readonly class="form-control input cdid"  value="{{obj.crop_duration}}"></td>  
               <td data-name="Midway Check period">  
-                 <input type="text"  name='mcp'  placeholder='Name' readonly class="form-control input mcp"  value="{{obj.mcp}}"></td>  
+                 <input type="text"  name='mcp'  placeholder='Name' readonly class="form-control input mcp"  value="{{obj.mid_check}}"></td>  
               <td data-name="Ready for Harvest">  
-                <input type="text"  name='rfh'  placeholder='Name' readonly class="form-control input rfh"  value="{{obj.rfh}}"></td>  
+                <input type="text"  name='rfh'  placeholder='Name' readonly class="form-control input rfh"  value="{{obj.first_harvest}}"></td>  
               <td data-name="2nd Harvest Period in Days">  
-                <input type="text"  name='2hpd'  placeholder='Name' readonly class="form-control input 2hpd"  value="{{obj.2hpd}}"></td>  
+                <input type="text"  name='2hpd'  placeholder='Name' readonly class="form-control input 2hpd"  value="{{obj.second_harvest}}"></td>  
               <td data-name="3rd Harvest Period in Days">  
-                <input type="text"  name='3hpd'  placeholder='Name' readonly class="form-control input 3hpd"  value="{{obj.3hpd}}"></td>  
+                <input type="text"  name='3hpd'  placeholder='Name' readonly class="form-control input 3hpd"  value="{{obj.third_harvest}}"></td>  
               <td data-name="4th Harvest Date in Days">  
-                <input type="text"  name='4hpd'  placeholder='Name' readonly class="form-control input 4hpd"  value="{{obj.4hpd}}"></td>  
+                <input type="text"  name='4hpd'  placeholder='Name' readonly class="form-control input 4hpd"  value="{{obj.fourth_harvest}}"></td>  
                 
                  
               <td data-name="delete">  
-                <span> <button onclick="fn_delete_crop('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn"  
-                    name="delete">Delete</button>  
-                    &nbsp;  
-                  <button type="button" class="btn btn-xs btn-primary edit" id="{{obj.id}}" value="Edit">Edit</button>  
+                <span>    
+                 <a href="/farmapp/editcrop/?id={{obj.id}}" ><button type="button" class="btn btn-xs btn-primary edit" name="edit_btn" value="{{obj.id}}">Edit</button></a>
                   <button type="button" class="btn btn-xs btn-success tr_clone_add" id="{{obj.id}}" value="copy">Duplicate</button>  
-    
+                  <button onclick="fn_delete_crop('{{obj.id}}')" class="btn btn-danger btn-xs delete_btn glyphicon glyphicon-trash"  
+                    name="delete"></button>
                 
                     </span>   
               </td>  
@@ -266,14 +310,15 @@
   
         function fn_delete_crop(id) {  
           $.ajax({  
-            url: 'http://127.0.0.1:8000/farmapp/deletetower',  
+            url: 'http://127.0.0.1:8000/farmapp/deletecrop/',  
             type: 'POST',  
             data: {  
               id,  
               csrfmiddlewaretoken: '{{ csrf_token }}'  
             },  
             success: function (res) {  
-              $('#'+ id).remove();  
+              $('#'+ id).remove(); 
+              
             },  
             error: function (err) {  
               console.log(err);  
@@ -281,8 +326,41 @@
           });  
         }  
       </script>  
+
+<!-- <script>
+  $(document).ready(function(){  
         
-      <!-- ///////Update///// -->  
+  $('.edit').click(function(e){ 
+    console.log(e.target.id) 
+    
+    $.ajax({  
+        
+        url: 'http://127.0.0.1:8000/farmapp/editcrop/',  
+        type: 'POST',  
+        data:{
+              id:e.target.id,
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (res) {  
+                
+                alert(res);  
+              },  
+              error: function (err) {  
+                console.log(err);  
+              }  
+    });
+  });
+  });
+
+  </script> -->
+
+
+
+
+
+
+        
+      <!-- ///////Update/////  
       <script type="text/javascript">  
         
           $(document).ready(function(){  
@@ -368,7 +446,7 @@
       <!-- //////// clone new raw///// -->  
       <!-- <script src="myjquery/jquery-3.3.1.min.js"></script> -->  
         
-       <script type="text/javascript">  
+       <!-- <script type="text/javascript">  
           $(document).ready(function(){   
             $('.tr_clone_add').click(function(e){  
             user_id =e.target.id;  
@@ -379,9 +457,9 @@
             // console.log(duplicate)  
             $(duplicate).insertAfter(element);  
             });  
-          });  
+          });   -->
         
-      </script>  
+      <!-- </script>   -->
         
         
-      </ht
+      </html>

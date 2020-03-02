@@ -62,6 +62,40 @@
    
     
     <div class="container" >
+
+      <div class="col-lg-6 col-md-4 col-xs-12 magnify " >
+        <div class="panel panel-info">
+            <div class="panel-heading"><b>BAY</b>
+                <span> <a href="/farmapp/showbay/"><i class="fa fa-home">View more </a></span>
+                </div>
+                <div class="panel-body">
+                <table class="table table-bordered" id="dataTable" width="100%"  cellspacing="0">
+                    <thead>
+                        <tr>
+                         
+                          <th>Bay id</th>
+                          <th>Bay Name</th>
+                        
+                          <th>QR Code</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for obj in baydata %}
+                        <tr data-ng-repeat="customer in people | filter: table">
+                         
+                          <td>{{obj.id}}</td>
+                          <td>{{obj.bay_name}}</td>
+                          <td>{{obj.qrcode}}</td>
+                          
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+            </div>
+        </div>
+        </div><br><br>
+        
     
         <div class="col-lg-6 col-md-6 col-xs-12 magnify " >
             <div class="panel panel-info">
@@ -75,6 +109,7 @@
                         <tr>
                           <th>Rack id</th>
                           <th>Rack Name</th>
+                          <th>Bay Name</th>
                         
                           <th>QR Code</th>
                           <!-- <th>Active</th> -->
@@ -87,6 +122,7 @@
                          
                           <td>{{obj.id}}</td>
                           <td>{{obj.rack_name}}</td>
+                          <td>{{obj.fk_bayid.bay_name}}</td>
                           <td>{{obj.qrcode}}</td>
                           <!-- <td>
                             <form method="GET">
@@ -107,39 +143,7 @@
             </div>
     
        
-            <div class="col-lg-6 col-md-4 col-xs-12 magnify " >
-            <div class="panel panel-info">
-                <div class="panel-heading"><b>BAY</b>
-                    <span> <a href="/farmapp/showbay/"><i class="fa fa-home">View more </a></span>
-                    </div>
-                    <div class="panel-body">
-                    <table class="table table-bordered" id="dataTable" width="100%"  cellspacing="0">
-                        <thead>
-                            <tr>
-                              <th>Rack Name</th>
-                              <th>Bay id</th>
-                              <th>Bay Name</th>
-                            
-                              <th>QR Code</th>
-                              
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {% for obj in baydata %}
-                            <tr data-ng-repeat="customer in people | filter: table">
-                              <td>{{obj.fk_rackid.rack_name}}</td>
-                              <td>{{obj.id}}</td>
-                              <td>{{obj.bay_name}}</td>
-                              <td>{{obj.qrcode}}</td>
-                              
-                            </tr>
-                            {% endfor %}
-                          </tbody>
-                    </table>
-                </div>
-            </div>
-            </div><br><br>
-            
+           
             <div class="col-lg-6 col-md-6 col-xs-12 magnify " >
               <div class="panel panel-info">
                   <div class="panel-heading"><b>VENDOR</b>
@@ -217,6 +221,21 @@
                 </div></div>
                 </div>
                 <br><br>
+
+                <div class="col-lg-6 col-md-4 col-xs-12 magnify " >
+                  <div class="panel panel-info">
+                      <div class="panel-heading"><b>Masters</b>
+                         
+                          </div>
+                          <div class="panel-body">
+                            <button> <span> <a href="/farmapp/showstages/"><i class="fa fa-home">Stages </a></span></button>
+                              <button> <span> <a href="/farmapp/showcroptype/"><i class="fa fa-home">Crop Type </a></span></button>
+                                <button> <span> <a href="/farmapp/showpackingtype/"><i class="fa fa-home">Packing Type </a></span></button>
+                         
+                      </div>
+                  </div>
+                  </div><br><br>
+                  
             
 
   

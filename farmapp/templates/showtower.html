@@ -92,7 +92,7 @@
             <label>Vendorid</label> 
              <select name="vendorid" class="col-md-6"> 
               {% for obj in vendordata %} 
-              <option value="{{obj.id}}">{{obj.vender_name}}</option> 
+              <option value="{{obj.id}}">{{obj.vendor_name}}</option> 
               {% endfor %}
              </select> 
           </div> 
@@ -180,7 +180,7 @@
               <td data-name="bayname">
                 <input type="text"  name='bayname'  placeholder='Name' readonly class="form-control input bay_name"  value="{{obj.Bay_id.bay_name}}"></td>
               <td data-name="vendorname">
-                <input type="text" name='vendorname'  placeholder='Name' readonly class="form-control input vendor_name"  value="{{obj.vender_id.vender_name}}"></td>
+                <input type="text" name='vendorname'  placeholder='Name' readonly class="form-control input vendor_name"  value="{{obj.vendor_id.vendor_name}}"></td>
               <td data-name="delete">
                 <span>
                   
