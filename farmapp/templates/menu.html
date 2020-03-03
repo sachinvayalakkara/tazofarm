@@ -166,7 +166,7 @@
                       <tr data-ng-repeat="customer in people | filter: table">
                        
                         <td>{{obj.id}}</td>
-                        <td>{{obj.vender_name}}</td>
+                        <td>{{obj.vendor_name}}</td>
                         
                         <!-- <td>
                           <button class="btn btn-info delete_btn" id="{{obj.id}}"></button>
@@ -212,7 +212,7 @@
                       <!-- <td>{{obj.tower_height}}</td> -->
                       <td>{{obj.Rack_id.rack_name}}</td>
                       <td>{{obj.Bay_id.bay_name}}</td>
-                      <td>{{obj.vender_id.vender_name}}</td>
+                      <td>{{obj.vendor_id.vendor_name}}</td>
           
                     </tr>
                     {% endfor %} 
@@ -261,18 +261,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <!-- {% for obj in baydata %} -->
+                       {% for obj in cropdata %} 
                       <tr data-ng-repeat="customer in people | filter: table">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                      
+                        <td>{{obj.crop_name}}</td>
+                        <td>{{obj.mid_check}}</td>
+                        <td>{{obj.first_harvest}}</td>
+                        <td>{{obj.second_harvest}}</td>
+                        <td>{{obj.third_harvest}}</td>
+                        <td>{{obj.fourth_harvest}}</td>
+                        <td>{{obj.unit_id.unit_name}}</td>
                         
                       </tr>
-                      <!-- {% endfor %} -->
+                      {% endfor %} 
                     </tbody>
               </table>
           </div>

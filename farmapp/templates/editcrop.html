@@ -4,7 +4,7 @@
   <!-- <link href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css' rel='stylesheet' type='text/css'>   -->
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">  
   <link href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/1.8/css/bootstrap-switch.css' rel='stylesheet' type='text/css'>  
-  <link href='https://davidstutz.github.io/bootstrap-multiselect/css/bootstrap-multiselect.css' rel='stylesheet' type='text/css'>  
+  <!-- <link href='https://davidstutz.github.io/bootstrap-multiselect/css/bootstrap-multiselect.css' rel='stylesheet' type='text/css'>   -->
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js' type='text/javascript'></script>  
   <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min.js' type='text/javascript'></script>  
   <script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js' type='text/javascript'></script> 
@@ -60,14 +60,14 @@ label{
       </div>  
   
       <div class='panel-body'>  
-        <form class='form-horizontal'  method="POST">  
+        <form class='form-horizontal' action="/farmapp/editcrop/" method="POST">  
        {% csrf_token %}
          <div class="col-md-12">  
            
           <div class='form-group  form-inline col-md-4 '>  
             <label class='control-label col-md-4' for='id_title'>Crop name</label>  
             <div class='col-md-8'>   
-             <input type='text' class='form-control' id='id_first_name' name="cropname" value="{{editdata.crop_name}}" >  
+             <input type='text' class='form-control input cropname' id='id_first_name' name="cropname" value="{{editdata.crop_name}}" >  
             </div>  
               </div>  
   
@@ -119,7 +119,7 @@ label{
                 <div class='form-group  form-inline col-md-4'>  
                   <label class='control-label col-md-4 ' for='id_title'>2nd Harvest days </label>  
                   <div class='col-md-8'>   
-                   <input class='form-control' id='id_first_name'  name="2nd Harvest Period in Days"  value="{{editdata.second_harvest}}" type='text'>  
+                   <input class='form-control' id='id_first_name'  name="2nd_Harvest"  value="{{editdata.second_harvest}}" type='text'>  
                   </div>  
                     </div>  
         
@@ -157,9 +157,10 @@ label{
                           <label class='control-label col-md-4' for='id_title'>Packing Type</label>  
                           <div class='col-md-8'>   
                             <select class='form-control'  name="packingid" id='id_equipment' value="{{editdata.packing_type_id}}">  
-                                <option>Polythne Cover</option>  
-                                <option>Box</option>  
-                                <option>Container</option>  
+                                
+                                {% for obj in packdata %}
+                                <option value="{{obj.id}}">{{obj.packing_type}}</option>
+                                {% endfor %}
                                  
                               </select>  
                           </div>  
@@ -195,10 +196,10 @@ label{
           <div class='form-group  form-inline col-md-4'>  
             <label class='control-label col-md-4 ' for='id_title'>Crop Type</label>  
             <div class='col-md-8'>   
-                <select class='form-control'  name="croptypeid" id='id_equipment'>  
-                    <option>Leaves</option>  
-                    <option>Vegetables</option>  
-                    <option>Fruits</option>  
+                <select class='form-control'  name="croptype_id" id='id_equipment'> 
+                 {% for obj in croptype %}
+                    <option value="{{obj.id}}">{{obj.crop_type}}</option>
+                    {% endfor %} 
                     
                   </select>  
             </div>  
@@ -208,12 +209,9 @@ label{
                 <label class='control-label col-md-4 ' for='id_title'>Unit</label>  
                 <div class='col-md-8'>   
                     <select class='form-control'  name="unitid" id='id_equipment'>  
-                        <option>Pcs</option>  
-                        <option>Nos.</option>  
-                        <option>Kg.</option>  
-                        <option>Gram</option>  
-                        <option>Metre</option>  
-                        <option>Cent. Metre</option>  
+                        {% for obj in unitdata %}
+                        <option value="{{obj.id}}">{{obj.unit_name}}</option>
+                        {% endfor %}
                       </select>  
                 </div>  
                   </div>  
@@ -223,10 +221,9 @@ label{
                     <div class='col-md-8'>   
                         <select class='form-control' name="seasonid" id='id_equipment'> 
                            
-                            <option>Winter</option>  
-                            <option>Summer</option>  
-                            <option>Autumn</option>  
-                            <option>Monsoon</option>  
+                            {% for obj in seasondata %}
+                                <option value="{{obj.id}}">{{obj.season}}</option>
+                                {% endfor %}  
                             </select>   
                     </div>  
           </div>  
@@ -259,17 +256,21 @@ label{
          
  
            <div class="col-md-12">   
-            <div class='form-group  form-inline col-md-6'>  
+            <div class='form-group  form-inline col-md-4'>  
               <label class='control-label col-md-4 ' for='id_title'>Temperature</label>  
               <div class='col-md-8'>   
                <input class='form-control' id='id_first_name' name="temp" value="{{editdata.temparature}}" type='text'>  
               </div>  
                 </div>  
-    
-                <div class='form-group form-inline col-md-6'>  
-                  <label class='control-label col-md-4 ' for="image_btn" id="file_label">Update Product_image</label>  
+                </div>
+                <br>
+                <br>
+                <div class="col-md-12">
+                <div class='form-group form-inline col-md-4'>  
+                  <label class='control-label col-md-4' id="file_label">Upload image</label>  
                   <div class='col-md-8'>   
-                   <input class='form-control' name="image" id="image_btn" style="display: none;" type="file">  
+                   <input class='form-control input-xs ' name="image" id="image_btn" type="file"> 
+                   <img  class="col-md-10" src="{{editdata.crop_image.url}}" width="150" height="100" class="myimage">
                   </div>  
                     </div>  
     
@@ -282,7 +283,8 @@ label{
           <div class='form-group form-inline col-md-12'>  
             <div class='col-md-2 col-md-offset-10'>  
                  
-              <button class='btn-sm btn-primary' type='submit'>Save</button>  
+              <button class='btn-sm btn-primary edit' id="{{editdata.id}}" type='button'>Save</button>  
+              <!-- <button disabled type="submit" class="btn btn-primary data change" onclick="fn_update_rack()" name="update">Save</button> -->
              
               
              
@@ -305,4 +307,129 @@ label{
 });  
   
 </script>  
+<script>
+//  function fn_update_crop(id) {
+//        console.log()
+
+$(document).ready(function(){
+
+$('.edit').click(function(e){
+
+    console.log(e.target.id) 
+
+    var crop_name = $('input[name=cropname]').val();
+    console.log(crop_name)
+    var variety = $('input[name=variety]').val();
+    console.log(variety)
+    var cropdesc = $('input[name=cropdesc]').val();
+    console.log(cropdesc)
+    var crop_duration = $('input[name=crop_duration]').val();
+    console.log(crop_duration)
+
+    var midwaycheck = $('input[name=midway_check]').val();
+    console.log(midwaycheck)
+    var ready_4_harvest = $('input[name=ready_4_harvest]').val();
+    console.log(ready_4_harvest)
+    var third_harvest = $('input[name=3_harvest]').val();
+    console.log(third_harvest)
+    var second_Harvest = $('input[name=2nd_Harvest]').val();
+    console.log(second_Harvest)
+    var fourth_harvest = $('input[name=4_harvest]').val();
+    console.log(fourth_harvest)
+    var no_harvest = $('input[name=no_harvest]').val();
+    console.log(no_harvest)
+
+    var regrowdays = $('input[name=regrow_days]').val();
+    console.log(regrowdays)
+    var packingid = $('input[name=packingid]').val();
+    console.log(packingid)
+    var unit_per_pack = $('input[name=unit_per_pack]').val();
+    console.log(unit_per_pack)
+    var sp_wholesale = $('input[name=sp_wholesale]').val();
+    console.log(sp_wholesale)
+    var sp_farmer = $('input[name=sp_farmer]').val();
+    console.log(sp_farmer)
+    var crop_typeid = $('input[name=croptype_id]').val();
+    console.log(crop_typeid)
+
+    var unitid = $('input[name=unitid]').val();
+    console.log(unitid)
+    var seasonid = $('input[name=seasonid]').val();
+    console.log(seasonid)
+    var sp_rest = $('input[name=sp_rest]').val();
+    console.log(sp_rest)
+    var soiltype = $('input[name=soiltype]').val();
+    console.log(soiltype)
+    var distance = $('input[name=distance]').val();
+    console.log(sp_farmer)
+    var temp = $('input[name=temp]').val();
+    console.log(no_harvest)
+
+    // $('#image_btn').change(function(event){
+//     $('.myimage').attr('src',URL.createObjectURL(event.target.files[0]));
+//    console.log(image)
+    //  });
+$.ajax({
+
+url: 'http://127.0.0.1:8000/farmapp/updatecrop/',
+type: 'POST',
+data:{
+
+    id:e.target.id,  
+   
+    cropname:crop_name,
+   c_variety:variety,
+   c_desc   : cropdesc,
+   c_duration:crop_duration,
+   mid_check:midwaycheck,
+   first_harvest:ready_4_harvest,
+   thirdharvest:third_harvest,
+   secondharvest:second_Harvest,
+   fourthharvest:fourth_harvest,
+   noharvest:no_harvest,
+   regrow_days:regrowdays,
+   packing_id:packingid,
+   unit_perpack:unit_per_pack,
+   spwholesale:sp_wholesale,
+  spfarmer:sp_farmer,
+  croptype_id:crop_typeid,
+   unit_id:unitid,
+   season_id:seasonid,
+   sp_rest:sp_rest,
+   soil_type:soiltype,
+  distance:distance,
+    temp:temp,
+   csrfmiddlewaretoken: '{{ csrf_token }}',
+   
+
+
+
+
+
+
+
+
+   
+   
+
+
+
+  
+   
+  
+},
+success: function (res) {
+  
+  alert(res);
+},
+error: function (res) {
+  console.log(res);
+
+},
+});
+   
+});
+
+}); 
+</script>
 </html>

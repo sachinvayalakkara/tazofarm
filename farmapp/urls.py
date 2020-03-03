@@ -40,6 +40,7 @@ urlpatterns = [
     path('showcroptype/',views.fn_showcroptype),
     path('addcroptype/',views.fn_addcroptype),
     path('deletecroptype/',views.fn_deletecroptype),
+    path('updatecrop/',views.fn_updatecrop),
     
 ]
 

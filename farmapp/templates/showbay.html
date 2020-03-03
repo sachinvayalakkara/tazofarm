@@ -126,7 +126,7 @@
           </thead>
           <tbody>
             {% for obj in baydata %}
-            <tr id="{{obj.id}}">
+            <tr id="{{obj.id}}"  class="tr_clone">
              
               <td data-name="id">
                 <input type="text" name='name0'  placeholder='Name' class="form-control" readonly value="{{obj.id}}"></td>
@@ -191,12 +191,15 @@
      {
        $('.input').prop('readonly',false);
        e.target.value = 'Update';
+       $('.edit').text('Update');
        console.log( e.target.value)
      
      }
      else{
+      $('.edit').text('Edit');
       console.log( e.target.id)
        user_id=e.target.id;
+
       //  element =$('.'+user_id);
       
       // user=$(user_id).find('.input').val();
@@ -246,6 +249,18 @@
      
   });
 
+</script>
+
+<script>
+  var cindex =1;
+$(".tr_clone_add").live('click', function() { 
+    var $tr    = $(this).closest('.tr_clone'); 
+    var newClass='newClass'; 
+    var $clone = $tr.clone().addClass(newClass); 
+    $clone.find(':text').val(); 
+    // $clone.attr('id', 'id'+ 1);
+    $tr.after($clone); 
+});
 </script>
 
 

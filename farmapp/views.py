@@ -78,7 +78,8 @@ def fn_menu(req):
         bay_obj = Bay.objects.all()
         vendor_obj = Vendor.objects.all()
         tower_obj = Tower.objects.all()
-        return render(req,"menu.html",{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj,'towerdata':tower_obj})
+        crop_obj =Crop.objects.all()
+        return render(req,"menu.html",{'rackdata':rack_obj,'baydata':bay_obj,'vendordata':vendor_obj,'towerdata':tower_obj,'cropdata':crop_obj})
     except Exception as e:
         print(e)   
 
@@ -284,7 +285,7 @@ def fn_update_bay(req):
         print(service_id)
         bay_obj      = Bay.objects.get(id=service_id)
         print(bay_obj.bay_name)
-        # print(req.POST['rname'])
+    
         update=0
         if bay_obj.bay_name != req.POST['bname']:
             bay_obj.bay_name = req.POST['bname']
@@ -323,15 +324,13 @@ def fn_update_vendor(req):
         service_id       = req.POST['id']
         print(service_id)
         vendor_obj         = Vendor.objects.get(id=service_id)
-        print(vendor_obj.rack_name)
+        print(vendor_obj.vendor_name)
         # print(req.POST['rname'])
         update=0
         if vendor_obj.vendor_name != req.POST['vname']:
             vendor_obj.vendor_name   = req.POST['vname']
             update +=1
-        if vendor_obj.qrcode != req.POST['qrcode']:
-            vendor_obj.qrcode  = req.POST['qrcode']
-            update +=1
+        
         
         if update>0:
        
@@ -390,8 +389,8 @@ def fn_update_tower(req):
             tower_obj.Bay_id.bay_name = req.POST['bayname']
             update +=1   
 
-        if tower_obj.vender_id.vender_name!= req.POST['vendorname']:
-            tower_obj.vender_id.vender_name = req.POST['vendorname']
+        if tower_obj.vendor_id.vendor_name!= req.POST['vendorname']:
+            tower_obj.vendor_id.vendor_name = req.POST['vendorname']
             update +=1        
         
     
@@ -639,7 +638,7 @@ def fn_deletecrop(req):
         }
         return JsonResponse(data)
     except Exception as e:
-        print('error') 
+        print(e) 
 
 def fn_editcrop(req):
     try:
@@ -647,10 +646,141 @@ def fn_editcrop(req):
         edit_id=req.GET['id']
         print(edit_id)
         crop_edit_obj=Crop.objects.get(id=edit_id)
-        print(crop_edit_obj.crop_variety)
-        return render(req,'editcrop.html',{'editdata':crop_edit_obj})
+        pack_obj     =Packingtype.objects.all()
+        season_obj   =Season.objects.all()
+        unit        =Unitmaster.objects.all()
+        croptyp    =Croptype.objects.all()
+        return render(req,'editcrop.html',{'editdata':crop_edit_obj,'packdata':pack_obj,'seasondata':season_obj,'unitdata':unit,
+        'croptype':croptyp})
 
     except Exception as e:
-        print('error') 
+        print(e) 
+
+def fn_updatecrop(req):
+    try:
+        service_id    = req.POST['id']
+        print(service_id)
+        crop_obj =Crop.objects.get(id=service_id)
+
+        update=0
+        if crop_obj.crop_name != req.POST['cropname']:
+            crop_obj.crop_name = req.POST['cropname']
+            print(crop_obj.crop_name)
+            update +=1
+        if crop_obj.crop_variety != req.POST['c_variety']:
+            crop_obj.crop_variety = req.POST['c_variety']
+            print(crop_obj.crop_variety)
+            update +=1
+        if crop_obj.crop_desc != req.POST['c_desc']:
+            crop_obj.crop_desc = req.POST['c_desc']
+            print(crop_obj.crop_desc)
+            update +=1
+        if crop_obj.crop_type_id != req.POST['croptype_id']:
+            crop_obj.crop_type_id = req.POST['croptype_id']
+            print(crop_obj.crop_type_id)
+            update +=1
+        if crop_obj.packing_type_id != req.POST['packing_id']:
+            crop_obj.packing_type_id = req.POST['packing_id']
+            print(crop_obj.packing_type_id)
+            update +=1
+        
+        if crop_obj.unit_id != req.POST['unit_id']:
+            crop_obj.unit_id = req.POST['unit_id']
+            print(crop_obj.unit_id)
+            update +=1    
+        
+        if crop_obj.unit_per_pack != req.POST['unit_perpack']:
+            crop_obj.unit_per_pack = req.POST['unit_perpack']
+            print(crop_obj.unit_per_pack)
+            update +=1
+
+        if crop_obj.season_id != req.POST['season_id']:
+            crop_obj.season_id = req.POST['season_id']
+            print(crop_obj.season_id)
+            update +=1
+
+        if crop_obj.crop_duration != req.POST['c_duration']:
+            crop_obj.crop_duration = req.POST['c_duration']
+            print(crop_obj.crop_duration)
+            update +=1
+
+        if crop_obj.mid_check != req.POST['mid_check']:
+            crop_obj.mid_check = req.POST['mid_check']
+            print(crop_obj.mid_check)
+            update +=1
+
+        if crop_obj.no_harvest_cutting != req.POST['noharvest']:
+            crop_obj.no_harvest_cutting = req.POST['noharvest']
+            print(crop_obj.no_harvest_cutting)
+            update +=1
+        
+        if crop_obj.regrow_dates != req.POST['regrow_days']:
+            crop_obj.regrow_dates = req.POST['regrow_days']
+            print(crop_obj.regrow_dates)
+            update +=1    
+
+        if crop_obj.first_harvest != req.POST['first_harvest']:
+            crop_obj.first_harvest = req.POST['first_harvest']
+            print(crop_obj.first_harvest)
+            update +=1
+
+        if crop_obj.second_harvest != req.POST['secondharvest']:
+            crop_obj.second_harvest = req.POST['secondharvest']
+            print(crop_obj.second_harvest)
+            update +=1
+
+        if crop_obj.third_harvest != req.POST['thirdharvest']:
+            crop_obj.third_harvest = req.POST['thirdharvest']
+            print(crop_obj.third_harvest)
+            update +=1
+
+        if crop_obj.fourth_harvest != req.POST['fourthharvest']:
+            crop_obj.fourth_harvest = req.POST['fourthharvest']
+            print(crop_obj.fourth_harvest)
+            update +=1
+
+        if crop_obj.sale_price_wholesale != req.POST['spwholesale']:
+            crop_obj.sale_price_wholesale = req.POST['spwholesale']
+            print(crop_obj.sale_price_wholesale)
+            update +=1
+        
+        if crop_obj.sale_price_farmer != req.POST['spfarmer']:
+            crop_obj.sale_price_farmer = req.POST['spfarmer']
+            print(crop_obj.sale_price_farmer)
+            update +=1    
+
+        if crop_obj.sale_price_rest != req.POST['sp_rest']:
+            crop_obj.sale_price_rest = req.POST['sp_rest']
+            print(crop_obj.sale_price_rest)
+            update +=1
+
+        if crop_obj.soil_type != req.POST['soil_type']:
+            crop_obj.soil_type = req.POST['soil_type']
+            print(crop_obj.soil_type)
+            update +=1
+
+        if crop_obj.plant_distance != req.POST['distance']:
+            crop_obj.plant_distance = req.POST['distance']
+            print(crop_obj.plant_distance)
+            update +=1
+        
+        if crop_obj.temparature != req.POST['temp']:
+            crop_obj.temparature = req.POST['temp']
+            print(crop_obj.temparature)
+            update +=1
+
+        if crop_obj.crop_image != req.POST['cropname']:
+            crop_obj.crop_image = req.POST['cropname']
+            print(crop_obj.crop_image)
+            update +=1
+
+        if update>0:
+       
+            crop_obj.save()
+        return HttpResponse('update')
+    except Exception as e:
+        print(e) 
+
+
     
 

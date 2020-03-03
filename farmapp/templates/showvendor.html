@@ -211,8 +211,8 @@ function fn_delete_vendor(id) {
     
     
      vendor_name = $(this).closest('tr').find('.vendor_name').val();
-     console.log(rack_name)
-     qr_code = $(this).closest('tr').find('.qr_code').val();
+     console.log(vendor_name)
+     
     
     
 
@@ -225,7 +225,7 @@ function fn_delete_vendor(id) {
     data:{
        id :e.target.id,
        vname :vendor_name,
-       qrcode:qr_code,
+       
        csrfmiddlewaretoken: '{{ csrf_token }}'
       
     },
@@ -249,11 +249,27 @@ function fn_delete_vendor(id) {
 });
 
 </script>
+<script>
+  var cindex =1;
+$(".tr_clone_add").live('click', function() { 
+    var $tr    = $(this).closest('.tr_clone'); 
+    var newClass='newClass'; 
+    var $clone = $tr.clone().addClass(newClass); 
+    $clone.find(':text').val(); 
+    // $clone.attr('id', 'id'+ 1);
+    $tr.after($clone); 
+});
+</script>
+
+
+
+
+
 
 <!-- //////// clone new raw///// -->
 <!-- <script src="myjquery/jquery-3.3.1.min.js"></script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(document).ready(function(){ 
     $('.tr_clone_add').click(function(e){
     user_id =e.target.id;
@@ -264,7 +280,9 @@ function fn_delete_vendor(id) {
     // console.log(duplicate)
     $(duplicate).insertAfter(element);
     });
-  });
+  }); -->
+
+
 
 </script>
 
