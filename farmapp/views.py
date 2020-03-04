@@ -506,6 +506,7 @@ def fn_showcroptype(request):
     try:
         
         crop_obj = Croptype.objects.all()
+        # print(crop_obj)
         
         return render(request,"showcroptype.html",{'cropdata':crop_obj})
         return render(request,"showcroptype.html")
@@ -520,13 +521,13 @@ def fn_addcroptype(request):
            
            
             croptype     = request.POST['croptype'] 
-            print(croptype)
+            # print(croptype)
             
          
             croptype_obj     = Croptype(crop_type= croptype) 
             
             croptype_obj.save() 
-            print(croptype_obj)
+            # print(croptype_obj)
           
         if croptype_obj.id > 0:
             return redirect('/farmapp/showcroptype/')
@@ -608,7 +609,7 @@ def fn_addcrop(request):
         
             if request.FILES:
                 cropimage     = request.FILES['image']
-                print(cropimage)
+                # print(cropimage)
 
             crop_obj     = Crop(crop_name=cropname,crop_variety=variety,crop_desc=Description,crop_type_id= Crop_Type,
             unit_id=Unit_id ,packing_type_id=Pack,unit_per_pack=Unitperpack,season_id=season,crop_duration=Crop_Duration,
@@ -619,7 +620,7 @@ def fn_addcrop(request):
 
         
             crop_obj.save()
-            print(crop_obj)
+            # print(crop_obj)
 
             if crop_obj.id > 0:
                 return redirect("/farmapp/showcrop/") 
@@ -627,11 +628,11 @@ def fn_addcrop(request):
         
     except Exception as e:
         print(e) 
-        print('error') 
+         
       
 def fn_deletecrop(req):
     try:
-        service_id =req.POST['id']
+        service_id = req.POST['id']
         croptype = Crop.objects.get(id=service_id).delete()
         data ={
             'deleted':True
@@ -644,12 +645,14 @@ def fn_editcrop(req):
     try:
         
         edit_id=req.GET['id']
-        print(edit_id)
+        # print(edit_id)
+        
         crop_edit_obj=Crop.objects.get(id=edit_id)
         pack_obj     =Packingtype.objects.all()
         season_obj   =Season.objects.all()
         unit        =Unitmaster.objects.all()
         croptyp    =Croptype.objects.all()
+        # print(croptyp)
         return render(req,'editcrop.html',{'editdata':crop_edit_obj,'packdata':pack_obj,'seasondata':season_obj,'unitdata':unit,
         'croptype':croptyp})
 
@@ -660,7 +663,13 @@ def fn_updatecrop(req):
     try:
         service_id    = req.POST['id']
         print(service_id)
-        crop_obj =Crop.objects.get(id=service_id)
+        crop_obj = Crop.objects.get(id=service_id)
+      
+        print(crop_obj.crop_image)
+        
+        # croptype= Croptype.objects.get(id=req.POST['crop_typeid'])
+        # print(croptype)
+    
 
         update=0
         if crop_obj.crop_name != req.POST['cropname']:
@@ -675,18 +684,18 @@ def fn_updatecrop(req):
             crop_obj.crop_desc = req.POST['c_desc']
             print(crop_obj.crop_desc)
             update +=1
-        if crop_obj.crop_type_id != req.POST['croptype_id']:
-            crop_obj.crop_type_id = req.POST['croptype_id']
-            print(crop_obj.crop_type_id)
+        if crop_obj.crop_type_id.id!= req.POST['crop_typeid']:
+            crop_obj.crop_type_id.id= req.POST['crop_typeid']
+            print(crop_obj.crop_type_id.id)
             update +=1
-        if crop_obj.packing_type_id != req.POST['packing_id']:
-            crop_obj.packing_type_id = req.POST['packing_id']
-            print(crop_obj.packing_type_id)
+        if crop_obj.packing_type_id.id != req.POST['packing_id']:
+            crop_obj.packing_type_id.id= req.POST['packing_id']
+            print(crop_obj.packing_type_id.id)
             update +=1
         
-        if crop_obj.unit_id != req.POST['unit_id']:
-            crop_obj.unit_id = req.POST['unit_id']
-            print(crop_obj.unit_id)
+        if crop_obj.unit_id.id != req.POST['unit_id']:
+            crop_obj.unit_id.id = req.POST['unit_id']
+            print(crop_obj.unit_id.id)
             update +=1    
         
         if crop_obj.unit_per_pack != req.POST['unit_perpack']:
@@ -694,9 +703,9 @@ def fn_updatecrop(req):
             print(crop_obj.unit_per_pack)
             update +=1
 
-        if crop_obj.season_id != req.POST['season_id']:
-            crop_obj.season_id = req.POST['season_id']
-            print(crop_obj.season_id)
+        if crop_obj.season_id.id != req.POST['season_id']:
+            crop_obj.season_id.id = req.POST['season_id']
+            print(crop_obj.season_id.id)
             update +=1
 
         if crop_obj.crop_duration != req.POST['c_duration']:
@@ -769,8 +778,8 @@ def fn_updatecrop(req):
             print(crop_obj.temparature)
             update +=1
 
-        if crop_obj.crop_image != req.POST['cropname']:
-            crop_obj.crop_image = req.POST['cropname']
+        if crop_obj.crop_image != req.POST['c_image']:
+            crop_obj.crop_image = req.POST['c_image']
             print(crop_obj.crop_image)
             update +=1
 

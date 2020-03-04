@@ -156,7 +156,7 @@ label{
                         <div class='form-group form-inline col-md-4'>  
                           <label class='control-label col-md-4' for='id_title'>Packing Type</label>  
                           <div class='col-md-8'>   
-                            <select class='form-control'  name="packingid" id='id_equipment' value="{{editdata.packing_type_id}}">  
+                            <select class='form-control'  name="packingid" id='id_equipment'>  
                                 
                                 {% for obj in packdata %}
                                 <option value="{{obj.id}}">{{obj.packing_type}}</option>
@@ -196,7 +196,7 @@ label{
           <div class='form-group  form-inline col-md-4'>  
             <label class='control-label col-md-4 ' for='id_title'>Crop Type</label>  
             <div class='col-md-8'>   
-                <select class='form-control'  name="croptype_id" id='id_equipment'> 
+                <select class='form-control'  name ="crop_typeid" id='croptype'> 
                  {% for obj in croptype %}
                     <option value="{{obj.id}}">{{obj.crop_type}}</option>
                     {% endfor %} 
@@ -269,7 +269,7 @@ label{
                 <div class='form-group form-inline col-md-4'>  
                   <label class='control-label col-md-4' id="file_label">Upload image</label>  
                   <div class='col-md-8'>   
-                   <input class='form-control input-xs ' name="image" id="image_btn" type="file"> 
+                   <input class='form-control input-xs' name="cropimage" id="image_btn"  type="file"> 
                    <img  class="col-md-10" src="{{editdata.crop_image.url}}" width="150" height="100" class="myimage">
                   </div>  
                     </div>  
@@ -341,7 +341,7 @@ $('.edit').click(function(e){
 
     var regrowdays = $('input[name=regrow_days]').val();
     console.log(regrowdays)
-    var packingid = $('input[name=packingid]').val();
+    var packingid = $('select[name=packingid]').val();
     console.log(packingid)
     var unit_per_pack = $('input[name=unit_per_pack]').val();
     console.log(unit_per_pack)
@@ -349,26 +349,38 @@ $('.edit').click(function(e){
     console.log(sp_wholesale)
     var sp_farmer = $('input[name=sp_farmer]').val();
     console.log(sp_farmer)
-    var crop_typeid = $('input[name=croptype_id]').val();
-    console.log(crop_typeid)
+    // var croptypeid = $('input[name=crop_typeid]').val();
+    // console.log(croptypeid)
+    // var croptypeid = $('crop_typeid').find(":selected").text();
+    // console.log(croptypeid)
+    //  $('#croptype').on('change',function(){
+    // var croptypeid=$('this').find("option:selected").val();
+    var croptypeid = $('select[name=crop_typeid]').val()
+    console.log(croptypeid)
+    
 
-    var unitid = $('input[name=unitid]').val();
+    var unitid = $('select[name=unitid]').val();
+
     console.log(unitid)
-    var seasonid = $('input[name=seasonid]').val();
+    var seasonid = $('select[name=seasonid]').val();
     console.log(seasonid)
     var sp_rest = $('input[name=sp_rest]').val();
     console.log(sp_rest)
     var soiltype = $('input[name=soiltype]').val();
     console.log(soiltype)
     var distance = $('input[name=distance]').val();
-    console.log(sp_farmer)
+    console.log(distance)
     var temp = $('input[name=temp]').val();
-    console.log(no_harvest)
+    console.log(temp)
+    // var image = $('.myimage').attr('src');
+    var image = $('.myimage').prop('src');
+    console.log(image)
 
-    // $('#image_btn').change(function(event){
+//     $('#image_btn').change(function(event){
 //     $('.myimage').attr('src',URL.createObjectURL(event.target.files[0]));
 //    console.log(image)
-    //  });
+//      });
+
 $.ajax({
 
 url: 'http://127.0.0.1:8000/farmapp/updatecrop/',
@@ -391,32 +403,19 @@ data:{
    packing_id:packingid,
    unit_perpack:unit_per_pack,
    spwholesale:sp_wholesale,
-  spfarmer:sp_farmer,
-  croptype_id:crop_typeid,
-   unit_id:unitid,
+   crop_typeid:croptypeid,
+    spfarmer:sp_farmer,
+    unit_id:unitid,
    season_id:seasonid,
    sp_rest:sp_rest,
    soil_type:soiltype,
-  distance:distance,
-    temp:temp,
+   distance:distance,
+   temp:temp,
+   c_image:image,
    csrfmiddlewaretoken: '{{ csrf_token }}',
    
 
 
-
-
-
-
-
-
-   
-   
-
-
-
-  
-   
-  
 },
 success: function (res) {
   

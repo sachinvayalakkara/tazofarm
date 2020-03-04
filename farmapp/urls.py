@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import transactions
 urlpatterns = [
     path('home',views.fn_home),
     path('login',views.fn_login),
@@ -41,6 +42,11 @@ urlpatterns = [
     path('addcroptype/',views.fn_addcroptype),
     path('deletecroptype/',views.fn_deletecroptype),
     path('updatecrop/',views.fn_updatecrop),
+    #/////////// TRANSACTIONS////////
+    path('showcropmain/',transactions.fn_showmanitanance),
+    path('cropmadd/',transactions.fn_cropmainadd),
+    
+
     
 ]
 

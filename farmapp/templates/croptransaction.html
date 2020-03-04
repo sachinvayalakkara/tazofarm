@@ -1,0 +1,72 @@
+{% extends "cropmadd.html"%} 
+{% block content %} 
+<table border="1" class="myTable table table-striped table-hover table-sortable" id="tab_logic">   
+           
+  <thead>   
+    <tr>   
+         
+      <th rowspan="2">Tower Name</th>   
+       
+      <th rowspan="2">Crop name </th> 
+      
+      <th colspan="2"><u> 1st Harvest</u>  </th>  
+      
+        
+     <th colspan="2"><u>2nd Harvest</u></th>  
+     
+     <th colspan="2"><u>3rd Harvest</u></th>  
+      
+     
+     <th colspan="2"><u>4th Harvest</u></th>  
+ 
+     
+     
+    </tr>  
+ <tr> 
+   <th>Planted</th> 
+   <th>Actual</th> 
+   <th>Planted</th> 
+   <th>Actual</th> 
+   <th>Planted</th> 
+   <th>Actual</th> 
+   <th>Planted</th> 
+   <th>Actual</th> 
+   
+ 
+ </tr> 
+ 
+  </thead>   
+    <tbody>   
+    {% for obj in towerdata %}   
+    <tr id="{{obj.id}}" class="tr_clone">   
+        
+      <td data-name="Towername">   
+        <input type="text"  name='towername'  placeholder='cropname' readonly class="form-control input cropname" value="{{obj.cropname}}"></td>   
+      <td data-name="Crop name">   
+        <input type="text"  name='cdid'  placeholder='cdid' readonly class="form-control input cdid"  value="{{obj.cdid}}"></td> 
+      <td data-name="Ready for Harvest">   
+        <input type="text"  name='rfh'  placeholder='Name' readonly class="form-control input rfh"  value="{{obj.rfh}}"></td>  
+      
+      <td data-name="2nd Harvest Period in Days">   
+        <input type="text"  name='2hpd'  placeholder='Name' readonly class="form-control input 2hpd"  value="{{obj.2hpd}}"></td>   
+      <td data-name="3rd Harvest Period in Days">   
+        <input type="text"  name='3hpd'  placeholder='Name' readonly class="form-control input 3hpd"  value="{{obj.3hpd}}"></td>   
+      <td data-name="4th Harvest Date in Days">   
+        <input type="text"  name='4hpd'  placeholder='Name' readonly class="form-control input 4hpd"  value="{{obj.4hpd}}"></td>   
+        <td data-name="3rd Harvest Period in Days">   
+          <input type="text"  name='3hpd'  placeholder='Name' readonly class="form-control input 3hpd"  value="{{obj.3hpd}}"></td>   
+          <td data-name="3rd Harvest Period in Days">   
+            <input type="text"  name='3hpd'  placeholder='Name' readonly class="form-control input 3hpd"  value="{{obj.3hpd}}"></td>   
+            <td data-name="3rd Harvest Period in Days">   
+              <input type="text"  name='3hpd'  placeholder='Name' readonly class="form-control input 3hpd"  value="{{obj.3hpd}}"></td>   
+              <td data-name="3rd Harvest Period in Days">   
+                <input type="text"  name='3hpd'  placeholder='Name' readonly class="form-control input 3hpd"  value="{{obj.3hpd}}"></td>   
+ 
+    </tr>   
+    {% endfor %}   
+  </tbody>   
+  {% endblock %}    
+     
+       
+ 
+</table>   
