@@ -664,7 +664,7 @@ def fn_updatecrop(req):
         service_id    = req.POST['id']
         print(service_id)
         crop_obj = Crop.objects.get(id=service_id)
-      
+
         print(crop_obj.crop_image)
         
         # croptype= Croptype.objects.get(id=req.POST['crop_typeid'])
@@ -778,10 +778,10 @@ def fn_updatecrop(req):
             print(crop_obj.temparature)
             update +=1
 
-        if crop_obj.crop_image != req.POST['c_image']:
-            crop_obj.crop_image = req.POST['c_image']
-            print(crop_obj.crop_image)
-            update +=1
+        # if crop_obj.crop_image != req.POST['c_image']:
+        #     crop_obj.crop_image = req.POST['c_image']
+        #     print(crop_obj.crop_image)
+        #     update +=1
 
         if update>0:
        

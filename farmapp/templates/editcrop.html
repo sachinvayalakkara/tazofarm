@@ -269,7 +269,7 @@ label{
                 <div class='form-group form-inline col-md-4'>  
                   <label class='control-label col-md-4' id="file_label">Upload image</label>  
                   <div class='col-md-8'>   
-                   <input class='form-control input-xs' name="cropimage" id="image_btn"  type="file"> 
+                   <input class='form-control input-xs ' name="cropimage" id="image_btn" type="file"> 
                    <img  class="col-md-10" src="{{editdata.crop_image.url}}" width="150" height="100" class="myimage">
                   </div>  
                     </div>  
@@ -372,14 +372,14 @@ $('.edit').click(function(e){
     console.log(distance)
     var temp = $('input[name=temp]').val();
     console.log(temp)
-    // var image = $('.myimage').attr('src');
-    var image = $('.myimage').prop('src');
+    // var image = $('input[name=cropimage]').attr('src');
+    var image = $('.myimage').attr("src")
     console.log(image)
-
-//     $('#image_btn').change(function(event){
-//     $('.myimage').attr('src',URL.createObjectURL(event.target.files[0]));
-//    console.log(image)
-//      });
+    
+    // $('#image_btn').change(function(event){
+    // var image = $('.myimage').attr('src',URL.createObjectURL(event.target.files[0]));
+    // console.log(ima)
+    //  });
 
 $.ajax({
 
@@ -411,7 +411,7 @@ data:{
    soil_type:soiltype,
    distance:distance,
    temp:temp,
-   c_image:image,
+  
    csrfmiddlewaretoken: '{{ csrf_token }}',
    
 
