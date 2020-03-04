@@ -142,12 +142,12 @@ MEDIA_URL ='/media/'
 MEDIA_ROOT =os.path.join(BASE_DIR,'media')
 
 # PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__)) 
-# STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles') 
+STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles') 
  
 # Extra lookup directories for collectstatic to find static files 
-# STATICFILES_DIRS = ( 
-#     os.path.join(PROJECT_ROOT, 'static'), 
-# ) 
+STATICFILES_DIRS = ( 
+    os.path.join(PROJECT_ROOT, 'static'), 
+) 
  
 #  Add configuration for static files storage using whitenoise 
 
