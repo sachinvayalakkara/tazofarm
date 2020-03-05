@@ -26,7 +26,7 @@ SECRET_KEY = 'f)*)vm=a68(7koysjle1_7t72jeg36jj5k^8emjl-qs2iuauz6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Tazofarm-env.eba-ecmpfmcp.us-east-2.elasticbeanstalk.com','127.0.0.1']
+ALLOWED_HOSTS = ['','127.0.0.1']
 
 
 # Application definition
