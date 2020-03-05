@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,17 +81,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'farmdata',
-        'USER':'farmdata123',
-        'PASSWORD':'farmdata123',
-        'HOST':'db4free.net',
-        # 'USER': 'root',
-        # 'PASSWORD': '',
-        # 'HOST': 'localhost',
-        'PORT' :'3306' ,
-    #     'OPTIONS': {
-    #      'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        # 'USER':'farmdata123',
+        # 'PASSWORD':'farmdata123',
+        # 'HOST':'db4free.net',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        # 'PORT' :'3306' ,
+        'OPTIONS': {
+         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
        
-    # },   
+    },   
         
 
     }

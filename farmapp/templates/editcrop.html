@@ -52,7 +52,7 @@ label{
 } 
   
 </style>  
-<body>  
+<body id="body">  
   <div class='container'>  
     <div class='panel panel-primary '>  
       <div class='panel-heading'>  
@@ -312,8 +312,10 @@ label{
 //        console.log()
 
 $(document).ready(function(){
-
+ 
+ 
 $('.edit').click(function(e){
+  
 
     console.log(e.target.id) 
 
@@ -372,14 +374,31 @@ $('.edit').click(function(e){
     console.log(distance)
     var temp = $('input[name=temp]').val();
     console.log(temp)
+
     // var image = $('input[name=cropimage]').attr('src');
-    var image = $('.myimage').attr("src")
-    console.log(image)
+  //   function loadImage() {
+
+  //   alert("Image is loaded");
+  // var image = $('.myimage').attr("src")
+  //   console.log(image)
+  //  }
+
+  // $( ".myimage" ).load(function() {
+  $('#image_btn').change(function(event){
+    $('#body').load(function () {
+  // Handler for .load() called.
+  var image = $('.myimage').attr('src');
+  console.log(image)
+  alert("Image is loaded");
+    });
+  });
+   
+   
     
-    // $('#image_btn').change(function(event){
-    // var image = $('.myimage').attr('src',URL.createObjectURL(event.target.files[0]));
-    // console.log(ima)
-    //  });
+    //  $('#image_btn').change(function(event){
+    //  var image = $('.myimage').attr('src');
+    //  console.log(image)
+    //   });
 
 $.ajax({
 
@@ -429,6 +448,9 @@ error: function (res) {
    
 });
 
+
 }); 
+// });
+
 </script>
 </html>
